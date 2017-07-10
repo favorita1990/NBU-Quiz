@@ -1,0 +1,369 @@
+﻿
+
+
+@{
+    ViewBag.Title = "Polls";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<link href="~/Content/simplePagination.css" rel="stylesheet" />
+
+<div id="ControlNavigationId">
+
+    <div id="poll-wrapper">
+        <div id="poll-page-wrapper">
+
+            <div class="col-md-12 container poll-container">
+
+                <h1 class="poll-text-center"><span class="poll-fancyfont">Sport</span></h1>
+
+
+                <div class="row">
+                    <div class="poll-questionPerPage">
+                        Questions: <span id="question-per-page">-</span> - <span id="question-count">-</span>
+                    </div>
+                </div>
+
+
+                <div id="addQuestionId">
+
+                </div>
+
+
+                <div class="row poll-buttons">
+
+                    <div id="pagination" style="display: none;"></div>
+
+                </div>
+
+            </div>
+           
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/jqueryunob")
+<script src="~/Scripts/jquery.simplePagination.js"></script>
+
+<script>
+    //Selected control page
+    $('ul#main-menu > .active-link a span.badge').remove();
+    $('ul#main-menu > .active-link').removeClass('active-link')
+
+
+
+
+    var items;
+    var perPage = @TempData["pollPerPage"];
+    var questionCount = @TempData["pollQuestionCount"];
+
+
+    var arrAllPoll = new Array();
+
+    $('#addQuestionId').html('');
+    var countInOption = 0;
+    var pollId = @TempData["pollId"];
+    var userId = '@TempData["userId"]';
+
+        // This time we'll hold onto the created paginator so we can use it again later.
+        var $paginator = $("#pagination");
+
+        $paginator.pagination({
+            // We're not specifying the `items` right now.
+            // We've got a function below that'll handle that for us.
+            itemsOnPage: perPage,
+            cssStyle: "light-theme",
+            onPageClick: function (pageNumber) {
+                var showFrom = perPage * (pageNumber - 1);
+                var showTo = showFrom + perPage;
+
+                var perPageCount = 0;
+                for (var i = 0; i < pageNumber; i++) {
+                    perPageCount += perPage;
+                }
+
+
+                if(perPageCount < questionCount){
+                    $('#question-per-page').html(perPageCount);
+                }
+                else{
+                    $('#question-per-page').html(questionCount);
+                }
+
+
+
+                items.hide()
+                        .slice(showFrom, showTo).show();
+            }
+        });
+
+        function updateItems() {
+
+            // Notice that we're not using `var items = ...` -
+            // instead we're using `items` variable declared outside this function.
+            items = $("#addQuestionId div.poll-question-head");
+            // We'll update the number of items that the pagination element expects
+            // using a method from the simplePagination documentation: `updateItems`.
+
+            $paginator.pagination("updateItems", items.length);
+            // Next, we'll re-select the page so the `onPageClick` function we already
+            // programmed will handle hiding and showing the correct content for us.
+            // Note that the page we were on before may no longer exist
+            // (i.e. if elements were removed and that page is no longer required),
+            // so we will make sure to select an existing page.
+            var page = Math.min(
+                $paginator.pagination("getCurrentPage"),
+                $paginator.pagination("getPagesCount")
+            );
+            $paginator.pagination("selectPage", page);
+        }
+
+        $.ajax({
+            url: '/Poll/GetAllPollAndQuestions',
+            dataType: "json",
+            type: "Post",
+            contentType: 'application/json; charset=utf-8',
+            data: "{ id:" + JSON.stringify(pollId) + "}",
+            success: function (poll) {
+                if (poll != null) {
+
+
+                    $('.poll-fancyfont').html(poll.Name);
+                    if (poll.QuestionList.length > perPage) {
+                        $('#question-count').html(poll.QuestionList.length);
+                        $('#pagination').css('display', 'inline');
+
+                    }
+                    else {
+                        $('#question-per-page').html(poll.QuestionList.length);
+                        $('#question-count').html(poll.QuestionList.length);
+                    }
+
+
+                    $.each(poll.QuestionList, function (indexQuestion, question) {
+
+                        $.each(poll.QuestionList, function (i) {
+
+                            if((indexQuestion + 1) == 1){
+                                arrAllPoll[i] = undefined;
+                            }
+
+                        });
+
+
+
+                        var countDropDown = 1;
+                        if (question.QuestionTypeVer) {
+
+                            if (question.QuestionSelectedDropDown == '0') {
+
+                                $('#addQuestionId').append('<div class="row poll-question-head"><div class="poll-question-number">Question - ' + (indexQuestion + 1) + '</div>' +
+                                    '<div class="poll-question">' + question.Question + '</div>' +
+                                    '<div class="col-md-6 col-lg-8 col-md-offset-3 col-lg-offset-3" id="add-option-ver-radio' + (indexQuestion + 1) + '"></div><br /></div>');
+
+                            }
+                            if (question.QuestionSelectedDropDown == '1') {
+
+                                $('#addQuestionId').append('<div class="row poll-question-head"><div class="poll-question-number">Question - ' + (indexQuestion + 1) + '</div>' +
+                                    '<div class="poll-question">' + question.Question + '</div>' +
+                                    '<div class="col-md-6 col-lg-8 col-md-offset-3 col-lg-offset-3" id="add-option-ver-checkbox' + (indexQuestion + 1) + '"></div><br /></div>')
+
+                            }
+                            if (question.QuestionSelectedDropDown == '2') {
+
+                                $('#addQuestionId').append('<div class="row poll-question-head"><div class="poll-question-number">Question - ' + (indexQuestion + 1) + '</div>' +
+                                    '<div class="poll-question">' + question.Question + '</div>' +
+                                    '<div class="col-md-3 col-lg-2 col-md-offset-3 col-lg-offset-3" style="margin-top: 30px;" id="add-option-ver-dropdown' + (indexQuestion + 1) + '">' +
+                                    '<label class="label"><select class="select" name="option' + (indexQuestion + 1) + '"></select></label></div><br /></div>')
+
+                                countDropDown = 1;
+
+                            }
+
+                        }
+                        else {
+
+                            if (question.QuestionSelectedDropDown == '0') {
+
+                                $('#addQuestionId').append('<div class="row poll-question-head"><div class="poll-question-number">Question - ' + (indexQuestion + 1) + '</div>' +
+                                    '<div class="poll-question">' + question.Question + '</div>' +
+                                    '<div class="col-md-7 col-lg-8 col-md-offset-3 col-lg-offset-3" id="add-option-hor-radio' + (indexQuestion + 1) + '" style="text-align: left;"></div><br /></div>');
+
+                            }
+                            if (question.QuestionSelectedDropDown == '1') {
+
+                                $('#addQuestionId').append('<div class="row poll-question-head"><div class="poll-question-number">Question - ' + (indexQuestion + 1) + '</div>' +
+                                    '<div class="poll-question">' + question.Question + '</div>' +
+                                    '<div class="col-md-7 col-lg-8 col-md-offset-3 col-lg-offset-3" style="text-align: left;" id="add-option-hor-checkbox' + (indexQuestion + 1) + '"></div><br /></div>')
+
+                            }
+
+                        }
+
+
+                        if (poll.QuestionList.length > perPage) {
+                            // We'll call this now so the initial items can be loaded.
+                            updateItems();
+                        }
+
+                        
+
+                        $.ajax({
+                            url: '/Poll/GetAllPollAnswers',
+                            dataType: "json",
+                            type: "Post",
+                            contentType: 'application/json; charset=utf-8',
+                            data: "{ id:" + JSON.stringify(question.Id) + "}",
+                            success: function (answers) {
+                                if (answers != null) {
+
+
+                                    $.ajax({
+                                        url: '/Poll/GetAllUserAnswers',
+                                        dataType: "json",
+                                        type: "Post",
+                                        contentType: 'application/json; charset=utf-8',
+                                        data:  "{ questionId:" + JSON.stringify(question.Id) + ", userId:" + JSON.stringify(userId) + "}",
+                                        success: function (userAnswers) {
+                          
+                                            $.each(answers, function (index, answer) {
+
+                                                var countMatches = '';
+
+                                                $.each(userAnswers, function (indexUser, userAnswer){
+                                                
+                                                    if(answer.Value == userAnswer.Value){
+                                                        countMatches += userAnswer.Value;
+                                                    }
+                                                
+                                                });
+                                               
+                                                if(countMatches != ''){
+                                                    if (question.QuestionTypeVer) {
+
+                                                        if (question.QuestionSelectedDropDown == '0') {
+
+                                                            $('#add-option-ver-radio' + (indexQuestion + 1)).append('<div class="radio poll-radio radio-primary" ' +
+                                                                'style="background: #5ee643; border-radius: 5px; text-align:left;">' +
+                                                                '<input type="radio" id="optionRadioId' + countInOption + '" name="option' + (indexQuestion + 1) + '">' +
+                                                                '<label for="optionRadioId' + countInOption + '"></label>' +
+                                                                '<div style="display: inline; font-size: 25px; font-weight: 700; color: #150766; word-wrap: break-word;">' + answer.Value + '</div></div>');
+
+                                                        }
+                                                        if (question.QuestionSelectedDropDown == '1') {
+
+                                                            $('#add-option-ver-checkbox' + (indexQuestion + 1)).append('<div class="poll-checkbox checkbox-primary" ' +
+                                                                'style="background: #5ee643; border-radius: 5px; text-align:left;">' +
+                                                                '<span style="font-family: Arial Unicode MS, Lucida Grande; color: green; margin-right: 5px;" >&#10004; </span>' +
+                                                                '<div style="display: inline; font-size: 25px; font-weight: 700; color: #150766; word-wrap: break-word;">' + answer.Value + '</div></div>');
+
+                                                        }
+                                                        if (question.QuestionSelectedDropDown == '2') {
+
+                                                            $('#add-option-ver-dropdown' + (indexQuestion + 1) + ' label select')
+                                                                .append('<option value="' + countDropDown + '">' + answer.Value + '</option>');
+
+                                                        }
+
+                                                    }
+                                                    else {
+
+                                                        if (question.QuestionSelectedDropDown == '0') {
+
+                                                            $('#add-option-hor-radio' + (indexQuestion + 1))
+                                                                .append('<div class="col-xs-8 col-sm-8 col-md-4 col-lg-3 radio poll-radio radio-primary radio-inline" ' +
+                                                                'style="background: #5ee643; border-radius: 5px;">' +
+                                                                '<input type="radio" id="optionRadioId' + countInOption + '" name="option' + (indexQuestion + 1) + '">' +
+                                                                '<label for="optionRadioId' + countInOption + '"></label><div style="display: inline; font-size: 25px; font-weight: 700; color: #150766; word-wrap: break-word;">' +
+                                                                answer.Value + '</div></div>');
+
+                                                        }
+                                                        if (question.QuestionSelectedDropDown == '1') {
+
+                                                            $('#add-option-hor-checkbox' + (indexQuestion + 1))
+                                                                .append('<div class="col-xs-8 col-sm-8 col-md-4 col-lg-3 checkbox-primary checkbox-question" ' +
+                                                                'style="background: #5ee643; border-radius: 5px;">' +
+                                                                '<span style="font-family: Arial Unicode MS, Lucida Grande; color: green; margin-right: 5px;" >&#10004; </span>' +
+                                                                '<div style="display: inline; font-size: 25px; font-weight: 700; color: #150766;">' + answer.Value + '</div></div>');
+
+                                                        }
+
+                                                    }
+                                                }
+                                                else{
+
+                                                    if (question.QuestionTypeVer) {
+
+                                                        if (question.QuestionSelectedDropDown == '0') {
+
+                                                            $('#add-option-ver-radio' + (indexQuestion + 1)).append('<div class="radio poll-radio radio-primary" style="text-align:left;">' +
+                                                                '<div style="display: inline; font-size: 25px; margin-left: 4px; font-weight: 700; color: #150766; word-wrap: break-word;">' + answer.Value + '</div></div>');
+
+                                                        }
+                                                        if (question.QuestionSelectedDropDown == '1') {
+
+                                                            $('#add-option-ver-checkbox' + (indexQuestion + 1)).append('<div class="checkbox poll-checkbox checkbox-primary" style="text-align:left;">' +
+                                                                '<div style="display: inline; font-size: 25px; margin-left: 4px; font-weight: 700; color: #150766; word-wrap: break-word;">' + answer.Value + '</div></div>');
+
+                                                        }
+
+                                                    }
+                                                    else {
+
+                                                        if (question.QuestionSelectedDropDown == '0') {
+
+                                                            $('#add-option-hor-radio' + (indexQuestion + 1))
+                                                                .append('<div class="col-xs-8 col-sm-8 col-md-4 col-lg-3 radio poll-radio radio-primary radio-inline">' +
+                                                                '<div style="display: inline; font-size: 25px; margin-left: 4px; font-weight: 700; color: #150766; word-wrap: break-word;">' +
+                                                                answer.Value + '</div></div>');
+
+                                                        }
+                                                        if (question.QuestionSelectedDropDown == '1') {
+
+                                                            $('#add-option-hor-checkbox' + (indexQuestion + 1))
+                                                                .append('<div class="col-xs-8 col-sm-8 col-md-4 col-lg-3 checkbox checkbox-primary checkbox-question">' +
+                                                                '<div style="display: inline; font-size: 25px; margin-left: 4px; font-weight: 700; color: #150766;">' + answer.Value + '</div></div>');
+
+                                                        }
+
+                                                    }
+
+                                                }
+                                                
+                                                $('input[type="radio"]').attr('checked', 'checked');
+
+                                                countInOption += 1;
+                                                countDropDown += 1;
+
+                                            });
+                           
+                                        },
+                                        error: function(){
+                                            alert('Error get user answers.');
+                                        }
+                                    });
+
+                                }
+                            },
+                            error: function () {
+                                alert('error question');
+                            }
+                        });
+
+                    });
+                }
+            },
+            error: function () {
+                alert('error poll');
+            }
+        });      
+
+
+    $('body').addClass('poll-cover');
+    $('#wrapper').remove();
+
+</script>
+

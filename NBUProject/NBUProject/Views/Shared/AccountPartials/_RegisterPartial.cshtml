@@ -1,0 +1,437 @@
+﻿
+
+
+<div id="windowRegister" style="display:none;">
+
+    <div class="centerAlign"><h3 style="color: #93026a;">Create a new account</h3></div>
+    <hr />
+
+    @using (Html.BeginForm("Register", "Account", new { @class = "form-horizontal", role = "form" }))
+    {
+    @Html.AntiForgeryToken()
+        
+        <div class="centerAlign" id="registerValidation" style="color:#ff0000;"></div>
+       
+        <br />
+
+        <div class="form-group centerAlign">
+            <div class="col-md-3 control-label" ><br />Email*</div>
+            <div class="col-md-6">
+                <input type="text" name="email" class="form-control" id="windowInputText1" />
+            </div>
+        </div>
+        <div class="centerAlign col-md-12" id="registerValidationEmail" style="color:#ff0000;"></div>
+        <br />
+
+
+        <div class="form-group centerAlign registerMargin">
+            <div class="col-md-3 control-label"><br />First Name*</div>
+            <div class="col-md-6">
+                <input type="text" name="firstName" class="form-control" id="windowInputText2" />
+            </div>
+        </div>
+        <div class="centerAlign col-md-12" id="registerValidationFirstName" style="color:#ff0000;"></div>
+        <br /><br />
+
+
+        <div class="form-group centerAlign registerMargin">
+            <div class="col-md-3 control-label"><br />Last Name*</div>
+            <div class="col-md-6">
+                <input type="text" name="lastName" class="form-control" id="windowInputText3" />
+            </div>
+        </div>
+        <div class="centerAlign col-md-12" id="registerValidationLastName" style="color:#ff0000;"></div>
+        <br /><br />
+
+
+            <div class="form-group centerAlign registerMargin">
+                <div class="col-md-3 control-label">Gender*  </div>
+                <div class="col-md-2">
+                    <select name="gender" id="gender" class="form-control" title="What's your gender?">
+                        <option value="0">Mr.</option>
+                        <option value="1">Ms.</option>
+                        <option value="2">Mrs.</option>
+                    </select>
+                </div>
+            </div>
+            <div class="centerAlign col-md-12" id="registerValidationGender" style="color:#ff0000;"></div>
+            <br /><br />
+
+
+            <div class="form-group centerAlign registerMargin">
+                <div class="col-md-3 control-label"><br />Password*</div>
+                <div class="col-md-6">
+                    <input type="password" class="form-control" id="windowInputVal1" name="pass" />
+                </div>
+            </div>
+            <div class="centerAlign col-md-12" id="registerValidationPassword" style="color:#ff0000;"></div>
+            <br /><br />
+
+            <div class="form-group centerAlign registerMargin">
+                <div class="col-md-3 control-label"><br />Confirm Password*</div>
+                <div class="col-md-6">
+                    <input type="password" class="form-control" id="windowInputVal2" name="confirmPass" />
+                </div>
+            </div>
+            <div class="centerAlign col-md-12" id="registerValidationConfirmPassword" style="color:#ff0000;"></div>
+            <br /><br /><br />
+
+    }
+
+
+    <div class="form-group registerMargin">
+        <div class="col-md-offset-5 col-md-10">
+            <input type="submit" id="registerButton" class="btn btn-lg" style="background-color: #93026a; color: #e8f838;" value="Register" />
+        </div>
+    </div>
+    <br />
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script>
+
+    var currentUrl = '/';
+    $('#register').on("click", function () {
+
+        currentUrl = document.location.pathname;
+
+        document.title = 'Register - Quiz Creator';
+        window.history.pushState(
+            null,
+            null,
+            '/Account/Register'
+            );
+
+
+        $("#windowRegister").kendoWindow({
+            visible: true,
+            actions: ["Close"],
+            draggable: false,
+            minheight: "530px",
+            width: "550px",
+            modal: true,
+            pinned: false,
+            position: {
+                top: 100
+            },
+            resizable: false,
+            title: "Register",
+            refresh: true
+        }).data("kendoWindow");
+
+        $("#windowRegister").parent().find(".k-window-action").css("visibility", "hidden");
+
+        $('.k-widget.k-window').css({ 'padding-top': '33px' });
+        $('.k-widget.k-window').css({ 'border-radius': '13px' });
+        $('div.k-window-content').css({ 'border-radius': '0px 0px 13px 13px' });
+        $('div.k-window-content').css({ 'background': ' linear-gradient(to bottom, rgba(243,221,201,1) 0%, rgba(193,145,103,1) 48%, rgba(191,142,99,1) 54%, rgba(183,127,78,1) 85%, rgba(233,205,180,1) 100%)' });
+        $('div.k-window-content').css({ 'color': '#a10675' });
+        $('.k-window-titlebar').css({ 'background': ' linear-gradient(to bottom, rgba(243,221,201,1) 0%, rgba(193,145,103,1) 48%, rgba(191,142,99,1) 54%, rgba(183,127,78,1) 85%, rgba(233,205,180,1) 100%)' });
+        $('.k-window-titlebar').css({ 'color': '#a10675' });
+
+
+        $('#windowInputVal1').val('');
+        $('#windowInputVal2').val('');
+        $('#windowInputText1').val('');
+        $('#windowInputText2').val('');
+        $('#windowInputText3').val('');
+        $("#gender").val("0").change();
+
+        var win = $("#windowRegister").data("kendoWindow");
+        $("#registerValidation").html('');
+        $('#registerValidationEmail').html('');
+        $('#registerValidationFirstName').html('');
+        $('#registerValidationLastName').html('');
+        $('#registerValidationGender').html('');
+        $('#registerValidationPassword').html('');
+        $('#registerValidationConfirmPassword').html('');
+
+        win.center().open();
+    });
+
+    $("#windowRegister").hide();
+
+    $(document).on('click', '.k-overlay', function () {
+        var kendoWindow = $('.k-window-content.k-content', $(this).next('div.k-widget.k-window'));
+        if (kendoWindow == null || kendoWindow.length == 0) {
+            return;
+        }
+        kendoWindow.data('kendoWindow').close();
+
+        document.title = 'Quiz Creator';
+        window.history.pushState(
+            null,
+            null,
+            currentUrl
+            );
+    });
+
+
+    $('#registerButton').on("click", function () {
+        var email = $('#windowInputText1').val();
+        var firstName = $('#windowInputText2').val();
+        var lastName = $('#windowInputText3').val();
+        var gender = $('#gender').val();
+        var password = $('#windowInputVal1').val();
+        var confirmPassword = $('#windowInputVal2').val();
+        var isValidEmail = '';
+
+        $.ajax({
+            url: '/Account/IsValidEmail',
+            type: 'POST',
+            data: "{ source:" + JSON.stringify(email) + "}",
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                isValidEmail = data;
+
+                var enterEmail = '';
+                var invalidLogin = '';
+                var enterFirstName = '';
+                var enterLastName = '';
+                var enterGender = '';
+                var enterPassword = '';
+                var enterConfirmPassword = '';
+                var invalidPassword = ''; 
+                var invalidPasswordLength = '';
+                var invalidConfirmPasswordLength = '';
+
+                if (email == '') {
+                    enterEmail = "*Enter email.";
+                    $('#registerValidation').html('');
+                    $('#registerValidationEmail').html(enterEmail + "<br/><br/>");
+                }
+                if (email != '') {
+                    if (isValidEmail == "false") {
+                        invalidLogin = "*Enter valid email.";
+                        $('#registerValidation').html('');
+                        $('#registerValidationEmail').html(invalidLogin + "<br/><br/>");
+                    }
+                    else {
+                        enterEmail = '';
+                        invalidLogin = '';
+                        $('#registerValidationEmail').html('');
+                    }
+                }
+                if (gender != "0") {
+                    if (gender != "1") {
+                        if (gender != "2") {
+                            enterGender = "Please Men!";
+                            $('#registerValidationGender').html(enterGender + "<br/><br/>");
+                        }
+                    }
+                }
+                if (gender == "0") {
+                    enterGender = '';
+                    $('#registerValidationGender').html('');
+                }
+                if (gender == "1") {
+                    enterGender = '';
+                    $('#registerValidationGender').html('');
+                }
+                if (gender == "2") {
+                    enterGender = '';
+                    $('#registerValidationGender').html('');
+                }
+
+                if (firstName == '') {
+                    enterFirstName = "*Enter first name.";
+                    $('#registerValidation').html('');
+                    $('#registerValidationFirstName').html(enterFirstName + "<br/><br/>");
+                }
+                if (firstName != '') {
+                    enterFirstName = '';
+                    $('#registerValidationFirstName').html('');
+                }
+                if (lastName == '') {
+                    enterLastName = "*Enter last name.";
+                    $('#registerValidation').html('');
+                    $('#registerValidationLastName').html(enterLastName + "<br/><br/>");
+                }
+                if (lastName != '') {
+                    enterLastName = '';
+                    $('#registerValidationLastName').html('');
+                }
+                if (password == '') {
+                    enterPassword = "*Enter password.";
+                    $('#registerValidation').html('');
+                    $('#registerValidationPassword').html(enterPassword + "<br/><br/>");
+                }
+                if (password != '') {
+                    enterPassword = '';
+                    $('#registerValidationPassword').html('');
+                }
+                if (confirmPassword == '') {
+                    enterConfirmPassword = "*Enter confirm password.";
+                    $('#registerValidation').html('');
+                    $('#registerValidationConfirmPassword').html(enterConfirmPassword + "<br/><br/>");
+                }
+                if (confirmPassword != '') {
+                    enterConfirmPassword = '';
+                    $('#registerValidationConfirmPassword').html('');
+                }
+                if (((confirmPassword != '') && (password != '')) && ((password.length >= 2) && (confirmPassword.length >= 2))) {
+               
+                    if (confirmPassword != password) {
+                        invalidPassword = "*Password and confirm password are not the same.";
+                        $('#registerValidation').html('');
+                        $('#registerValidationPassword').html(invalidPassword + "<br/><br/>");
+                        $('#registerValidationConfirmPassword').html(invalidPassword + "<br/><br/>");
+                    }
+                    else {
+                        invalidPassword = '';
+                        $('#registerValidationPassword').html('');
+                        $('#registerValidationConfirmPassword').html('');
+                    }
+                
+                }
+
+                if ((password != '') && (password.length < 2)) {
+                    invalidPasswordLength = "*Minimum 2 length the password.";
+                    $('#registerValidation').html('');
+                    $('#registerValidationPassword').html(invalidPasswordLength + "<br/><br/>");
+                }
+                if ((password != '') && (password.length >= 2)) {
+                    invalidPasswordLength = '';
+                }
+
+                if ((confirmPassword != '') && (confirmPassword.length < 2)) {
+                    $('#registerValidation').html('');
+                    invalidConfirmPasswordLength = "*Minimum 2 length the confirm password.";
+                    $('#registerValidationConfirmPassword').html(invalidConfirmPasswordLength + "<br/><br/>");
+                }
+                if ((confirmPassword != '') && (confirmPassword.length >= 2)) {
+                    invalidConfirmPasswordLength = '';
+                }
+
+
+                if ((enterEmail == '') && (invalidLogin == '') && (enterFirstName == '') && (enterLastName == '') &&
+                    (enterGender == '') && (enterPassword == '') && (enterConfirmPassword == '') && (invalidPassword == '') &&
+                    (invalidPasswordLength == '') && (invalidConfirmPasswordLength == '')) {
+
+                    var user = {
+                        Email: email,
+                        FirstName: firstName,
+                        LastName: lastName,
+                        Gender: gender,
+                        Password: password
+                    }
+
+                    $.ajax({
+                        url: '/Account/RegisterAccount',
+                        type: 'POST',
+                        data: JSON.stringify(user),
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+                            window.location = "/";
+                        },
+                        error: function () {
+                            $('#registerValidationEmail').html('');
+                            $('#registerValidationFirstName').html('');
+                            $('#registerValidationLastName').html('');
+                            $('#registerValidationGender').html('');
+                            $('#registerValidationPassword').html('');
+                            $('#registerValidationConfirmPassword').html('');
+                            invalidLogin = "*The account is taken. Change email!";
+                            $('#registerValidation').show();
+                            $('#registerValidation').html(invalidLogin);
+                        }
+                    });
+                   
+                }
+
+            }
+        });
+    });
+
+
+
+    var title = $("#gender").kendoDropDownList().data("kendoDropDownList");
+    title.wrapper.attr("title", $("#gender").attr("title"));
+    var tooltip = title.wrapper.kendoTooltip({
+        position: "right",
+        autoHide: true,
+        width: 280,
+        animation: {
+            open: {
+                effects: "slideIn:right",
+                duration: 300
+            },
+            close: {
+                effects: "slideIn:right",
+                reverse: true,
+                duration: 200
+            }
+        }
+    });
+
+
+    $(document).ready(function () {
+
+
+        var currentUrl = '/';
+
+
+        //When load from Url
+        var accountTempData = '@TempData["accountRegister"]';
+        if (accountTempData != null && accountTempData != '') {
+
+            document.title = 'Register - Quiz Creator';
+            window.history.pushState(
+                null,
+                null,
+                '/Account/Register'
+                );
+
+            $("#windowRegister").kendoWindow({
+                visible: true,
+                actions: ["Close"],
+                draggable: false,
+                minheight: "530px",
+                width: "650px",
+                modal: true,
+                pinned: false,
+                position: {
+                    top: 100
+                },
+                resizable: false,
+                title: "Register"
+            }).data("kendoWindow");
+
+            $("#windowRegister").parent().find(".k-window-action").css("visibility", "hidden");
+
+            var win = $("#windowRegister").data("kendoWindow");
+
+            $('.k-widget.k-window').css({ 'padding-top': '33px' });
+            $('.k-widget.k-window').css({ 'border-radius': '13px' });
+            $('div.k-window-content').css({ 'border-radius': '0px 0px 13px 13px' });
+            $('div.k-window-content').css({ 'background': ' linear-gradient(to bottom, rgba(243,221,201,1) 0%, rgba(193,145,103,1) 48%, rgba(191,142,99,1) 54%, rgba(183,127,78,1) 85%, rgba(233,205,180,1) 100%)' });
+            $('div.k-window-content').css({ 'color': '#a10675' });
+            $('.k-window-titlebar').css({ 'background': ' linear-gradient(to bottom, rgba(243,221,201,1) 0%, rgba(193,145,103,1) 48%, rgba(191,142,99,1) 54%, rgba(183,127,78,1) 85%, rgba(233,205,180,1) 100%)' });
+            $('.k-window-titlebar').css({ 'color': '#a10675' });
+
+
+            $('#windowInputText1').val('');
+            $('#windowInputText2').val('');
+            $('#windowInputText3').val('');
+            $('#windowInputVal2').val('');
+            $('#windowInputVal1').val('');
+
+            $("#gender").val("0").change();
+            
+            $("#registerValidation").html('');
+            $('#registerValidationEmail').html('');
+            $('#registerValidationFirstName').html('');
+            $('#registerValidationLastName').html('');
+            $('#registerValidationGender').html('');
+            $('#registerValidationPassword').html('');
+            $('#registerValidationConfirmPassword').html('');
+
+            win.center().open();
+        }
+    });
+</script>

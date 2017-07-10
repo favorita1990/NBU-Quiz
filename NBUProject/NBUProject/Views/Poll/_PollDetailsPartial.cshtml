@@ -1,0 +1,477 @@
+﻿
+
+<script src="~/Scripts/kendo/kendo.all.min.js"></script>
+<link href="~/Content/simplePagination.css" rel="stylesheet" />
+
+
+<div id="ControlNavigationId">
+
+    <div id="wrapper">
+        <div id="page-wrapper">
+            <div id="page-inner">
+
+                <div class="container">
+                    <script type="text/javascript">
+                        document.title = 'Poll details';
+                        window.history.pushState(
+                            null,
+                            null,
+                            '/Poll/Details/@TempData["pollId"]'
+                            );
+                    </script>
+
+                    <h2 class="text-center" style="color: #3d303d;">Poll Details</h2>
+
+                    <br />
+
+                    <div class="col-md-offset-3 col-xs-12 col-sm-6 col-md-6 panelMy">
+                        <div class="panel-body-details">
+
+
+
+
+                            <div class="row">
+                                <div class="text-center">
+                                    <h2 style="color: #3d303d;">Title: @TempData["pollTitle"]</h2>
+                                    <h4 style="color: #3d303d;">Activation Date: @TempData["pollDate"]</h4>
+                                    <h4 style="color: #3d303d;">Type: @TempData["pollType"]</h4>
+                                </div>
+                            </div>
+                            <hr />
+
+                            <div class="row">
+                                <div class="col-sm-10 col-md-7 col-lg-8" style="padding-top: 15px;">
+                                    <input type="text" id="inputCopyTextId" style="margin-left:20px;" class="form-control" value="http://localhost:51687/@TempData["pollId"]">
+                                </div>
+
+                                <div class="col-sm-3 col-md-4 col-lg-3" style="text-align:left; margin-left:15px; padding-top: 15px;">
+                                    <input type="submit" id="inputCopyBtnId" data-clipboard-target="#inputCopyTextId" value="Copy Url" class="btn btn-success" />
+                                </div>
+                            </div>
+                            <hr />
+
+                            <div class="row">
+                                <div class="text-center-btn">
+
+                                    @Ajax.ActionLink("View Poll", "View", new { id = @TempData["pollId"] },
+                                    new AjaxOptions
+                                    {
+                                        UpdateTargetId = "ControlNavigationId",
+                                        InsertionMode = InsertionMode.Replace,
+                                        HttpMethod = "Post"
+                                    },
+                                    new { @class = "btn btn-success btn-lg viewPollBtn" })
+
+                                    @*<input type="submit" value="View poll" class="btn btn-success btn-lg viewPollBtn" />*@
+                                    <span style="margin-left: 10px; margin-right: 10px;"> </span>
+                                    <input type="submit" class="btn btn-warning btn-lg sharePollBtn" , id="sharePollBtnId" value="Share" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-offset-3 col-xs-12 col-sm-6 col-md-6 panel-send-email" id="panelSendEmailsId" style="display:none;">
+                        <div class="row">
+                            <h4 class="text-center" style="color: #3d303d;">Input email(s) and separate with ( , )</h4>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-10 col-md-7 col-lg-8" style="padding-top: 15px;">
+                                <div id="sendEmailTextId" contentEditable="true" data-text="Input email(s)"></div>
+                            </div>
+
+                            <div class="col-sm-3 col-md-4 col-lg-3" style="text-align:left; margin-left:15px; padding-top: 15px;">
+                                <input type="submit" id="sendEmailBtnId" value="Send" class="btn btn-success sendEmailBtn" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                <div class="centerAlign" id="validationSendEmailId" style="color:#ff0000; font-weight: bold;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-offset-3 col-xs-12 col-sm-6 col-md-6 panelMy">
+
+                        @Html.ActionLink("export to CSV", "Export", "Poll",
+                   new { @id = TempData["pollId"] as int? }, new { @class = "btn btn-success exportBtn" })
+
+                    </div>
+
+                    <div class="col-md-offset-3 col-xs-12 col-sm-6 col-md-6 panelMy" id="panelSentEmailId" style="display:none;">
+                        <div class="panel-body-details-email" id="addSentEmailsId">
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-offset-3 col-xs-12 col-sm-6 col-md-6 panelMy">
+                        <div style="text-align: right;">
+                            <input type="submit" id="showHideBtnEmailId" value="Show" class="btn btn-success showBtnEmail" />
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-offset-3 col-xs-12 col-sm-6 col-md-6 panelMy">
+                    <div style="text-align: left;">
+                        <input type="submit" id="showHideBtnChartId" value="Show" class="btn btn-success showBtnCharts" />
+                        <span style="font-size: 18px; font-weight: bold; color: #AA057A;"> Charts</span>
+                    </div>
+                </div>
+
+                <div class="col-md-offset-3 col-xs-12 col-sm-11 col-md-9 col-lg-6 panelMy" id="panelShowHideBar" style="display:none;">
+                    <div class="panel-body-details" id="add-pie-chart">
+
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-offset-3 col-xs-12 col-sm-11 col-md-9 col-lg-6 panelMy" id="panelShowHideColumn" style="display:none;">
+                    <div id="add-column-chart">
+
+                    </div>
+                    <div id="pagination" style="display: none;"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery.simplePagination.js"></script>
+<script src="~/Scripts/clipboard.min.js"></script>
+
+<script>
+    //Selected control page
+    $('ul#main-menu > .active-link a span.badge').remove();
+    $('ul#main-menu > .active-link').removeClass('active-link')
+
+    $('#panelSendEmailsId').hide();
+
+
+    var items;
+    var perPage = 1;
+    var itemsColumn;
+
+    // This time we'll hold onto the created paginator so we can use it again later.
+    var $paginator = $("#pagination");
+
+    $paginator.pagination({
+        // We're not specifying the `items` right now.
+        // We've got a function below that'll handle that for us.
+        itemsOnPage: perPage,
+        cssStyle: "light-theme",
+        onPageClick: function (pageNumber) {
+            var showFrom = perPage * (pageNumber - 1);
+            var showTo = showFrom + perPage;
+
+
+
+            items.hide()
+                    .slice(showFrom, showTo).show();
+
+            itemsColumn.hide()
+                    .slice(showFrom, showTo).show();
+        }
+    });
+
+    function updateItems(number) {
+
+        // Notice that we're not using `var items = ...` -
+        // instead we're using `items` variable declared outside this function.
+        items = $("#add-pie-chart div");
+
+        itemsColumn = $("#add-column-chart div");
+        // We'll update the number of items that the pagination element expects
+        // using a method from the simplePagination documentation: `updateItems`.
+
+        $paginator.pagination("updateItems", items.length);
+
+        $paginator.pagination("updateItems", itemsColumn.length);
+        // Next, we'll re-select the page so the `onPageClick` function we already
+        // programmed will handle hiding and showing the correct content for us.
+        // Note that the page we were on before may no longer exist
+        // (i.e. if elements were removed and that page is no longer required),
+        // so we will make sure to select an existing page.
+        var page = Math.min(
+            $paginator.pagination("getCurrentPage"),
+            $paginator.pagination("getPagesCount")
+        );
+        $paginator.pagination("selectPage", page);
+    }
+
+    //onclick to share and send email(s)
+    $('#sharePollBtnId').on('click', function () {
+        $('#panelSendEmailsId').toggle(400);
+    });
+
+    $("#panelSentEmailId").hide();
+
+    var removeOrAddClass = 0;
+    $("#showHideBtnEmailId").click(function () {
+        $(this).val(function (i, v) { return v == "Show" ? "Hide" : "Show"; });
+        $("#panelSentEmailId").slideToggle("slow");
+        if (removeOrAddClass == 0) {
+            $("#showHideBtnEmailId").removeClass("showBtnEmail");
+        }
+        $("#showHideBtnEmailId").toggleClass("hideBtnEmail");
+        $("#showHideBtnEmailId").toggleClass("showBtnEmail", (removeOrAddClass % 2) == 1);
+        removeOrAddClass += 1;
+    });
+
+    $("#panelSentEmailId").hide();
+
+    var removeOrAddClass = 0;
+    $("#showHideBtnChartId").click(function () {
+        $(this).val(function (i, v) { return v == "Show" ? "Hide" : "Show"; });
+        $("#panelShowHideBar").slideToggle("slow");
+        $("#panelShowHideColumn").slideToggle("slow");
+        if (removeOrAddClass == 0) {
+            $("#showHideBtnChartId").removeClass("showBtnCharts");
+        }
+        $("#showHideBtnChartId").toggleClass("hideBtnEmail");
+        $("#showHideBtnChartId").toggleClass("showBtnCharts", (removeOrAddClass % 2) == 1);
+        removeOrAddClass += 1;
+    });
+
+    var clipboard = new Clipboard('#inputCopyBtnId');
+
+    $('#sendEmailBtnId').on('click', function () {
+
+        var text = $('#sendEmailTextId').text();
+        var validationPoll = $('#validationSendEmailId').html('');
+
+        if (text == '') {
+            validationPoll.css('color', '#ff0000');
+            validationPoll.append('Input email.<br/>')
+        }
+
+        if (text != '') {
+            var arrEmails = text.split(',');
+            var validEmailCount = 0;
+
+            $(arrEmails).each(function (index, email) {
+                if (email != '') {
+                    if (!isEmail($.trim(email)) && ($.trim(email) != '')) {
+                        validEmailCount += 1;
+                    }
+                }
+            });
+
+            if (validEmailCount != 0) {
+                validationPoll.css('color', '#ff0000');
+                validationPoll.append('You have ' + validEmailCount + ' invalid emails.<br/>')
+            }
+            else {
+
+
+                $.ajax({
+                    cache: false,
+                    url: '@Url.Action("SentEmails", "Poll")',
+                    data: { 'emails': arrEmails, 'pollId': @TempData["pollId"] },
+                    type: "Post",
+                    dataType: "json",
+                    success: function (emailList) {
+
+                        validationPoll.css('color', '#2eab15');
+                        validationPoll.append('The poll was sent.<br/>')
+
+                        $.each(emailList, function (index, emailItem) {
+                            $('#addSentEmailsId').prepend('<div class="text-center">' + emailItem.Email + ' - ' + emailItem.Date + '</div>');
+                        });
+                    },
+                    error: function (response) {
+                        alert('The poll was not sent.');
+                    }
+                });
+            }
+
+        }
+
+    });
+
+    function isEmail(email) {
+        var regex = /^([a-zA-Z0-9_.+-])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return regex.test(email);
+    }
+
+
+    $('#addSentEmailsId').html('');
+
+    $.ajax({
+        cache: false,
+        url: '@Url.Action("getSentEmails", "Poll")',
+        data: { 'id': @TempData["pollId"] },
+        type: "Post",
+        dataType: "json",
+        success: function (emailList) {
+
+            $.each(emailList, function (index, emailItem) {
+                $('#addSentEmailsId').append('<div class="text-center">' + emailItem.Email + ' - ' + emailItem.Date + '</div>');
+            });
+        },
+        error: function (response) {
+            alert('Cannot load sent emails.');
+        }
+    });
+
+
+
+    $(document).ready(function(){
+
+        $.ajax({
+            url: '/Poll/GetAllPollAndQuestions',
+            dataType: "json",
+            type: "Post",
+            contentType: 'application/json; charset=utf-8',
+            data: "{ id:" + @TempData["pollId"] + "}",
+            success: function (poll) {
+
+                $('#add-pie-chart').html();
+
+                $.each(poll.QuestionList, function (indexQuestion, question){
+
+                    var seriesData = new Array();
+                    var seriesDataColumn = new Array();
+
+                    $('#add-pie-chart').append('<div id="pie-chart' + (indexQuestion + 1) + '"></div>');
+                    $('#add-column-chart').append('<div id="chart-column' + (indexQuestion + 1) + '"></div>');
+
+                    if (poll.QuestionList.length > perPage) {
+                        // We'll call this now so the initial items can be loaded.
+                        updateItems();
+                        $('#pagination').show();
+                    }
+
+                    $.ajax({
+                        cache: false,
+                        url: '@Url.Action("getPieDiagram", "Poll")',
+                        data: { 'questionId': question.Id },
+                        type: "Post",
+                        dataType: "json",
+                        success: function (pollList) {
+
+                            $.each(pollList, function(index, answers){
+
+                                seriesData.push(
+                                    {
+                                        category: answers.Item1[0],
+                                        value: answers.Item2
+                                    });
+
+                                if(answers.Item2 == 0){
+                                    seriesDataColumn.push(
+                                    {
+                                        category: answers.Item1[0],
+                                        value: 0
+                                    });
+                                }
+                                else{
+                                    seriesDataColumn.push(
+                                    {
+                                        category: answers.Item1[0],
+                                        value: answers.Item1.length
+                                    });
+                                }
+
+                            });
+
+                            var title = question.Question;
+                            if (question.QuestionSelectedDropDown == '1'){
+                                title = title + " (Checkbox)";
+                            }
+
+
+                            $("#pie-chart" + (indexQuestion + 1)).kendoChart({
+                                title: {
+                                    position: "top",
+                                    text: title
+                                },
+                                legend: {
+                                    visible: false
+                                },
+                                dataSource: {
+                                    data: seriesData
+                                },
+                                chartArea: {
+                                    background: ""
+                                },
+                                seriesDefaults: {
+                                    labels: {
+                                        visible: true,
+                                        background: "transparent",
+                                        template: "#= category #: \n #= value#%"
+                                    }
+                                },
+                                series: [{
+                                    type: "pie",
+                                    startAngle: 50,
+                                    field: "value",
+                                    categoryField: "category"
+                                }],
+                                tooltip: {
+                                    visible: true,
+                                    format: "{0}%"
+                                }
+                            });
+
+
+                            $("#chart-column"+ (indexQuestion + 1)).kendoChart({
+                                title: {
+                                    text: title
+                                },
+                                legend: {
+                                    position: "top"
+                                },
+                                dataSource: {
+                                    data: seriesDataColumn
+                                },
+                                seriesDefaults: {
+                                    type: "column"
+                                },
+                                series: [{
+                                    categoryField: "category",
+                                    field: "value",
+                                }],
+                                valueAxis: {
+                                    labels: {
+                                        format: "{0}"
+                                    },
+                                    line: {
+                                        visible: false
+                                    },
+                                    axisCrossingValue: 0
+                                },
+                                tooltip: {
+                                    visible: true,
+                                    format: "{0}%",
+                                    template: "#= category #: #= value #"
+                                }
+                            });
+
+                        },
+                        error: function (response) {
+                            alert('The poll was not sent.');
+                        }
+                    });
+
+                });
+
+            },
+            error: function (response) {
+                alert('The poll was not sent.');
+            }
+        });
+
+    });
+
+
+
+    $(document).bind("kendo:skinChange", createChartColumn);
+    $(document).bind("kendo:skinChange", createChart);
+
+
+</script>

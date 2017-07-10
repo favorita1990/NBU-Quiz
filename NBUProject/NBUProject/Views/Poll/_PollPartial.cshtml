@@ -1,0 +1,1011 @@
+﻿
+
+<link href="~/Content/simplePagination.css" rel="stylesheet" />
+
+<div id="ControlNavigationId">
+
+    <div id="poll-wrapper">
+        <div id="poll-page-wrapper">
+
+
+            @if (TempData["pollType"] as byte? == (byte)0)
+            {
+            <div class="col-md-12 container poll-container">
+
+                <h1 class="poll-text-center"><span class="poll-fancyfont">Sport</span></h1>
+
+
+                <div class="row">
+                    <div class="poll-questionPerPage">
+                        Questions: <span id="question-per-page">-</span> - <span id="question-count">-</span>
+                    </div>
+                </div>
+
+
+                <div id="addQuestionId">
+
+                </div>
+
+                <div class="poll-validation" id="validationPoll"></div>
+                <div class="row poll-buttons">
+                    <div id="pagination" style="display: none;"></div>
+
+                    <input type="submit" class="col-sm-12 col-md-2 col-lg-1 btn btn-success btn-lg" id="btn-save" value="Save" />
+
+                </div>
+
+            </div>
+            }
+            else
+            {
+            <div class="container">
+                <div class="Authentication poll-well-sent">
+
+                    <p class="title">Authenticate yourself</p>
+
+                    <div class="centerAlign col-sm-12 col-md-12" id="authenticationValidation" style="color:#ff0000; font-weight: bold;"></div>
+                    <br />
+
+                    <input type="text" placeholder="E-mail" name="email" id="authenticationInputText1" />
+                    <i class="fa fa-user"></i>
+
+                    <div class="centerAlign col-sm-12 col-md-12" id="authenticationValidationEmail" style="color:#ff0000; font-weight: bold;"></div>
+
+
+                    <input type="text" placeholder="First Name" id="authenticationInputText2" name="firstName" />
+                    <i class="fa fa-smile-o"></i>
+
+                    <div class="centerAlign col-sm-12 col-md-12" id="authenticationValidationFName" style="color:#ff0000; font-weight: bold;"></div>
+
+
+                    <input type="text" placeholder="Last Name" id="authenticationInputText3" name="lastName" />
+                    <i class="fa fa-meh-o"></i>
+
+                    <div class="centerAlign col-sm-12 col-md-12" id="authenticationValidationLName" style="color:#ff0000; font-weight: bold;"></div>
+
+
+
+                    <input type="text" placeholder="Faculty Number" id="authenticationInputText4" name="fNumber" />
+                    <i class="fa fa-key"></i>
+
+                    <div class="centerAlign col-sm-12 col-md-12" id="authenticationValidationFNumber" style="color:#ff0000; font-weight: bold;"></div>
+
+                    <button id="authenticationButton">
+                        <i class="spinner"></i>
+                        <span class="state">Sign In</span>
+                    </button>
+                </div>
+            </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+
+<script src="~/Scripts/jquery.simplePagination.js"></script>
+<script type="text/javascript" src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+        async defer></script>
+
+<script>
+    //Selected control page
+    $('ul#main-menu > .active-link a span.badge').remove();
+    $('ul#main-menu > .active-link').removeClass('active-link')
+
+
+
+
+    var items;
+    var perPage = @TempData["pollPerPage"];
+    var questionCount = @TempData["pollQuestionCount"];
+
+
+
+
+    var arrAllPoll = new Array();
+
+    $('#addQuestionId').html('');
+    var countInOption = 0;
+    var pollId = @TempData["pollId"];
+
+     if (@TempData["pollType"] == 0)
+     {
+
+         // This time we'll hold onto the created paginator so we can use it again later.
+         var $paginator = $("#pagination");
+
+         $paginator.pagination({
+             // We're not specifying the `items` right now.
+             // We've got a function below that'll handle that for us.
+             itemsOnPage: perPage,
+             cssStyle: "light-theme",
+             onPageClick: function (pageNumber) {
+                 var showFrom = perPage * (pageNumber - 1);
+                 var showTo = showFrom + perPage;
+
+                 var perPageCount = 0;
+                 for (var i = 0; i < pageNumber; i++) {
+                     perPageCount += perPage;
+                 }
+
+
+                 if(perPageCount < questionCount){
+                     $('#question-per-page').html(perPageCount);
+                 }
+                 else{
+                     $('#question-per-page').html(questionCount);
+                 }
+
+
+
+                 items.hide()
+                         .slice(showFrom, showTo).show();
+             }
+         });
+
+         function updateItems() {
+
+             // Notice that we're not using `var items = ...` -
+             // instead we're using `items` variable declared outside this function.
+             items = $("#addQuestionId div.poll-question-head");
+             // We'll update the number of items that the pagination element expects
+             // using a method from the simplePagination documentation: `updateItems`.
+
+             $paginator.pagination("updateItems", items.length);
+             // Next, we'll re-select the page so the `onPageClick` function we already
+             // programmed will handle hiding and showing the correct content for us.
+             // Note that the page we were on before may no longer exist
+             // (i.e. if elements were removed and that page is no longer required),
+             // so we will make sure to select an existing page.
+             var page = Math.min(
+                 $paginator.pagination("getCurrentPage"),
+                 $paginator.pagination("getPagesCount")
+             );
+             $paginator.pagination("selectPage", page);
+         }
+
+         $.ajax({
+             url: '/Poll/GetAllPollAndQuestions',
+             dataType: "json",
+             type: "Post",
+             contentType: 'application/json; charset=utf-8',
+             data: "{ id:" + JSON.stringify(pollId) + "}",
+             success: function (poll) {
+                 if (poll != null) {
+
+
+                     $('.poll-fancyfont').html(poll.Name);
+                     if (poll.QuestionList.length > perPage) {
+                         $('#question-count').html(poll.QuestionList.length);
+                         $('#pagination').css('display', 'inline');
+
+                     }
+                     else {
+                         $('#question-per-page').html(poll.QuestionList.length);
+                         $('#question-count').html(poll.QuestionList.length);
+                     }
+
+
+                     $.each(poll.QuestionList, function (indexQuestion, question) {
+
+                         $.each(poll.QuestionList, function (i) {
+
+                             if((indexQuestion + 1) == 1){
+                                 arrAllPoll[i] = undefined;
+                             }
+
+                         });
+
+
+
+                         var countDropDown = 1;
+                         if (question.QuestionTypeVer) {
+
+                             if (question.QuestionSelectedDropDown == '0') {
+
+                                 $('#addQuestionId').append('<div class="row poll-question-head"><div class="poll-question-number">Question - ' + (indexQuestion + 1) + '</div>' +
+                                     '<div class="poll-question">' + question.Question + '</div>' +
+                                     '<div class="col-md-6 col-lg-8 col-md-offset-3 col-lg-offset-3" id="add-option-ver-radio' + (indexQuestion + 1) + '"></div><br /></div>');
+
+                             }
+                             if (question.QuestionSelectedDropDown == '1') {
+
+                                 $('#addQuestionId').append('<div class="row poll-question-head"><div class="poll-question-number">Question - ' + (indexQuestion + 1) + '</div>' +
+                                     '<div class="poll-question">' + question.Question + '</div>' +
+                                     '<div class="col-md-6 col-lg-8 col-md-offset-3 col-lg-offset-3" id="add-option-ver-checkbox' + (indexQuestion + 1) + '"></div><br /></div>')
+
+                             }
+                             if (question.QuestionSelectedDropDown == '2') {
+
+                                 $('#addQuestionId').append('<div class="row poll-question-head"><div class="poll-question-number">Question - ' + (indexQuestion + 1) + '</div>' +
+                                     '<div class="poll-question">' + question.Question + '</div>' +
+                                     '<div class="col-md-3 col-lg-2 col-md-offset-3 col-lg-offset-3" style="margin-top: 30px;" id="add-option-ver-dropdown' + (indexQuestion + 1) + '">' +
+                                     '<label class="label"><select class="select" name="option' + (indexQuestion + 1) + '"><option selected disabled>Choose one</option></select></label></div><br /></div>')
+
+                                 countDropDown = 1;
+
+                             }
+
+                         }
+                         else {
+
+                             if (question.QuestionSelectedDropDown == '0') {
+
+                                 $('#addQuestionId').append('<div class="row poll-question-head"><div class="poll-question-number">Question - ' + (indexQuestion + 1) + '</div>' +
+                                     '<div class="poll-question">' + question.Question + '</div>' +
+                                     '<div class="col-md-7 col-lg-8 col-md-offset-3 col-lg-offset-3" id="add-option-hor-radio' + (indexQuestion + 1) + '" style="text-align: left;"></div><br /></div>');
+
+                             }
+                             if (question.QuestionSelectedDropDown == '1') {
+
+                                 $('#addQuestionId').append('<div class="row poll-question-head"><div class="poll-question-number">Question - ' + (indexQuestion + 1) + '</div>' +
+                                     '<div class="poll-question">' + question.Question + '</div>' +
+                                     '<div class="col-md-7 col-lg-8 col-md-offset-3 col-lg-offset-3" style="text-align: left;" id="add-option-hor-checkbox' + (indexQuestion + 1) + '"></div><br /></div>')
+
+                             }
+
+                         }
+
+
+                         if (poll.QuestionList.length > perPage) {
+                             // We'll call this now so the initial items can be loaded.
+                             updateItems();
+                         }
+
+
+
+
+
+                         $.ajax({
+                             url: '/Poll/GetAllPollAnswers',
+                             dataType: "json",
+                             type: "Post",
+                             contentType: 'application/json; charset=utf-8',
+                             data: "{ id:" + JSON.stringify(question.Id) + "}",
+                             success: function (answers) {
+                                 if (answers != null) {
+
+
+                                     $.each(answers, function (index, answer) {
+
+                                         if (question.QuestionTypeVer) {
+
+                                             if (question.QuestionSelectedDropDown == '0') {
+
+                                                 $('#add-option-ver-radio' + (indexQuestion + 1)).append('<div class="radio poll-radio radio-primary" style="text-align:left;">' +
+                                                     '<input type="radio" id="optionRadioId' + countInOption + '" name="option' + (indexQuestion + 1) + '">' +
+                                                     '<label for="optionRadioId' + countInOption + '"></label>' +
+                                                     '<div style="display: inline; font-size: 25px; font-weight: 700; color: #150766; word-wrap: break-word;">' + answer.Value + '</div></div>');
+
+                                             }
+                                             if (question.QuestionSelectedDropDown == '1') {
+
+                                                 $('#add-option-ver-checkbox' + (indexQuestion + 1)).append('<div class="checkbox poll-checkbox checkbox-primary" style="text-align:left;">' +
+                                                     '<input id="optionCheckBoxId' + countInOption + '" type="checkbox" name="option' + (indexQuestion + 1) + '">' +
+                                                     '<label for="optionCheckBoxId' + countInOption + '" class="question"></label>' +
+                                                     '<div style="display: inline; font-size: 25px; font-weight: 700; color: #150766; word-wrap: break-word;">' + answer.Value + '</div></div>');
+
+                                             }
+                                             if (question.QuestionSelectedDropDown == '2') {
+
+                                                 $('#add-option-ver-dropdown' + (indexQuestion + 1) + ' label select')
+                                                     .append('<option value="' + countDropDown + '">' + answer.Value + '</option>');
+
+                                             }
+
+                                         }
+                                         else {
+
+                                             if (question.QuestionSelectedDropDown == '0') {
+
+                                                 $('#add-option-hor-radio' + (indexQuestion + 1))
+                                                     .append('<div class="col-xs-8 col-sm-8 col-md-4 col-lg-3 radio poll-radio radio-primary radio-inline">' +
+                                                     '<input type="radio" id="optionRadioId' + countInOption + '" name="option' + (indexQuestion + 1) + '">' +
+                                                     '<label for="optionRadioId' + countInOption + '"></label><div style="display: inline; font-size: 25px; font-weight: 700; color: #150766; word-wrap: break-word;">' +
+                                                     answer.Value + '</div></div>');
+
+                                             }
+                                             if (question.QuestionSelectedDropDown == '1') {
+
+                                                 $('#add-option-hor-checkbox' + (indexQuestion + 1))
+                                                     .append('<div class="col-xs-8 col-sm-8 col-md-4 col-lg-3 checkbox checkbox-primary checkbox-question">' +
+                                                     '<input type="checkbox" id="optionRadioId' + countInOption + '" name="option' + (indexQuestion + 1) + '">' +
+                                                     '<label for="optionRadioId' + countInOption + '"></label>' +
+                                                     '<div style="display: inline; font-size: 25px; font-weight: 700; color: #150766;">' + answer.Value + '</div></div>');
+
+                                             }
+
+                                         }
+
+                                         countInOption += 1;
+                                         countDropDown += 1;
+
+
+
+                                         $('input[name=option' + (indexQuestion + 1) + ']').change(function(e){
+                                             e.stopImmediatePropagation();
+
+                                             var arrQuestionOptionRadio = new Array();
+                                             if (question.QuestionSelectedDropDown == '0'){
+
+                                                 if ($(this).is(':checked')) {
+
+                                                     arrQuestionOptionRadio[0] = answer.Value;
+
+                                                 }
+                                             }
+                                             if (question.QuestionSelectedDropDown == '1'){
+
+                                                 $('input[name=option' + (indexQuestion + 1) + ']').each(function (i) {
+                                                     if ($(this).is(':checked')) {
+
+                                                         $.each(answers, function (index, answer){
+                                                             if(index == i){
+                                                                 arrQuestionOptionRadio.push(answer.Value);
+                                                             }
+
+                                                         });
+
+
+
+                                                     }
+                                                 });
+                                             }
+
+
+                                             arrAllPoll[indexQuestion] = arrQuestionOptionRadio;
+
+                                         });
+
+
+                                         $('select[name=option' + (indexQuestion + 1) + ']').change(function(e){
+                                             e.stopImmediatePropagation();
+
+                                             var arrQuestionOptionRadio = new Array();
+
+                                             var selectedIndex = $('select[name=option' + (indexQuestion + 1) + '] option:selected').index();
+
+                                             $.each(answers, function (index, answer){
+                                                 if((index + 1) == selectedIndex){
+
+                                                     arrQuestionOptionRadio[0] = answer.Value;
+
+                                                 }
+
+                                             });
+
+                                             arrAllPoll[indexQuestion] = arrQuestionOptionRadio;
+
+                                         });
+
+                                     });
+
+
+                                 }
+                             },
+                             error: function () {
+                                 alert('error question');
+                             }
+                         });
+
+                     });
+                 }
+
+
+                 $('.poll-buttons').before('<br /><div id="dvCaptcha"></div><input type="hidden" id="hfCaptcha" />' +
+                        '<div style="text-align:center; color: #ff0000; font-weight: bold;">' +
+                        '<span id="rfvCaptcha" style="display:none">Captcha validation is required.</span></div>')
+
+
+                 grecaptcha.render('dvCaptcha', {
+                     'sitekey': '@Model.Key',
+                     'theme' : 'dark',
+                     'callback': function (response) {
+                                            
+                         $.ajax({
+                             type: "POST",
+                             url: "/Poll/AjaxCaptcha",
+                             data: "{response: '" + response + "'}",
+                             contentType: "application/json; charset=utf-8",
+                             dataType: "json",
+                             success: function (r) {
+                                 var captchaResponse = jQuery.parseJSON(r.Response);
+                                 if (captchaResponse.success) {
+                                     $("#hfCaptcha").val(captchaResponse.success);
+                                     $("#rfvCaptcha").hide();
+                                 } 
+                                 else {
+                                     $("#hfCaptcha").val("");
+                                     $("#rfvCaptcha").show();
+                                     var error = captchaResponse["error-codes"][0];
+                                     $("#rfvCaptcha").html("RECaptcha error. " + error);
+                                 }
+                             },
+                             error: function(){
+                                 alert("error");
+                             }
+                         });
+
+
+                     }
+                 });
+             },
+             error: function () {
+                 alert('error poll');
+             }
+         });
+
+
+         $('#btn-save').on('click', function(){
+
+             var countAllPoll = 0;
+             var validationPoll = $('#validationPoll').html('');
+
+
+             var isCaptchaChecked = (grecaptcha && grecaptcha.getResponse().length !== 0);
+
+             if (isCaptchaChecked) {
+                 $("#rfvCaptcha").hide();
+             }
+             else {
+                 $("#rfvCaptcha").show();
+             }
+
+
+             $.each(arrAllPoll, function(index, value){
+
+                 if(value == undefined){
+                     countAllPoll += 1;
+                     validationPoll.append('Please answer the ' + (index + 1) + 'th question.<br/>')
+                 }
+
+             });
+
+             if((countAllPoll == 0) && (isCaptchaChecked)){
+
+                 //validationPoll.append('Very well.<br/>')
+
+
+                 $.ajax({
+                     cache: false,
+                     url: '@Url.Action("PollWellSentPartial", "Poll")',
+                     data: { 'model': arrAllPoll, 'pollId': pollId },
+                     type: "Post",
+                     dataType: "html",
+                     success: function (data) {
+                         $('#ControlNavigationId').html(data);
+                     },
+                     error: function (response) {
+                         alert('The poll is empty or there are two or more the same options.');
+                     }
+                 });
+
+             }
+
+         });
+
+
+     }
+    else
+     {
+
+         $('#authenticationInputText1').val('');
+         $('#authenticationInputText2').val('');
+         $('#authenticationInputText3').val('');
+         $('#authenticationInputText4').val('');
+
+         $('#authenticationValidation').hide();
+         $('#authenticationValidationEmail').html('');
+         $('#authenticationValidationFName').html('');
+         $('#authenticationValidationLName').html('');
+         $('#authenticationValidationFNumber').html('');
+
+
+         $('#authenticationButton').on('click', function (e) {
+             e.stopImmediatePropagation();
+
+
+             var email = $('#authenticationInputText1').val();
+             var fName = $('#authenticationInputText2').val();
+             var lName = $('#authenticationInputText3').val();
+             var fNumber = $('#authenticationInputText4').val();
+             var isValidEmail = '';
+
+             $.ajax({
+                 url: '/Account/IsValidEmail',
+                 type: 'POST',
+                 data: "{ source:" + JSON.stringify(email) + "}",
+                 contentType: 'application/json; charset=utf-8',
+                 success: function (data) {
+                     isValidEmail = data;
+
+
+                     var enterEmail = '';
+                     var enterFName = '';
+                     var enterLName = '';
+                     var enterFNumber = '';
+                     var invalidLogin = '';
+
+                     if (email == '') {
+
+                         enterEmail = "*Input email.";
+                         $('#authenticationValidationEmail').html(enterEmail + "<br/>");
+
+                     }
+                     else if (email != ''){
+                         if ((isValidEmail != '') && (isValidEmail == "false")) {
+
+                             enterEmail = "*Input valid email.";
+                             $('#authenticationValidationEmail').html(enterEmail + "<br/>");
+
+                         }
+                         else{
+
+                             enterEmail = '';
+                             $('#authenticationValidationEmail').html('');
+
+                         }
+                     }
+                     if (fName == ''){
+
+                         enterFName = "*Input first name.";
+                         $('#authenticationValidationFName').html(enterFName + "<br/>");
+
+                     }
+                     else if (fName != ''){
+
+                         enterFName = '';
+                         $('#authenticationValidationFName').html('');
+
+                     }
+                     if (lName == ''){
+
+                         enterLName = "*Input last name.";
+                         $('#authenticationValidationLName').html(enterLName + "<br/>");
+
+                     }
+                     else if (lName != ''){
+
+                         enterLName = '';
+                         $('#authenticationValidationLName').html('');
+
+                     }
+                     if (fNumber == ''){
+
+                         enterFNumber = "*Input last name.";
+                         $('#authenticationValidationFNumber').html(enterFNumber + "<br/>");
+
+                     }
+                     else if (fNumber != ''){
+
+                         enterFNumber = '';
+                         $('#authenticationValidationFNumber').html('');
+
+                         $.ajax({
+                             url: '/Poll/CheckFNumber',
+                             type: 'POST',
+                             data: JSON.stringify({ fNumber: fNumber, pollId: pollId }),
+                             contentType: 'application/json; charset=utf-8',
+                             success: function (facultyNumber){
+
+                                 enterFNumber = 'Sorry. You have already voted.';
+                                 $('#authenticationValidationFNumber').html(enterFNumber + "<br/>");
+                             },
+                             error: function(){
+                                 if((email != '') && (fName != '') && (lName != '') && (fNumber != '') && (enterEmail == '')){
+
+
+
+                                     var user = {
+                                         Email: email,
+                                         FName: fName,
+                                         LName: lName,
+                                         FNumber: fNumber
+                                     };
+
+
+
+                                     $('.container').remove();
+
+
+                                     $('#poll-page-wrapper').append('<div class="col-md-12 container poll-container">' +
+                                         '<h1 class="poll-text-center"><span class="poll-fancyfont">Sport</span></h1><div class="row">' +
+                                         '<div class="poll-questionPerPage">Questions: <span id="question-per-page">-</span>' +
+                                         ' - <span id="question-count">-</span></div></div><div id="addQuestionId"></div>' +
+                                         '<div class="poll-validation" id="validationPoll"></div><div class="row poll-buttons">' +
+                                         '<div id="pagination" style="display: none;"></div>' +
+                                         '<input type="submit" class="col-sm-12 col-md-2 col-lg-1 btn btn-success btn-lg" id="btn-save" value="Save" /></div></div>');
+
+
+
+
+                                     var $paginator = $("#pagination");
+
+                                     $paginator.pagination({
+                                         // We're not specifying the `items` right now.
+                                         // We've got a function below that'll handle that for us.
+                                         itemsOnPage: perPage,
+                                         cssStyle: "light-theme",
+                                         onPageClick: function (pageNumber) {
+                                             var showFrom = perPage * (pageNumber - 1);
+                                             var showTo = showFrom + perPage;
+
+                                             var perPageCount = 0;
+                                             for (var i = 0; i < pageNumber; i++) {
+                                                 perPageCount += perPage;
+                                             }
+
+
+                                             if(perPageCount < questionCount){
+                                                 $('#question-per-page').html(perPageCount);
+                                             }
+                                             else{
+                                                 $('#question-per-page').html(questionCount);
+                                             }
+
+
+
+                                             items.hide()
+                                                     .slice(showFrom, showTo).show();
+                                         }
+                                     });
+
+                                     function updateItems() {
+
+                                         // Notice that we're not using `var items = ...` -
+                                         // instead we're using `items` variable declared outside this function.
+                                         items = $("#addQuestionId div.poll-question-head");
+                                         // We'll update the number of items that the pagination element expects
+                                         // using a method from the simplePagination documentation: `updateItems`.
+
+                                         $paginator.pagination("updateItems", items.length);
+                                         // Next, we'll re-select the page so the `onPageClick` function we already
+                                         // programmed will handle hiding and showing the correct content for us.
+                                         // Note that the page we were on before may no longer exist
+                                         // (i.e. if elements were removed and that page is no longer required),
+                                         // so we will make sure to select an existing page.
+                                         var page = Math.min(
+                                             $paginator.pagination("getCurrentPage"),
+                                             $paginator.pagination("getPagesCount")
+                                         );
+                                         $paginator.pagination("selectPage", page);
+                                     }
+
+
+                                     $.ajax({
+                                         url: '/Poll/GetAllPollAndQuestions',
+                                         dataType: "json",
+                                         type: "Post",
+                                         contentType: 'application/json; charset=utf-8',
+                                         data: "{ id:" + JSON.stringify(pollId) + "}",
+                                         success: function (poll) {
+                                             if (poll != null) {
+
+
+                                                 $('.poll-fancyfont').html(poll.Name);
+                                                 if (poll.QuestionList.length > perPage) {
+                                                     $('#question-count').html(poll.QuestionList.length);
+                                                     $('#pagination').css('display', 'inline');
+
+                                                 }
+                                                 else {
+                                                     $('#question-per-page').html(poll.QuestionList.length);
+                                                     $('#question-count').html(poll.QuestionList.length);
+                                                 }
+
+
+                                                 $.each(poll.QuestionList, function (indexQuestion, question) {
+
+                                                     $.each(poll.QuestionList, function (i) {
+
+                                                         if((indexQuestion + 1) == 1){
+                                                             arrAllPoll[i] = undefined;
+                                                         }
+
+                                                     });
+
+
+
+                                                     var countDropDown = 1;
+                                                     if (question.QuestionTypeVer) {
+
+                                                         if (question.QuestionSelectedDropDown == '0') {
+
+                                                             $('#addQuestionId').append('<div class="row poll-question-head"><div class="poll-question-number">Question - ' + (indexQuestion + 1) + '</div>' +
+                                                                 '<div class="poll-question">' + question.Question + '</div>' +
+                                                                 '<div class="col-md-6 col-lg-8 col-md-offset-3 col-lg-offset-3" id="add-option-ver-radio' + (indexQuestion + 1) + '"></div><br /></div>');
+
+                                                         }
+                                                         if (question.QuestionSelectedDropDown == '1') {
+
+                                                             $('#addQuestionId').append('<div class="row poll-question-head"><div class="poll-question-number">Question - ' + (indexQuestion + 1) + '</div>' +
+                                                                 '<div class="poll-question">' + question.Question + '</div>' +
+                                                                 '<div class="col-md-6 col-lg-8 col-md-offset-3 col-lg-offset-3" id="add-option-ver-checkbox' + (indexQuestion + 1) + '"></div><br /></div>')
+
+                                                         }
+                                                         if (question.QuestionSelectedDropDown == '2') {
+
+                                                             $('#addQuestionId').append('<div class="row poll-question-head"><div class="poll-question-number">Question - ' + (indexQuestion + 1) + '</div>' +
+                                                                 '<div class="poll-question">' + question.Question + '</div>' +
+                                                                 '<div class="col-md-3 col-lg-2 col-md-offset-3 col-lg-offset-3" style="margin-top: 30px;" id="add-option-ver-dropdown' + (indexQuestion + 1) + '">' +
+                                                                 '<label class="label"><select class="select" name="option' + (indexQuestion + 1) + '"><option selected disabled>Choose one</option></select></label></div><br /></div>')
+
+                                                             countDropDown = 1;
+
+                                                         }
+
+                                                     }
+                                                     else {
+
+                                                         if (question.QuestionSelectedDropDown == '0') {
+
+                                                             $('#addQuestionId').append('<div class="row poll-question-head"><div class="poll-question-number">Question - ' + (indexQuestion + 1) + '</div>' +
+                                                                 '<div class="poll-question">' + question.Question + '</div>' +
+                                                                 '<div class="col-md-7 col-lg-8 col-md-offset-3 col-lg-offset-3" id="add-option-hor-radio' + (indexQuestion + 1) + '" style="text-align: left;"></div><br /></div>');
+
+                                                         }
+                                                         if (question.QuestionSelectedDropDown == '1') {
+
+                                                             $('#addQuestionId').append('<div class="row poll-question-head"><div class="poll-question-number">Question - ' + (indexQuestion + 1) + '</div>' +
+                                                                 '<div class="poll-question">' + question.Question + '</div>' +
+                                                                 '<div class="col-md-7 col-lg-8 col-md-offset-3 col-lg-offset-3" style="text-align: left;" id="add-option-hor-checkbox' + (indexQuestion + 1) + '"></div><br /></div>')
+
+                                                         }
+
+                                                     }
+
+
+                                                     if (poll.QuestionList.length > perPage) {
+                                                         // We'll call this now so the initial items can be loaded.
+
+                                                         updateItems();
+                                                     }
+
+
+
+
+
+                                                     $.ajax({
+                                                         url: '/Poll/GetAllPollAnswers',
+                                                         dataType: "json",
+                                                         type: "Post",
+                                                         contentType: 'application/json; charset=utf-8',
+                                                         data: "{ id:" + JSON.stringify(question.Id) + "}",
+                                                         success: function (answers) {
+                                                             if (answers != null) {
+
+
+                                                                 $.each(answers, function (index, answer) {
+
+                                                                     if (question.QuestionTypeVer) {
+
+                                                                         if (question.QuestionSelectedDropDown == '0') {
+
+                                                                             $('#add-option-ver-radio' + (indexQuestion + 1)).append('<div class="radio poll-radio radio-primary" style="text-align:left;">' +
+                                                                                 '<input type="radio" id="optionRadioId' + countInOption + '" name="option' + (indexQuestion + 1) + '">' +
+                                                                                 '<label for="optionRadioId' + countInOption + '"></label>' +
+                                                                                 '<div style="display: inline; font-size: 25px; font-weight: 700; color: #150766; word-wrap: break-word;">' + answer.Value + '</div></div>');
+
+                                                                         }
+                                                                         if (question.QuestionSelectedDropDown == '1') {
+
+                                                                             $('#add-option-ver-checkbox' + (indexQuestion + 1)).append('<div class="checkbox poll-checkbox checkbox-primary" style="text-align:left;">' +
+                                                                                 '<input id="optionCheckBoxId' + countInOption + '" type="checkbox" name="option' + (indexQuestion + 1) + '">' +
+                                                                                 '<label for="optionCheckBoxId' + countInOption + '" class="question"></label>' +
+                                                                                 '<div style="display: inline; font-size: 25px; font-weight: 700; color: #150766; word-wrap: break-word;">' + answer.Value + '</div></div>');
+
+                                                                         }
+                                                                         if (question.QuestionSelectedDropDown == '2') {
+
+                                                                             $('#add-option-ver-dropdown' + (indexQuestion + 1) + ' label select')
+                                                                                 .append('<option value="' + countDropDown + '">' + answer.Value + '</option>');
+
+                                                                         }
+
+                                                                     }
+                                                                     else {
+
+                                                                         if (question.QuestionSelectedDropDown == '0') {
+
+                                                                             $('#add-option-hor-radio' + (indexQuestion + 1))
+                                                                                 .append('<div class="col-xs-8 col-sm-8 col-md-4 col-lg-3 radio poll-radio radio-primary radio-inline">' +
+                                                                                 '<input type="radio" id="optionRadioId' + countInOption + '" name="option' + (indexQuestion + 1) + '">' +
+                                                                                 '<label for="optionRadioId' + countInOption + '"></label><div style="display: inline; font-size: 25px; font-weight: 700; color: #150766; word-wrap: break-word;">' +
+                                                                                 answer.Value + '</div></div>');
+
+                                                                         }
+                                                                         if (question.QuestionSelectedDropDown == '1') {
+
+                                                                             $('#add-option-hor-checkbox' + (indexQuestion + 1))
+                                                                                 .append('<div class="col-xs-8 col-sm-8 col-md-4 col-lg-3 checkbox checkbox-primary checkbox-question">' +
+                                                                                 '<input type="checkbox" id="optionRadioId' + countInOption + '" name="option' + (indexQuestion + 1) + '">' +
+                                                                                 '<label for="optionRadioId' + countInOption + '"></label>' +
+                                                                                 '<div style="display: inline; font-size: 25px; font-weight: 700; color: #150766;">' + answer.Value + '</div></div>');
+
+                                                                         }
+
+                                                                     }
+
+                                                                     countInOption += 1;
+                                                                     countDropDown += 1;
+
+
+
+                                                                     $('input[name=option' + (indexQuestion + 1) + ']').change(function(e){
+                                                                         e.stopImmediatePropagation();
+
+                                                                         var arrQuestionOptionRadio = new Array();
+                                                                         if (question.QuestionSelectedDropDown == '0'){
+
+                                                                             if ($(this).is(':checked')) {
+
+                                                                                 arrQuestionOptionRadio[0] = answer.Value;
+
+                                                                             }
+                                                                         }
+                                                                         if (question.QuestionSelectedDropDown == '1'){
+
+                                                                             $('input[name=option' + (indexQuestion + 1) + ']').each(function (i) {
+                                                                                 if ($(this).is(':checked')) {
+
+                                                                                     $.each(answers, function (index, answer){
+                                                                                         if(index == i){
+                                                                                             arrQuestionOptionRadio.push(answer.Value);
+                                                                                         }
+
+                                                                                     });
+
+
+
+                                                                                 }
+                                                                             });
+                                                                         }
+
+
+                                                                         arrAllPoll[indexQuestion] = arrQuestionOptionRadio;
+
+                                                                     });
+
+
+                                                                     $('select[name=option' + (indexQuestion + 1) + ']').change(function(e){
+                                                                         e.stopImmediatePropagation();
+
+                                                                         var arrQuestionOptionRadio = new Array();
+
+                                                                         var selectedIndex = $('select[name=option' + (indexQuestion + 1) + '] option:selected').index();
+
+                                                                         $.each(answers, function (index, answer){
+                                                                             if((index + 1) == selectedIndex){
+
+                                                                                 arrQuestionOptionRadio[0] = answer.Value;
+
+                                                                             }
+
+                                                                         });
+
+                                                                         arrAllPoll[indexQuestion] = arrQuestionOptionRadio;
+
+                                                                     });
+
+                                                                 });
+
+
+                                                             }
+                                                         },
+                                                         error: function () {
+                                                             alert('error question');
+                                                         }
+                                                     });
+
+                                                 });
+                                             }
+                                         },
+                                         error: function () {
+                                             alert('error poll');
+                                         }
+                                     });
+
+
+                                     $('.poll-buttons').before('<br /><div id="dvCaptcha"></div><input type="hidden" id="hfCaptcha" />' +
+                                         '<div style="text-align:center; color: #ff0000; font-weight: bold;"><span id="rfvCaptcha" style="display:none">Captcha validation is required.</span></div>')
+
+
+                                    
+                                     grecaptcha.render('dvCaptcha', {
+                                         'sitekey': '@Model.Key',
+                                         'theme' : 'dark',
+                                         'callback': function (response) {
+                                            
+                                             $.ajax({
+                                                 type: "POST",
+                                                 url: "/Poll/AjaxCaptcha",
+                                                 data: "{response: '" + response + "'}",
+                                                 contentType: "application/json; charset=utf-8",
+                                                 dataType: "json",
+                                                 success: function (r) {
+                                                     var captchaResponse = jQuery.parseJSON(r.Response);
+                                                     if (captchaResponse.success) {
+                                                         $("#hfCaptcha").val(captchaResponse.success);
+                                                         $("#rfvCaptcha").hide();
+                                                     } 
+                                                     else {
+                                                         $("#hfCaptcha").val("");
+                                                         $("#rfvCaptcha").show();
+                                                         var error = captchaResponse["error-codes"][0];
+                                                         $("#rfvCaptcha").html("RECaptcha error. " + error);
+                                                     }
+                                                 },
+                                                 error: function(){
+                                                     alert("error");
+                                                 }
+                                             });
+                                         }
+                                     });
+
+
+                                     $('#btn-save').on('click', function(){
+
+                                         var isCaptchaChecked = (grecaptcha && grecaptcha.getResponse().length !== 0);
+
+                                         if (isCaptchaChecked) {
+                                             $("#rfvCaptcha").hide();
+                                         }
+                                         else {
+                                             $("#rfvCaptcha").show();
+                                         }
+
+
+
+                                         var countAllPoll = 0;
+                                         var validationPoll = $('#validationPoll').html('');
+
+
+                                         $.each(arrAllPoll, function(index, value){
+
+                                             if(value == undefined){
+                                                 countAllPoll += 1;
+                                                 validationPoll.append('Please answer the ' + (index + 1) + 'th question.<br/>')
+                                             }
+
+                                         });
+
+                                         if((countAllPoll == 0) && (isCaptchaChecked)){
+
+                                             $.ajax({
+                                                 cache: false,
+                                                 url: '@Url.Action("PollWellSentPartial", "Poll")',
+                                                 data: { 'model': arrAllPoll, 'pollId': pollId, 'userAuthentication': user },
+                                                 type: "Post",
+                                                 dataType: "html",
+                                                 success: function (data) {
+                                                     $('#ControlNavigationId').html(data);
+                                                 },
+                                                 error: function (response) {
+                                                     alert('The poll is empty or there are two or more the same options.');
+                                                 }
+                                             });
+
+                                         }
+
+                                     });
+
+                                 }
+                             }
+                         });
+
+                     }
+                 },
+                 error: function () {
+                     alert("error");
+                 }
+             });
+
+         });
+
+     }
+
+    $('body').addClass('poll-cover');
+    $('#wrapper').remove();
+
+</script>
+

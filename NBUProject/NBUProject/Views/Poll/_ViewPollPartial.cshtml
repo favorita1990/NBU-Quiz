@@ -1,0 +1,568 @@
+﻿
+
+<link href="~/Content/simplePagination.css" rel="stylesheet" />
+
+<div id="ControlNavigationId">
+
+    <div id="wrapper">
+        <div id="page-wrapper">
+            <div id="page-inner">
+
+                <script type="text/javascript">
+                    document.title = 'Poll view';
+                    window.history.pushState(
+                        null,
+                        null,
+                        '/Poll/View/@TempData["pollId"]'
+                        );
+                </script>
+
+                <div class="col-md-12 container">
+
+                    <h2 class="text-center"><span class="fancyfont">Sport</span></h2>
+
+
+                    <div class="row">
+                        <div class="questionPerPage">
+                            Questions: <span id="question-per-page">-</span> - <span id="question-count">-</span>
+                        </div>
+                    </div>
+
+
+                    <div id="addQuestionId">
+
+                        @*<div class="row question-head">
+                            <div class="question-number">
+                                Question - 1
+                            </div>
+                            <div class="question-in-poll">
+                                How are you?
+                            </div>
+
+                            <div class="col-md-6 col-lg-8 col-md-offset-3 col-lg-offset-3" id="add-option-ver-radio">
+                                <div class="radio radio-primary" style="text-align:left;">
+                                    <input type="radio" id="optionRadioId1" name="option1">
+                                    <label for="optionRadioId1"></label>
+                                    <div style="display: inline;">Fine</div>
+                                </div>
+                                <div class="radio radio-primary" style="text-align:left;">
+                                    <input type="radio" id="optionRadioId2" name="option1">
+                                    <label for="optionRadioId2"></label>
+                                    <div style="display: inline;">Pretty good</div>
+                                    $('input[name=name_of_your_radiobutton]:checked').val();
+                                </div>
+                                <div class="radio radio-primary" style="text-align:left;">
+                                    <input type="radio" id="optionRadioId3" name="option1">
+                                    <label for="optionRadioId3"></label>
+                                    <div style="display: inline;">Well</div>
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+
+
+                        <div class="row question-head">
+                            <div class="question-number">
+                                Question - 2
+                            </div>
+                            <div class="question-in-poll">
+                                How is goin'?
+                            </div>
+
+                            <div class="col-md-6 col-lg-8 col-md-offset-3 col-lg-offset-3" id="add-option-ver-checkbox">
+
+                                <div class="checkbox checkbox-primary" style="text-align:left;">
+                                    <input id="optionCheckBoxId1" type="checkbox">
+                                    <label for="optionCheckBoxId1" class="question"></label>
+                                    <div style="display: inline;">Sometime yes</div>
+                                </div>
+
+
+                                <div class="checkbox checkbox-primary" style="text-align:left;">
+                                    <input id="optionCheckBoxId2" type="checkbox">
+                                    <label for="optionCheckBoxId2" class="question"></label>
+                                    <div style="display: inline;">Sometime no</div>
+                                </div>
+                                $('input[name=name_of_your_radiobutton]:checked').val();
+
+
+                                <div class="checkbox checkbox-primary" style="text-align:left;">
+                                    <input id="optionCheckBoxId3" type="checkbox">
+                                    <label for="optionCheckBoxId3" class="question"></label>
+                                    <div style="display: inline;">Sometime pretty well</div>
+                                </div>
+
+                            </div>
+                            <br />
+                        </div>
+
+                        <div class="row question-head">
+                            <div class="question-number">
+                                Question - 3
+                            </div>
+                            <div class="question-in-poll">
+                                How much is 2 + 2?
+                            </div>
+
+                            <div class="col-md-3 col-lg-2 col-md-offset-3 col-lg-offset-3" style="margin-top: 30px;">
+
+                                <label class="label">
+                                    <select class="select">
+                                        <option selected disabled></option>
+                                        <option value="0">5</option>
+                                        <option value="1">23</option>
+                                        <option value="2">4</option>
+                                    </select>
+                                </label>
+
+                            </div>
+                            <br />
+                        </div>
+
+
+                        <div class="row question-head">
+                            <div class="question-number">
+                                Question - 4
+                            </div>
+                            <div class="question-in-poll">
+                                What time is it?
+                            </div>
+
+                            <div class="col-md-7 col-lg-8 col-md-offset-3 col-lg-offset-3" style="text-align: left;">
+
+                                <div class="radio radio-primary radio-inline">
+                                    <input type="radio" id="optionRadioId11" name="option4">
+                                    <label for="optionRadioId11"></label>
+                                    <div style="display: inline;">I do not know</div>
+                                </div>
+
+                                <div class="radio radio-primary radio-inline">
+                                    <input type="radio" id="optionRadioId22" name="option4">
+                                    <label for="optionRadioId22"></label>
+                                    <div style="display: inline;">Around 12 o'clock</div>
+                                </div>
+
+                                <div class="radio radio-primary radio-inline">
+                                    <input type="radio" id="optionRadioId33" name="option4">
+                                    <label for="optionRadioId33"></label>
+                                    <div style="display: inline;">Around 15 o'clock</div>
+                                </div>
+
+                                <div class="radio radio-primary radio-inline">
+                                    <input type="radio" id="optionRadioId44" name="option4">
+                                    <label for="optionRadioId44"></label>
+                                    <div style="display: inline;">Around 23 o'clock</div>
+                                </div>
+
+                                <div class="radio radio-primary radio-inline">
+                                    <input type="radio" id="optionRadioId55" name="option4">
+                                    <label for="optionRadioId55"></label>
+                                    <div style="display: inline;">Around 1 o'clock</div>
+                                </div>
+
+                                <div class="radio radio-primary radio-inline">
+                                    <input type="radio" id="optionRadioId66" name="option4">
+                                    <label for="optionRadioId66"></label>
+                                    <div style="display: inline;">Around 1 o'clock</div>
+                                </div>
+
+                            </div>
+                            <br />
+                        </div>
+
+
+                        <div class="row question-head">
+                            <div class="question-number">
+                                Question - 5
+                            </div>
+                            <div class="question-in-poll">
+                                What time is it?
+                            </div>
+
+                            <div class="col-md-7 col-lg-8 col-md-offset-3 col-lg-offset-3" style="text-align: left;">
+
+
+                                <div class="col-xs-8 col-sm-8 col-md-3 col-lg-3 checkbox checkbox-primary checkbox-question">
+                                    <input type="checkbox" id="optionRadioId12" name="option5">
+                                    <label for="optionRadioId12"></label>
+                                    <div style="display: inline;">I do not know</div>
+                                </div>
+
+
+                                <div class="col-xs-8 col-sm-8 col-md-3 col-lg-3 checkbox checkbox-primary checkbox-question">
+                                    <input type="checkbox" id="optionRadioId13" name="option5">
+                                    <label for="optionRadioId13"></label>
+                                    <div style="display: inline;">I do not know</div>
+                                </div>
+
+                                <div class="col-xs-8 col-sm-8 col-md-3 col-lg-3 checkbox checkbox-primary checkbox-question">
+                                    <input type="checkbox" id="optionRadioId14" name="option5">
+                                    <label for="optionRadioId14"></label>
+                                    <div style="display: inline;">I do not know</div>
+                                </div>
+
+                                <div class="col-xs-8 col-sm-8 col-md-3 col-lg-3 checkbox checkbox-primary checkbox-question">
+                                    <input type="checkbox" id="optionRadioId15" name="option5">
+                                    <label for="optionRadioId15"></label>
+                                    <div style="display: inline;">I do not know</div>
+                                </div>
+
+                                <div class="col-xs-8 col-sm-8 col-md-3 col-lg-3 checkbox checkbox-primary checkbox-question">
+                                    <input type="checkbox" id="optionRadioId16" name="option5">
+                                    <label for="optionRadioId16"></label>
+                                    <div style="display: inline;">I do not know</div>
+                                </div>
+
+                                <div class="col-xs-8 col-sm-8 col-md-3 col-lg-3 checkbox checkbox-primary checkbox-question">
+                                    <input type="checkbox" id="optionRadioId17" name="option5">
+                                    <label for="optionRadioId17"></label>
+                                    <div style="display: inline;">I do not know</div>
+                                </div>
+
+                                <div class="col-xs-8 col-sm-8 col-md-3 col-lg-3 checkbox checkbox-primary checkbox-question">
+                                    <input type="checkbox" id="optionRadioId18" name="option5">
+                                    <label for="optionRadioId18"></label>
+                                    <div style="display: inline;">I do not know</div>
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+
+                        
+
+                        <div class="col-sm-12 col-md-7 col-lg-8 col-md-offset-2 col-lg-offset-2 pollsIndex pollsIndexEven">
+                                <div style="text-align: center;">
+                                    <span>N-22</span>
+                                    <span>Maria Ivanova</span>
+                                    <span>20.06.2017 20:12:32</span>
+                                    <div class="inlineRemoveAndModify">
+                                        <ul>
+                                            <li><a href="#">Photos</a></li>
+                                            <li><a href="#">Online</a></li>
+                                        </ul>
+                                        <div class="clearfix"> </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-7 col-lg-8 col-md-offset-2 col-lg-offset-2 pollsIndex pollsIndexOdd">
+                                <div style="text-align: center;">
+                                    <span>N-21</span>
+                                    <span>Ivan Cirkov</span>
+                                    <span>20.06.2017 20:12:32</span>
+                                    <div class="inlineRemoveAndModify">
+                                        <ul>
+                                            <li><a href="#">Photos</a></li>
+                                            <li><a href="#">Online</a></li>
+                                        </ul>
+                                        <div class="clearfix"> </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-7 col-lg-8 col-md-offset-2 col-lg-offset-2 pollsIndex pollsIndexEven">
+                                <div style="text-align: center;">
+                                    <span>N-233</span>
+                                    <span>Angel Krumov</span>
+                                    <span>20.06.2017 20:12:32</span>
+                                    <div class="inlineRemoveAndModify">
+                                        <ul>
+                                            <li><a href="#">Photos</a></li>
+                                            <li><a href="#">Online</a></li>
+                                        </ul>
+                                        <div class="clearfix"> </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-7 col-lg-8 col-md-offset-2 col-lg-offset-2 pollsIndex pollsIndexOdd">
+                                <div style="text-align: center;">
+                                    <span>Iva Semerdzhieva</span>
+                                    <span>20.06.2017 20:12:32</span>
+                                    <div class="inlineRemoveAndModify">
+                                        <ul>
+                                            <li><a href="#">Photos</a></li>
+                                            <li><a href="#">Online</a></li>
+                                        </ul>
+                                        <div class="clearfix"> </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-7 col-lg-8 col-md-offset-2 col-lg-offset-2 pollsIndex pollsIndexEven">
+                                <div style="text-align: center;">
+                                    <span>N-1</span>
+                                    <span>Lubo Hrisimov</span>
+                                    <span>20.06.2017 20:12:32</span>
+                                    <div class="inlineRemoveAndModify">
+                                        <ul>
+                                            <li><a href="#">Photos</a></li>
+                                            <li><a href="#">Online</a></li>
+                                        </ul>
+                                        <div class="clearfix"> </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-7 col-lg-8 col-md-offset-2 col-lg-offset-2 pollsIndex pollsIndexOdd">
+                                <div style="text-align: center;">
+                                    <span>N-12</span>
+                                    <span>Dimitar Ivanov</span>
+                                    <span>20.06.2017 20:12:32</span>
+                                    <div class="inlineRemoveAndModify">
+                                        <ul>
+                                            <li><a href="#">Photos</a></li>
+                                            <li><a href="#">Online</a></li>
+                                        </ul>
+                                        <div class="clearfix"> </div>
+                                    </div>
+                                </div>
+                            </div>*@
+                    </div>
+
+                    
+
+                    <div class="row" style="text-align:center; margin:30px">
+                        <div id="pagination" style="display: none;"></div>
+
+                        @Ajax.ActionLink("Go to details", "PollDetailsPartialById", new { id = @TempData["pollId"] },
+                 new AjaxOptions
+                 {
+                     UpdateTargetId = "ControlNavigationId",
+                     InsertionMode = InsertionMode.Replace,
+                     HttpMethod = "Post"
+                 },
+                 new { @class = "col-sm-12 col-md-3 col-lg-2 btn btn-success btn-lg", @id = "btn_details" })
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery.simplePagination.js"></script>
+
+<script>
+    //Selected control page
+    $('ul#main-menu > .active-link a span.badge').remove();
+    $('ul#main-menu > .active-link').removeClass('active-link')
+
+
+
+    var items;
+    var perPage = @TempData["pollPerPage"];
+    var questionCount = @TempData["pollQuestionCount"];
+
+
+    // This time we'll hold onto the created paginator so we can use it again later.
+    var $paginator = $("#pagination");
+
+    $paginator.pagination({
+        // We're not specifying the `items` right now.
+        // We've got a function below that'll handle that for us.
+        itemsOnPage: perPage,
+        cssStyle: "light-theme",
+        onPageClick: function (pageNumber) {
+            var showFrom = perPage * (pageNumber - 1);
+            var showTo = showFrom + perPage;
+
+            var perPageCount = 0;
+            for (var i = 0; i < pageNumber; i++) {
+                perPageCount += perPage;
+            }
+
+
+            if(perPageCount < questionCount){
+                $('#question-per-page').html(perPageCount);
+            }
+            else{
+                $('#question-per-page').html(questionCount);
+            }
+
+
+
+            items.hide()
+                    .slice(showFrom, showTo).show();
+        }
+    });
+
+    function updateItems() {
+
+        // Notice that we're not using `var items = ...` -
+        // instead we're using `items` variable declared outside this function.
+        items = $("#addQuestionId div.question-head");
+        // We'll update the number of items that the pagination element expects
+        // using a method from the simplePagination documentation: `updateItems`.
+
+        $paginator.pagination("updateItems", items.length);
+        // Next, we'll re-select the page so the `onPageClick` function we already
+        // programmed will handle hiding and showing the correct content for us.
+        // Note that the page we were on before may no longer exist
+        // (i.e. if elements were removed and that page is no longer required),
+        // so we will make sure to select an existing page.
+        var page = Math.min(
+            $paginator.pagination("getCurrentPage"),
+            $paginator.pagination("getPagesCount")
+        );
+        $paginator.pagination("selectPage", page);
+    }
+
+
+    $('#addQuestionId').html('');
+    var countInOption = 0;
+    var pollId = '@TempData["pollId"]';
+    $.ajax({
+        url: '/Poll/GetAllPollAndQuestions',
+        dataType: "json",
+        type: "Post",
+        contentType: 'application/json; charset=utf-8',
+        data: "{ id:" + JSON.stringify(pollId) + "}",
+        success: function (poll) {
+            if (poll != null) {
+
+
+                $('.fancyfont').html(poll.Name);
+                if (poll.QuestionList.length > perPage) {
+                    $('#question-count').html(poll.QuestionList.length);
+                    $('#pagination').css('display', 'inline');
+
+                }
+                else {
+                    $('#question-per-page').html(poll.QuestionList.length);
+                    $('#question-count').html(poll.QuestionList.length);
+                }
+
+
+                $.each(poll.QuestionList, function (indexQuestion, question) {
+
+                    var countDropDown = 1;
+                    if (question.QuestionTypeVer) {
+
+                        if (question.QuestionSelectedDropDown == '0') {
+
+                            $('#addQuestionId').append('<div class="row question-head"><div class="question-number">Question - ' + (indexQuestion + 1) + '</div>' +
+                                '<div class="question-in-poll">' + question.Question + '</div>' +
+                                '<div class="col-md-6 col-lg-8 col-md-offset-3 col-lg-offset-3" id="add-option-ver-radio' + (indexQuestion + 1) + '"></div><br /></div>');
+
+                        }
+                        if (question.QuestionSelectedDropDown == '1') {
+
+                            $('#addQuestionId').append('<div class="row question-head"><div class="question-number">Question - ' + (indexQuestion + 1) + '</div>' +
+                                '<div class="question-in-poll">' + question.Question + '</div>' +
+                                '<div class="col-md-6 col-lg-8 col-md-offset-3 col-lg-offset-3" id="add-option-ver-checkbox' + (indexQuestion + 1) + '"></div><br /></div>')
+
+                        }
+                        if (question.QuestionSelectedDropDown == '2') {
+
+                            $('#addQuestionId').append('<div class="row question-head"><div class="question-number">Question - ' + (indexQuestion + 1) + '</div>' +
+                                '<div class="question-in-poll">' + question.Question + '</div>' +
+                                '<div class="col-md-3 col-lg-2 col-md-offset-3 col-lg-offset-3" style="margin-top: 30px;" id="add-option-ver-dropdown' + (indexQuestion + 1) + '">' +
+                                '<label class="label"><select class="select"><option selected disabled>Choose one</option></select></label></div><br /></div>')
+
+                            countDropDown = 1;
+
+                        }
+
+                    }
+                    else {
+
+                        if (question.QuestionSelectedDropDown == '0') {
+
+                            $('#addQuestionId').append('<div class="row question-head"><div class="question-number">Question - ' + (indexQuestion + 1) + '</div>' +
+                                '<div class="question-in-poll">' + question.Question + '</div>' +
+                                '<div class="col-md-7 col-lg-8 col-md-offset-3 col-lg-offset-3" id="add-option-hor-radio' + (indexQuestion + 1) + '" style="text-align: left;"></div><br /></div>');
+
+                        }
+                        if (question.QuestionSelectedDropDown == '1') {
+
+                            $('#addQuestionId').append('<div class="row question-head"><div class="question-number">Question - ' + (indexQuestion + 1) + '</div>' +
+                                '<div class="question-in-poll">' + question.Question + '</div>' +
+                                '<div class="col-md-7 col-lg-8 col-md-offset-3 col-lg-offset-3" style="text-align: left;" id="add-option-hor-checkbox' + (indexQuestion + 1) + '"></div><br /></div>')
+
+                        }
+
+                    }
+
+
+                    if (poll.QuestionList.length > perPage) {
+                        // We'll call this now so the initial items can be loaded.
+                        updateItems();
+                    }
+
+
+                    $.ajax({
+                        url: '/Poll/GetAllPollAnswers',
+                        dataType: "json",
+                        type: "Post",
+                        contentType: 'application/json; charset=utf-8',
+                        data: "{ id:" + JSON.stringify(question.Id) + "}",
+                        success: function (answers) {
+                            if (answers != null) {
+                                $.each(answers, function (index, answer) {
+
+                                    if (question.QuestionTypeVer) {
+
+                                        if (question.QuestionSelectedDropDown == '0') {
+
+                                            $('#add-option-ver-radio' + (indexQuestion + 1)).append('<div class="radio radio-primary" style="text-align:left;">' +
+                                                '<input type="radio" id="optionRadioId' + countInOption + '" name="option' + (indexQuestion + 1) + '">' +
+                                                '<label for="optionRadioId' + countInOption + '"></label>' +
+                                                '<div style="display: inline;">' + answer.Value + '</div></div>');
+
+                                        }
+                                        if (question.QuestionSelectedDropDown == '1') {
+
+                                            $('#add-option-ver-checkbox' + (indexQuestion + 1)).append('<div class="checkbox checkbox-primary" style="text-align:left;">' +
+                                                '<input id="optionCheckBoxId' + countInOption + '" type="checkbox" name="option' + (indexQuestion + 1) + '">' +
+                                                '<label for="optionCheckBoxId' + countInOption + '" class="question"></label>' +
+                                                '<div style="display: inline;">' + answer.Value + '</div></div>');
+
+                                        }
+                                        if (question.QuestionSelectedDropDown == '2') {
+
+                                            $('#add-option-ver-dropdown' + (indexQuestion + 1) + ' label select')
+                                                .append('<option value="' + countDropDown + '">' + answer.Value + '</option>');
+
+                                        }
+
+                                    }
+                                    else {
+
+                                        if (question.QuestionSelectedDropDown == '0') {
+
+                                            $('#add-option-hor-radio' + (indexQuestion + 1))
+                                                .append('<div class="col-xs-8 col-sm-8 col-md-3 col-lg-3 radio radio-primary radio-inline">' +
+                                                '<input type="radio" id="optionRadioId' + countInOption + '" name="option' + (indexQuestion + 1) + '">' +
+                                                '<label for="optionRadioId' + countInOption + '"></label><div style="display: inline;">' + answer.Value + '</div></div>');
+
+                                        }
+                                        if (question.QuestionSelectedDropDown == '1') {
+
+                                            $('#add-option-hor-checkbox' + (indexQuestion + 1))
+                                                .append('<div class="col-xs-8 col-sm-8 col-md-3 col-lg-3 checkbox checkbox-primary checkbox-question">' +
+                                                '<input type="checkbox" id="optionRadioId' + countInOption + '" name="option' + (indexQuestion + 1) + '">' +
+                                                '<label style="padding-top: 8px !important;" for="optionRadioId' + countInOption + '"></label>' +
+                                                '<div style="display: inline; word-wrap: break-word; position: absolute; margin-top: 6px;">' +
+                                                answer.Value + '</div></div>');
+
+                                        }
+
+                                    }
+                                    countInOption += 1;
+                                });
+                            }
+                        },
+                        error: function () {
+                            alert('error question');
+                        }
+                    });
+
+                });
+            }
+        },
+        error: function () {
+            alert('error poll');
+        }
+    });
+
+
+
+</script>
+

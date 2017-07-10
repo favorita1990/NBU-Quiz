@@ -1,0 +1,198 @@
+
+/*=============================================================
+    Authour URI: www.binarycart.com
+    License: Commons Attribution 3.0
+
+    http://creativecommons.org/licenses/by/3.0/
+
+    100% To use For Personal And Commercial Use.
+    IN EXCHANGE JUST GIVE US CREDITS AND TELL YOUR FRIENDS ABOUT US
+   
+    ========================================================  */
+/*==============================================
+    GENERAL  STYLES    
+    =============================================*/
+body {
+    font-family: 'Open Sans', sans-serif;
+    line-height:30px;
+}
+
+ #wrapper {
+    width: 100%;
+    margin-top: 30px !important;
+    background: linear-gradient(to bottom, rgba(226,226,226,1) 0%, rgba(219,219,219,1) 42%, rgba(209,209,209,1) 51%, rgba(254,254,254,1) 100%);
+    overflow: auto;
+}
+
+  #poll-wrapper {
+    width: 100%;
+    overflow: auto;
+}
+
+#page-wrapper {
+    padding: 15px 15px;
+    min-height: 600px;
+    background: none /*linear-gradient(to bottom, rgba(91,36,159,1) 0%, rgba(91,36,159,1) 6%, rgba(91,36,159,1) 19%, rgba(8,7,8,1) 36%, 
+    rgba(26,20,26,1) 44%, rgba(56,29,97,1) 59%, rgba(91,36,159,1) 79%, rgba(50,28,74,1) 95%, rgba(50,28,74,1) 100%)*/;
+   overflow: auto;
+}
+
+#poll-page-wrapper {
+    padding: 15px 15px;
+    min-height: 600px;
+    background: none;
+    overflow: auto;
+}
+
+#page-inner {
+    width:100%;
+    margin:10px 20px 10px 0px;
+    background: none /*linear-gradient(to bottom, rgba(91,36,159,1) 0%, rgba(91,36,159,1) 6%, rgba(91,36,159,1) 19%, rgba(8,7,8,1) 36%, rgba(26,20,26,1) 44%,
+    rgba(56,29,97,1) 59%, rgba(91,36,159,1) 79%, rgba(50,28,74,1) 95%, rgba(50,28,74,1) 100%)*/;
+    padding:10px;
+    min-height:1050px;
+    overflow: auto;
+}
+.pad-top {
+    padding-top:15px;
+}
+/*==============================================
+    MENU STYLES    
+    =============================================*/
+
+.sidebar-collapse .nav {
+background: linear-gradient(to bottom, rgba(214,210,214,1) 0%, rgba(26,24,26,1) 30%, rgba(18,16,18,1) 72%, rgba(254,254,254,1) 100%);
+	padding:0;
+    padding-top:50px;
+}
+
+.sidebar-collapse > .nav > li > a {
+	padding:15px 10px;
+    color: #fff;
+font-weight: 900;
+font-size: 16px;
+}
+.sidebar-collapse > .nav > li {
+	border-bottom:1px solid #e1e1e1;
+}
+.sidebar-collapse .nav > li > a:hover,
+.sidebar-collapse .nav > li > a:focus {
+	
+	background: linear-gradient(to bottom, rgba(235,233,249,1) 0%, rgba(206,199,236,1) 51%, rgba(216,208,239,1) 57%, rgba(193,191,234,1) 100%);
+    color: #000;
+	outline:0;
+}
+
+.navbar-side {
+	border:none;
+	background-color: #fff;
+	
+}
+.navbar-inverse {
+
+background: linear-gradient(to bottom, rgba(15,14,15,1) 0%, rgba(26,23,26,1) 46%, rgba(209,209,209,1) 72%, rgba(184,178,184,1) 100%);
+border-color: #F0F0F0;
+min-height: 80px;
+}
+
+
+.nav > li > a > i {
+    margin-right:10px;
+}
+.logout-spn {
+    float:right;
+    color:#fff;
+    font-size:25px;
+    font-weight:800;
+    margin: 20px 25px 10px 20px;
+}
+    .logout-spn a {
+        text-decoration:none;
+    }
+.active-link {
+    background: linear-gradient(to bottom, rgba(242,246,248,1) 0%, rgba(216,225,231,1) 29%, rgba(181,198,208,1) 51%, rgba(224,239,249,1) 100%);
+}
+.active-link a {
+    color: #000 !important;
+}
+    
+
+
+.badge {
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    background-color: #777;
+    border-radius: 10px;
+}
+
+/*==============================================
+    DASHBOARD STYLES    
+    =============================================*/
+.div-square {
+    padding:5px;
+    border:3px double #e1e1e1;
+    -webkit-border-radius:8px;
+   -moz-border-radius:8px;
+    border-radius:8px;
+    margin:5px;
+
+}
+
+.div-square> a,.div-square> a:hover {
+    color:#808080;
+     text-decoration:none;
+}
+/*==============================================
+    FOOTER STYLES     
+    =============================================*/
+.footer {
+   background: linear-gradient(to bottom, rgba(254,254,254,1) 0%, rgba(214,210,214,1) 23%, rgba(26,24,26,1) 40%, rgba(18,16,18,1) 72%, rgba(18,16,18,1) 100%);
+    width:100%;
+    color:#fff;
+    padding:20px 50px 20px 50px;
+     padding-left:20px;
+}
+
+
+    .footer > a, .footer>a:hover {
+       
+        color:#fff;
+    }
+
+/*==============================================
+    MEDIA QUERIES     
+    =============================================*/
+ 
+ @media(min-width:768px) {
+     #page-wrapper{
+        margin: 0 0 0 260px;
+        padding: 15px 30px;
+        min-height: 1050px;
+		
+    }
+	
+     #poll-page-wrapper{
+        margin: 0 0 0 0;
+        padding: 15px 200px;
+        min-height: 1050px;
+     }
+	
+    .navbar-side {
+        z-index: 1;
+        position: absolute;
+        width: 260px;
+       
+    }
+
+ 
+}
+
+

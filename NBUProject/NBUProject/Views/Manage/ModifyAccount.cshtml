@@ -1,0 +1,17 @@
+﻿@model NBUProject.Models.UserModel
+
+@{
+    ViewBag.Title = "Modify Account";
+}
+
+
+@Html.Partial("_ModifyAccountPartial")
+
+
+@Scripts.Render("~/bundles/jqueryunob")
+
+<script>
+    //Selected control page
+    $('ul#main-menu > .active-link a span.badge').remove();
+    $('ul#main-menu > .active-link').removeClass('active-link')
+</script>

@@ -1,0 +1,279 @@
+﻿
+
+
+<link href="~/Content/kendo/kendo.highcontrast.min.css" rel="stylesheet" />
+<link href="~/Content/Site.css" rel="stylesheet" />
+
+
+<div id="windowLogin" style="display:none;">
+    <div class="centerAlign"><h3 style="color: #585afc;">Use a local account to log in</h3></div>
+    <hr />
+    @using (Html.BeginForm("Login", "Account", new { @class = "form-horizontal", role = "form" }))
+    {
+    @Html.AntiForgeryToken()
+        
+        <div class="centerAlign" id="windowValidation" style="color:#ff0000;"></div>
+        <br/>
+
+
+        <div class="form-group centerAlign">
+            <div class="col-md-2 control-label"><br />Email*</div>
+            <div class="col-md-8">
+                <input type="text" name="email" class="form-control" id="windowInputText" />
+            </div>
+        </div>
+        <div class="centerAlign col-md-12" id="windowValidationEmail" style="color:#ff0000;"></div>
+
+            <br /><br /><br />
+
+
+            <div class="form-group centerAlign">
+                <div class="col-md-2 control-label"><br />Password*</div>
+                <div class="col-md-8">
+                    <input type="password" class="form-control" id="windowInputVal" name="pass" />
+                </div>
+            </div>
+            <div class="centerAlign col-md-12" id="windowValidationPassword" style="color:#ff0000;"></div>
+            <br /><br /><br />
+            
+    }
+
+    <div class="form-group">
+        <div class="col-md-offset-5 col-md-12">
+            <input type="submit" id="loginButton" value="Log in" class="btn btn-lg" style="background-color: #585afc; color:#38f8db;" />
+        </div>
+    </div>
+    <br />
+
+
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script>
+
+    var currentUrl = '/';
+    //Onclick button login
+    $('#login').on("click", function () {
+
+        currentUrl = document.location.pathname;
+
+        document.title = 'Login - Quiz Creator';
+        window.history.pushState(
+            null,
+            null,
+            '/Account/Login'
+            );
+
+
+        $("#windowLogin").kendoWindow({
+            visible: true,
+            draggable: false,
+            minheight: "480px",
+            width: "500px",
+            modal: true,
+            pinned: false,
+            position: {
+                top: 100
+            },
+            resizable: false,
+            title: "Login",
+        }).data("kendoWindow");
+
+        $("#windowLogin").parent().find(".k-window-action").css("visibility", "hidden");
+
+        $('.k-widget.k-window').css({ 'padding-top': '33px' });
+        $('.k-widget.k-window').css({ 'border-radius': '13px' });
+        $('div.k-window-content').css({ 'border-radius': '0px 0px 13px 13px' });
+        $('div.k-window-content').css({ 'background': 'linear-gradient(to bottom, rgba(173,173,173,1) 0%, rgba(219,219,219,1) 26%, rgba(240,237,240,1) 51%, rgba(166,163,166,1) 100%)' });
+        $('div.k-window-content').css({ 'color': '#000' });
+        $('.k-window-titlebar').css({ 'background': 'linear-gradient(to bottom, rgba(173,173,173,1) 0%, rgba(219,219,219,1) 26%, rgba(240,237,240,1) 51%, rgba(166,163,166,1) 100%)' });
+        $('.k-window-titlebar').css({ 'color': '#000' });
+
+
+        $("#windowValidation").html('');
+        var win = $("#windowLogin").data("kendoWindow").refresh();
+
+        $('#windowInputVal').val('');
+        $('#windowInputText').val('');
+
+        $('#windowValidation').hide();
+        $('#windowValidationEmail').html('');
+        $('#windowValidationPassword').html('');
+
+        win.center().open();
+    });
+
+
+
+    $('#loginButton').on("click", function () {
+        var email = $('#windowInputText').val();
+        var password = $('#windowInputVal').val();
+        var isValidEmail = '';
+
+        $.ajax({
+            url: '/Account/IsValidEmail',
+            type: 'POST',
+            data: "{ source:" + JSON.stringify(email) + "}",
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                isValidEmail = data;
+
+
+                var enterEmail = '';
+                var enterPassword = '';
+                var invalidLogin = '';
+
+                if ((email == '') && (password != '')) {
+                    $('#windowValidation').html('');
+                    $('#windowValidationPassword').html('');
+                    enterEmail = "*Input email.";
+                    $('#windowValidationEmail').html(enterEmail + "<br/><br/>");
+                }
+                else if ((email != '') && (password == '')) {
+                    if ((isValidEmail != '') && (isValidEmail == "false")) {
+
+                        $('#windowValidation').html('');
+                        enterEmail = "*Input valid email.";
+                        $('#windowValidationEmail').html(enterEmail + "<br/><br/>");
+
+                        enterPassword = "*Input password";
+                        $('#windowValidationPassword').html(enterPassword + "<br/><br/>");
+                    }
+                    else {
+                        $('#windowValidation').html('');
+                        $('#windowValidationEmail').html('');
+                        enterPassword = "*Input password";
+                        $('#windowValidationPassword').html(enterPassword + "<br/><br/>");
+                    }
+                }
+                else if ((password == '') && (email == '')) {
+                    $('#windowValidation').html('');
+                    enterEmail = "*Input email.";
+                    $('#windowValidationEmail').html(enterEmail + "<br/><br/>");
+
+                    enterPassword = "*Input password";
+                    $('#windowValidationPassword').html(enterPassword + "<br/><br/>");
+                }
+                else if ((password != '') && (email != '')) {
+                    if ((isValidEmail != '') && (isValidEmail == "false")) {
+                        $('#windowValidation').html('');
+                        $('#windowValidationPassword').html('');
+                        enterEmail = "*Input valid email.";
+                        $('#windowValidationEmail').html(enterEmail + "<br/><br/>");
+                    }
+                    else {
+
+                        $.ajax({
+                            url: '/Account/IsTakenEmail',
+                            type: 'POST',
+                            data: "{ email:" + JSON.stringify(email) + ", pass:" + JSON.stringify(password) + "}",
+                            contentType: 'application/json; charset=utf-8',
+                            success: function (data) {
+                                window.location = "/";
+                            },
+                            error: function () {
+                                $('#windowValidationEmail').html('');
+                                $('#windowValidationPassword').html('');
+                                invalidLogin = "*Invalid login attempt.";
+                                $('#windowValidation').show();
+                                $('#windowValidation').html(invalidLogin);
+                            }
+                        });
+
+                        
+                    }
+                }
+
+
+            },
+            error: function () {
+                alert("error");
+            }
+        });
+
+
+        
+
+    });
+
+    $("#windowLogin").hide();
+
+
+    $(document).on('click', '.k-overlay', function () {
+        var kendoWindow = $('.k-window-content.k-content', $(this).next('div.k-widget.k-window'));
+        if (kendoWindow == null || kendoWindow.length == 0) {
+            return;
+        }
+        kendoWindow.data('kendoWindow').close();
+
+        document.title = 'Quiz Creator';
+        window.history.pushState(
+            null,
+            null,
+            currentUrl
+            );
+    });
+
+    $(document).ready(function () {
+
+
+        var currentUrl = '/';
+
+
+
+        //When load through Url...
+        var accountLogin = '@TempData["accountLogin"]';
+        if (accountLogin != null && accountLogin != '') {
+
+            document.title = 'Login - Quiz Creator';
+            window.history.pushState(
+                null,
+                null,
+                '/Account/Login'
+                );
+
+
+            $("#windowLogin").kendoWindow({
+                visible: true,
+                draggable: false,
+                minheight: "480px",
+                width: "500px",
+                modal: true,
+                pinned: false,
+                position: {
+                    top: 100
+                },
+                resizable: false,
+                title: "Login",
+            }).data("kendoWindow");
+
+            $("#windowLogin").parent().find(".k-window-action").css("visibility", "hidden");
+
+            $('.k-widget.k-window').css({ 'padding-top': '33px' });
+            $('.k-widget.k-window').css({ 'border-radius': '13px' });
+            $('div.k-window-content').css({ 'border-radius': '0px 0px 13px 13px' });
+            $('div.k-window-content').css({ 'background': 'linear-gradient(to bottom, rgba(173,173,173,1) 0%, rgba(219,219,219,1) 26%, rgba(240,237,240,1) 51%, rgba(166,163,166,1) 100%)' });
+            $('div.k-window-content').css({ 'color': '#000' });
+            $('.k-window-titlebar').css({ 'background': 'linear-gradient(to bottom, rgba(173,173,173,1) 0%, rgba(219,219,219,1) 26%, rgba(240,237,240,1) 51%, rgba(166,163,166,1) 100%)' });
+            $('.k-window-titlebar').css({ 'color': '#000' });
+
+
+            $("#windowValidation").html('');
+            var win = $("#windowLogin").data("kendoWindow").refresh();
+
+            $('#windowInputVal').val('');
+            $('#windowInputText').val('');
+
+            $('#windowValidation').hide();
+            $('#windowValidationEmail').html('');
+            $('#windowValidationPassword').html('');
+
+            win.center().open();
+        }
+
+    });
+</script>

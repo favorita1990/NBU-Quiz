@@ -1,0 +1,63 @@
+﻿
+
+@using NBUProject.Contex
+@{
+    DBContext db = new DBContext();
+    var user = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+}
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="adjust-nav">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brandMy" href="@Url.Action("Index", "Home")">
+                <img src="~/Content/pictures/Logo.jpg" title="Logo" class="imgLogo" />
+            </a>
+
+        </div>
+
+        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+        {
+        @Html.AntiForgeryToken()
+       
+            <span class="logout-spn">
+                <a  href="javascript:document.getElementById('logoutForm').submit()" style="color:#fff;">Log Out</a>
+            </span>
+
+            <span class="accountUser">
+                <a href="@Url.Action("Index", "Manage")" title="Manage" style="color:#fff;">
+                    <span>@user.FirstName</span> <span>@user.LastName</span>
+                </a>
+            </span>
+
+        }
+    </div>
+</div>
+<!-- /. NAV TOP  -->
+<nav class="navbar-default navbar-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav" id="main-menu">
+
+
+
+            <li>
+                <a href="@Url.Action("Index", "Home")"><i class="fa fa-desktop "></i>Home Page</a>
+            </li>
+
+
+            <li>
+                <a href="@Url.Action("CreatePoll", "Poll")"><i class="fa fa-edit "></i>Create Poll</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "Poll")"><i class="fa fa-table "></i>Polls</a>
+            </li>
+
+        </ul>
+    </div>
+
+</nav>
+<!-- /. NAV SIDE  -->

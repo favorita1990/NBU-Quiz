@@ -1,0 +1,53 @@
+﻿
+<div id="wrapper">
+    <div id="page-wrapper">
+        <div id="page-inner">
+          
+
+            <div id="carousel" class="col-sm-0 carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <img class="car-1" src="~/Content/pictures/wp3.jpg" />
+                    </div>
+                    <div class="item">
+                        <img class="car-2" src="~/Content/pictures/wp2.jpg" />
+                    </div>
+                    <div class="item">
+                        <img class="car-3" src="~/Content/pictures/wp1.jpg" />
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="jumbotron jumbotron-index">
+                <h1 class="lead">Poll Creator</h1>
+                <section class="index-sec">
+
+                    <h2 style="text-align:center;">This is me</h2>
+                    <br />
+
+                    <address>
+                        <p>1. Iliyan Kodzhemanov, <a style="color:#ffd800;" href="mailto:favorita1990@abv.bg">favorita1990@abv.bg</a></p>
+                    </address>
+                </section>
+             
+            </div>
+
+
+            <!-- /. ROW  -->
+        </div>
+        <!-- /. PAGE INNER  -->
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $('ul#main-menu > .active-link a span.badge').remove();
+        $('ul#main-menu > .active-link').removeClass('active-link')
+
+        $('ul#main-menu li:nth-child(1)').addClass("active-link");
+        $('ul#main-menu li:nth-child(1) a').append(' <span class="badge">Active</span>');
+
+        });
+</script>

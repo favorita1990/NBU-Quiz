@@ -1,0 +1,579 @@
+﻿
+
+
+<div id="ControlNavigationId">
+    <div id="wrapper">
+        <div id="page-wrapper">
+            <div id="page-inner">
+
+                <div class="container">
+                    <script type="text/javascript">
+                        document.title = 'Polls';
+                        window.history.pushState(
+                            null,
+                            null,
+                            '/Poll'
+                            );
+                    </script>
+
+                    <h2 class="text-center" style="color: #3d303d;">All Polls</h2>
+
+                    <br />
+
+
+                    <div class="row">
+                        <div class="sortByName">
+                            Sort by...
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div style="display: flex; align-items: center; justify-content: center;">
+
+                            <div class="box">
+                                <select>
+                                    <option value="1" selected>Title</option>
+                                    <option value="2">Number</option>
+                                    <option value="3">Date</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <br />
+
+                    <div style="text-align:center;">
+                        <div class="row">
+                            <div class="col-sm-10 col-md-6 col-lg-6 col-md-offset-3">
+                                <input type="text" id="searchPoll" class="form-control" placeholder="Search for..."><br />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div style="text-align:center;font-size: 1.7em; font-weight: 600; color: #740553; margin-bottom: 20px;">
+                            Number - Poll's Title - Date - Details
+                        </div>
+                    </div>
+
+                    <div id="addPollsId" class="row">
+                        @*<div class="col-sm-12 col-md-7 col-lg-8 col-md-offset-2 col-lg-offset-2 pollsIndex pollsIndexOdd">
+                            <div style="text-align: center;">
+                                <span>N-2</span>
+                                <span> Iliyan Kodzhemanov</span>
+                                <span>20.06.2017 20:12:32</span>
+                                <div class="inlineRemoveAndModify">
+                                    <ul>
+                                        <li><a href="#">Photos</a></li>
+                                        <li><a href="#">Online</a></li>
+                                    </ul>
+                                    <div class="clearfix"> </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-7 col-lg-8 col-md-offset-2 col-lg-offset-2 pollsIndex pollsIndexEven">
+                            <div style="text-align: center;">
+                                <span>N-22</span>
+                                <span>Maria Ivanova</span>
+                                <span>20.06.2017 20:12:32</span>
+                                <div class="inlineRemoveAndModify">
+                                    <ul>
+                                        <li><a href="#">Photos</a></li>
+                                        <li><a href="#">Online</a></li>
+                                    </ul>
+                                    <div class="clearfix"> </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-7 col-lg-8 col-md-offset-2 col-lg-offset-2 pollsIndex pollsIndexOdd">
+                            <div style="text-align: center;">
+                                <span>N-21</span>
+                                <span>Ivan Cirkov</span>
+                                <span>20.06.2017 20:12:32</span>
+                                <div class="inlineRemoveAndModify">
+                                    <ul>
+                                        <li><a href="#">Photos</a></li>
+                                        <li><a href="#">Online</a></li>
+                                    </ul>
+                                    <div class="clearfix"> </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-7 col-lg-8 col-md-offset-2 col-lg-offset-2 pollsIndex pollsIndexEven">
+                            <div style="text-align: center;">
+                                <span>N-233</span>
+                                <span>Angel Krumov</span>
+                                <span>20.06.2017 20:12:32</span>
+                                <div class="inlineRemoveAndModify">
+                                    <ul>
+                                        <li><a href="#">Photos</a></li>
+                                        <li><a href="#">Online</a></li>
+                                    </ul>
+                                    <div class="clearfix"> </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-7 col-lg-8 col-md-offset-2 col-lg-offset-2 pollsIndex pollsIndexOdd">
+                            <div style="text-align: center;">
+                                <span>Iva Semerdzhieva</span>
+                                <span>20.06.2017 20:12:32</span>
+                                <div class="inlineRemoveAndModify">
+                                    <ul>
+                                        <li><a href="#">Photos</a></li>
+                                        <li><a href="#">Online</a></li>
+                                    </ul>
+                                    <div class="clearfix"> </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-7 col-lg-8 col-md-offset-2 col-lg-offset-2 pollsIndex pollsIndexEven">
+                            <div style="text-align: center;">
+                                <span>N-1</span>
+                                <span>Lubo Hrisimov</span>
+                                <span>20.06.2017 20:12:32</span>
+                                <div class="inlineRemoveAndModify">
+                                    <ul>
+                                        <li><a href="#">Photos</a></li>
+                                        <li><a href="#">Online</a></li>
+                                    </ul>
+                                    <div class="clearfix"> </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-7 col-lg-8 col-md-offset-2 col-lg-offset-2 pollsIndex pollsIndexOdd">
+                            <div style="text-align: center;">
+                                <span>N-12</span>
+                                <span>Dimitar Ivanov</span>
+                                <span>20.06.2017 20:12:32</span>
+                                <div class="inlineRemoveAndModify">
+                                    <ul>
+                                        <li><a href="#">Photos</a></li>
+                                        <li><a href="#">Online</a></li>
+                                    </ul>
+                                    <div class="clearfix"> </div>
+                                </div>
+                            </div>
+                        </div>*@
+                    </div>
+
+                    <div id="addPollsAfterId" style="text-align: center;">
+
+                    </div>
+                   
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery.nice-select.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        //Selected control page
+        $('ul#main-menu > .active-link a span.badge').remove();
+        $('ul#main-menu > .active-link').removeClass('active-link')
+
+        $('ul#main-menu li:nth-child(3)').addClass("active-link");
+        $('ul#main-menu li:nth-child(3) a').append(' <span class="badge">Active</span>');
+
+
+        $('select:not(.ignore)').niceSelect();
+
+
+        $.getJSON("/Poll/GetAllPolls", function (polls) {
+            if (polls != null) {
+
+                var clickCustomerCount = 0;
+                $("#addPollsId").html('');
+                $.each(polls, function (index, poll) {
+
+                    if ((index % 2) == 0) {
+
+                        $("#addPollsId").append('<div class="col-sm-12 col-md-7 col-lg-8 col-md-offset-2 col-lg-offset-2 pollsIndex pollsIndexOdd">' +
+                            '<div style="text-align: center;"><span>N-' + poll.Id + '</span> <span>' + poll.Name + '</span> <span>' + poll.DateTimePoll + '</span>' +
+                            '<div class="inlineRemoveAndModify"><ul><li><a id="pollDetailsId" style="cursor:pointer;">Details</a></li>' +
+                            '<li><a id="pollRemoveId" style="cursor:pointer;">Remove</a></li></ul>' +
+                            '<div class="clearfix"></div></div></div></div>');
+
+                    }
+                    else {
+
+                        $("#addPollsId").append('<div class="col-sm-12 col-md-7 col-lg-8 col-md-offset-2 col-lg-offset-2 pollsIndex pollsIndexEven">' +
+                            '<div style="text-align: center;"><span>N-' + poll.Id + '</span> <span>' + poll.Name + '</span> <span>' + poll.DateTimePoll + '</span>' +
+                            '<div class="inlineRemoveAndModify"><ul><li><a id="pollDetailsId" style="cursor:pointer;">Details</a></li>' +
+                            '<li><a id="pollRemoveId" style="cursor:pointer;">Remove</a></li></ul>' +
+                            '<div class="clearfix"></div></div></div></div>');
+
+                    }
+
+
+                    $('div.pollsIndex #pollDetailsId').on('click', function (e) {
+                        e.stopImmediatePropagation();
+
+                        $.ajax({
+                            url: '@Url.Action("PollDetailsPartialById", "Poll")',
+                            data: { id: poll.Id },
+                            cache: false,
+                            type: "POST",
+                            dataType: "html",
+                            success: function (data) {
+                                $('#ControlNavigationId').html(data);
+                            },
+                            error: function () {
+                                alert('Error');
+                            }
+                        });
+                    });
+
+
+                    $('div.pollsIndex #pollRemoveId').on('click', function (e) {
+                        e.stopImmediatePropagation();
+
+                        if (confirm('Are you sure want to delete this poll?')) {
+                            $.ajax({
+                                url: '@Url.Action("DeletePoll", "Poll")',
+                                data: { id: poll.Id },
+                                cache: false,
+                                type: "POST",
+                                dataType: "html",
+                                success: function (data) {
+                                    $('#ControlNavigationId').html(data);
+                                },
+                                error: function () {
+                                    alert("error");
+                                }
+                            });
+                        }
+                        else {
+                            return false;
+                        }
+                    });
+                });
+
+                var $rows = $('#addPollsId div.pollsIndex');
+                $('#searchPoll').keyup(function () {
+                    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+
+                    $rows.show().filter(function () {
+                        var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                        return !~text.indexOf(val);
+                    }).hide();
+
+                });
+
+            }
+        });
+
+
+        var selectedLi = 0;
+        var selectedPlusMinus = null;
+        var clickCustomerCount = 0;
+        $('.nice-select ul li').each(function (indexLi, valueLi) {
+            $(valueLi).on('click', function () {
+
+                var valLi = (indexLi + 1);
+
+                if (selectedLi == valLi) {
+                    selectedLiCount = selectedLiCount + 1;
+                    if ((selectedLiCount % 2) == 0) {
+                        selectedPlusMinus = valLi;
+
+                        $.ajax({
+                            url: '/Poll/GetAllPolls',
+                            dataType: "json",
+                            type: "POST",
+                            contentType: 'application/json; charset=utf-8',
+                            data: "{ sortBy:" + JSON.stringify(valLi) + "}",
+                            success: function (polls) {
+                                if (polls != null) {
+
+                                    $("#addPollsId").html('');
+                                    $.each(polls, function (index, poll) {
+
+                                        if ((index % 2) == 0) {
+
+                                            $("#addPollsId").append('<div class="col-sm-12 col-md-7 col-lg-8 col-md-offset-2 col-lg-offset-2 pollsIndex pollsIndexOdd">' +
+                                                '<div style="text-align: center;"><span>N-' + poll.Id + '</span> <span>' + poll.Name + '</span> <span>' + poll.DateTimePoll + '</span>' +
+                                                '<div class="inlineRemoveAndModify"><ul><li><a id="pollDetailsId" style="cursor:pointer;">Details</a></li>' +
+                                                '<li><a id="pollRemoveId" style="cursor:pointer;">Remove</a></li></ul>' +
+                                                '<div class="clearfix"></div></div></div></div>');
+
+                                        }
+                                        else {
+
+                                            $("#addPollsId").append('<div class="col-sm-12 col-md-7 col-lg-8 col-md-offset-2 col-lg-offset-2 pollsIndex pollsIndexEven">' +
+                                                '<div style="text-align: center;"><span>N-' + poll.Id + '</span> <span>' + poll.Name + '</span> <span>' + poll.DateTimePoll + '</span>' +
+                                                '<div class="inlineRemoveAndModify"><ul><li><a id="pollDetailsId" style="cursor:pointer;">Details</a></li>' +
+                                                '<li><a id="pollRemoveId" style="cursor:pointer;">Remove</a></li></ul>' +
+                                                '<div class="clearfix"></div></div></div></div>');
+
+                                        }
+
+
+                                        $('div.pollsIndex #pollDetailsId').on('click', function (e) {
+                                            e.stopImmediatePropagation();
+
+                                            $.ajax({
+                                                url: '@Url.Action("PollDetailsPartialById", "Poll")',
+                                                data: { id: poll.Id },
+                                                cache: false,
+                                                type: "POST",
+                                                dataType: "html",
+                                                success: function (data) {
+                                                    $('#ControlNavigationId').html(data);
+                                                },
+                                                error: function () {
+                                                    alert('Error');
+                                                }
+                                            });
+                                        });
+
+
+                                        $('div.pollsIndex #pollRemoveId').on('click', function (e) {
+                                            e.stopImmediatePropagation();
+
+                                            if (confirm('Are you sure want to delete this poll?')) {
+                                                $.ajax({
+                                                    url: '@Url.Action("DeletePoll", "Poll")',
+                                                    data: { id: poll.Id },
+                                                    cache: false,
+                                                    type: "POST",
+                                                    dataType: "html",
+                                                    success: function (data) {
+                                                        $('#ControlNavigationId').html(data);
+                                                    },
+                                                    error: function () {
+                                                        alert("error");
+                                                    }
+                                                });
+                                            }
+                                            else {
+                                                return false;
+                                            }
+                                        });
+                                    });
+
+                                    var $rows = $('#addPollsId div.pollsIndex');
+                                    $('#searchPoll').keyup(function () {
+                                        var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+
+                                        $rows.show().filter(function () {
+                                            var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                                            return !~text.indexOf(val);
+                                        }).hide();
+
+                                    });
+
+                                }
+                            },
+                            error: function () {
+                                alert('error');
+                            }
+                        });
+
+                    }
+                    else {
+                        selectedPlusMinus = '-' + valLi;
+
+                        $.ajax({
+                            url: '/Poll/GetAllPolls',
+                            dataType: "json",
+                            type: "POST",
+                            contentType: 'application/json; charset=utf-8',
+                            data: "{ sortBy:" + JSON.stringify(selectedPlusMinus) + "}",
+                            success: function (polls) {
+                                if (polls != null) {
+
+                                    $("#addPollsId").html('');
+                                    $.each(polls, function (index, poll) {
+
+                                        if ((index % 2) == 0) {
+
+                                            $("#addPollsId").append('<div class="col-sm-12 col-md-7 col-lg-8 col-md-offset-2 col-lg-offset-2 pollsIndex pollsIndexOdd">' +
+                                                '<div style="text-align: center;"><span>N-' + poll.Id + '</span> <span>' + poll.Name + '</span> <span>' + poll.DateTimePoll + '</span>' +
+                                                '<div class="inlineRemoveAndModify"><ul><li><a id="pollDetailsId" style="cursor:pointer;">Details</a></li>' +
+                                                '<li><a id="pollRemoveId" style="cursor:pointer;">Remove</a></li></ul>' +
+                                                '<div class="clearfix"></div></div></div></div>');
+
+                                        }
+                                        else {
+
+                                            $("#addPollsId").append('<div class="col-sm-12 col-md-7 col-lg-8 col-md-offset-2 col-lg-offset-2 pollsIndex pollsIndexEven">' +
+                                                '<div style="text-align: center;"><span>N-' + poll.Id + '</span> <span>' + poll.Name + '</span> <span>' + poll.DateTimePoll + '</span>' +
+                                                '<div class="inlineRemoveAndModify"><ul><li><a id="pollDetailsId" style="cursor:pointer;">Details</a></li>' +
+                                                '<li><a id="pollRemoveId" style="cursor:pointer;">Remove</a></li></ul>' +
+                                                '<div class="clearfix"></div></div></div></div>');
+
+                                        }
+
+
+                                        $('div.pollsIndex #pollDetailsId').on('click', function (e) {
+                                            e.stopImmediatePropagation();
+
+                                            $.ajax({
+                                                url: '@Url.Action("PollDetailsPartialById", "Poll")',
+                                                data: { id: poll.Id },
+                                                cache: false,
+                                                type: "POST",
+                                                dataType: "html",
+                                                success: function (data) {
+                                                    $('#ControlNavigationId').html(data);
+                                                },
+                                                error: function () {
+                                                    alert('Error');
+                                                }
+                                            });
+                                        });
+
+
+                                        $('div.pollsIndex #pollRemoveId').on('click', function (e) {
+                                            e.stopImmediatePropagation();
+
+                                            if (confirm('Are you sure want to delete this poll?')) {
+                                                $.ajax({
+                                                    url: '@Url.Action("DeletePoll", "Poll")',
+                                                    data: { id: poll.Id },
+                                                    cache: false,
+                                                    type: "POST",
+                                                    dataType: "html",
+                                                    success: function (data) {
+                                                        $('#ControlNavigationId').html(data);
+                                                    },
+                                                    error: function () {
+                                                        alert("error");
+                                                    }
+                                                });
+                                            }
+                                            else {
+                                                return false;
+                                            }
+                                        });
+                                    });
+
+                                    var $rows = $('#addPollsId div.pollsIndex');
+                                    $('#searchPoll').keyup(function () {
+                                        var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+
+                                        $rows.show().filter(function () {
+                                            var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                                            return !~text.indexOf(val);
+                                        }).hide();
+
+                                    });
+                                }
+                            },
+                            error: function () {
+                                alert('error');
+                            }
+                        });
+
+                    }
+                }
+                else {
+                    selectedLiCount = 0;
+
+                    $.ajax({
+                        url: '/Poll/GetAllPolls',
+                        dataType: "json",
+                        type: "POST",
+                        contentType: 'application/json; charset=utf-8',
+                        data: "{ sortBy:" + JSON.stringify(valLi) + "}",
+                        success: function (polls) {
+                            if (polls != null) {
+
+                                $("#addPollsId").html('');
+                                $.each(polls, function (index, poll) {
+
+                                    if ((index % 2) == 0) {
+
+                                        $("#addPollsId").append('<div class="col-sm-12 col-md-7 col-lg-8 col-md-offset-2 col-lg-offset-2 pollsIndex pollsIndexOdd">' +
+                                            '<div style="text-align: center;"><span>N-' + poll.Id + '</span> <span>' + poll.Name + '</span> <span>' + poll.DateTimePoll + '</span>' +
+                                            '<div class="inlineRemoveAndModify"><ul><li><a id="pollDetailsId" style="cursor:pointer;">Details</a></li>' +
+                                            '<li><a id="pollRemoveId" style="cursor:pointer;">Remove</a></li></ul>' +
+                                            '<div class="clearfix"></div></div></div></div>');
+
+                                    }
+                                    else {
+
+                                        $("#addPollsId").append('<div class="col-sm-12 col-md-7 col-lg-8 col-md-offset-2 col-lg-offset-2 pollsIndex pollsIndexEven">' +
+                                            '<div style="text-align: center;"><span>N-' + poll.Id + '</span> <span>' + poll.Name + '</span> <span>' + poll.DateTimePoll + '</span>' +
+                                            '<div class="inlineRemoveAndModify"><ul><li><a id="pollDetailsId" style="cursor:pointer;">Details</a></li>' +
+                                            '<li><a id="pollRemoveId" style="cursor:pointer;">Remove</a></li></ul>' +
+                                            '<div class="clearfix"></div></div></div></div>');
+
+                                    }
+
+
+                                    $('div.pollsIndex #pollDetailsId').on('click', function (e) {
+                                        e.stopImmediatePropagation();
+
+                                        $.ajax({
+                                            url: '@Url.Action("PollDetailsPartialById", "Poll")',
+                                            data: { id: poll.Id },
+                                            cache: false,
+                                            type: "POST",
+                                            dataType: "html",
+                                            success: function (data) {
+                                                $('#ControlNavigationId').html(data);
+                                            },
+                                            error: function () {
+                                                alert('Error');
+                                            }
+                                        });
+                                    });
+
+
+                                    $('div.pollsIndex #pollRemoveId').on('click', function (e) {
+                                        e.stopImmediatePropagation();
+
+                                        if (confirm('Are you sure want to delete this poll?')) {
+                                            $.ajax({
+                                                url: '@Url.Action("DeletePoll", "Poll")',
+                                                data: { id: poll.Id },
+                                                cache: false,
+                                                type: "POST",
+                                                dataType: "html",
+                                                success: function (data) {
+                                                    $('#ControlNavigationId').html(data);
+                                                },
+                                                error: function () {
+                                                    alert("error");
+                                                }
+                                            });
+                                        }
+                                        else {
+                                            return false;
+                                        }
+                                    });
+                                });
+
+                                var $rows = $('#addPollsId div.pollsIndex');
+                                $('#searchPoll').keyup(function () {
+                                    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+
+                                    $rows.show().filter(function () {
+                                        var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                                        return !~text.indexOf(val);
+                                    }).hide();
+
+                                });
+
+                            }
+                        },
+                        error: function () {
+                            alert('error');
+                        }
+                    });
+
+                }
+
+                selectedLi = valLi;
+
+            });
+        });
+
+    });
+</script>

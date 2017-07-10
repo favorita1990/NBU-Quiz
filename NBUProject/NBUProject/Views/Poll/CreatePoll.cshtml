@@ -1,0 +1,1404 @@
+﻿@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Create a Poll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/Content/bootstrap-select.min.css" rel="stylesheet" />
+<!-- Latest compiled and minified JavaScript -->
+<script src="~/Scripts/bootstrap-select.min.js"></script>
+<script src="~/Scripts/moment-with-locales.min.js"></script>
+<div id="ControlNavigationId">
+    <div id="wrapper">
+        <div id="page-wrapper">
+            <div id="page-inner">
+
+
+                <h2 class="crtqz-title">Create a <span class="fancyfont">Poll</span></h2>
+
+                <div class="jumbotron jumbotron-crtqz">
+
+
+                    <div>
+
+                        <div class="form-group col-sm-12 col-md-6 col-lg-6 col-md-offset-3">
+                            <input type="text" class="form-control" id="thePollName" placeholder="Enter the name of your Poll">
+                        </div>
+                        <br /><br />
+                        <hr /><br />
+
+
+                        <div class="row">
+
+                            <div class="col-sm-2 col-md-2 col-lg-1 control-label"><label style="margin-left:15px;">Quastions per page:</label></div>
+                            <div class="col-sm-2 col-md-3 col-lg-2">
+                                <input type="text" style="margin-left:15px;" id="perPageId" class="form-control" placeholder="Enter a number" />
+                            </div>
+
+
+                            <div class="col-sm-7 col-md-6 col-lg-4 radio-inlineMy" style="text-align:left;">
+                                <div class="radio radio-primary radio-inline">
+                                    <input type="radio" id="inlineRadioNotAnon" name="radioInlineAnon" checked>
+                                    <label for="inlineRadioNotAnon">Not anonymous</label>
+                                </div>
+                                <div class="radio radio-primary radio-inline">
+                                    <input type="radio" id="inlineRadioAnon" name="radioInlineAnon">
+                                    <label for="inlineRadioAnon">Anonymous</label>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3 col-md-2 col-lg-1 control-label" style="text-align:right;"><label>Activation date:</label></div>
+                            <div class='col-sm-6 col-md-4 col-lg-2' style="text-align:left;">
+                                <input id="datetimepicker" />
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <br /><br />
+                    <br /><br />
+
+                    <div style="border-bottom: 1px solid #db36a4; padding-bottom: 20px;" id="questionId">
+
+                        <div style="text-align:center;">
+                            <h3 style="color:#db36a4">Question - 1</h3>
+                        </div>
+                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                            <input type="text" class="form-control" id="inputQuestion1" placeholder="Enter quastion of your Poll">
+                        </div>
+                        <br /><br />
+
+                        <div class="row">
+                            <div class="col-sm-6 col-md-8 col-lg-8 radio-inlineMy" style="text-align:right;">
+                                <div class="radio radio-primary radio-inline">
+                                    <input type="radio" id="inlineRadioVer1" value="1" name="radioInline1" checked>
+                                    <label for="inlineRadioVer1">Vertical </label>
+                                </div>
+                                <div class="radio radio-primary radio-inline">
+                                    <input type="radio" id="inlineRadioHor1" value="2" name="radioInline1">
+                                    <label for="inlineRadioHor1">Horizontal</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <select class="selectpicker show-tick" id="dropDown1">
+                                    <option value="0" selected>Radio buttons</option>
+                                    <option value="1">Checkboxes</option>
+                                    <option value="2">Dropdown</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+
+                        <br /><br /><br />
+
+
+                        <div class="row" id="rowAppendId1">
+
+                            <div id="rowChildAppendId1">
+                                <br /><br /><br />
+                                <div id="changeOptionId1">
+                                    <div class="col-sm-2 col-md-4 col-lg-3" style="text-align:right;">
+                                        <div class="radio radio-primary">
+                                            <input type="radio" id="optionRadioId1" name="option1">
+                                            <label for="optionRadioId1"></label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-9 col-md-7 col-lg-8">
+                                    <input type="text" id="inputOptionId1" class="form-control" placeholder="Enter poll option">
+                                </div>
+                                <br /><br /><br />
+                            </div>
+
+
+                            <div id="rowChildAppendId1">
+                                <div id="changeOptionId1">
+                                    <div class="col-sm-2 col-md-4 col-lg-3" style="text-align:right;">
+                                        <div class="radio radio-primary">
+                                            <input type="radio" id="optionRadioId2" name="option1">
+                                            <label for="optionRadioId2"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-9 col-md-7 col-lg-8">
+                                    <input type="text" id="inputOptionId1" class="form-control" placeholder="Enter poll option">
+                                </div>
+                            </div>
+
+                        </div>
+                        <br />
+
+                        <div class="addOptionBtn">
+                            <button class="btn btn-primary" id="addOptionBtn1">Add option</button>
+                            <button class="btn btn-danger removeOptionBtn" id="removeOptionBtn1">Remove option</button>
+                        </div>
+
+                    </div>
+                    <br />
+
+
+                    @*<div style="border-bottom: 1px solid #db36a4; padding-bottom: 20px;" id="questionId">
+
+                            <div style="text-align:center;">
+                               <h3 style="color:#db36a4">Quastion - 2</h3>
+                            </div>
+                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                                <input type="text" class="form-control" id="inputQuestion2" placeholder="Enter quastion of your Poll">
+                            </div>
+                            <br /><br />
+
+                            <div class="row">
+                                <div class="col-sm-6 col-md-8 col-lg-8 radio-inlineMy" style="text-align:right;">
+                                    <div class="radio radio-primary radio-inline">
+                                        <input type="radio" id="inlineRadioVer2" name="radioInline2" value="1" checked>
+                                        <label for="inlineRadioVer2">Vertical </label>
+                                    </div>
+                                    <div class="radio radio-primary radio-inline">
+                                        <input type="radio" id="inlineRadioHor2" value="2" name="radioInline2">
+                                        <label for="inlineRadioHor2">Horizontal</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <select class="selectpicker show-tick" id="dropDown2">
+                                        <option value="0" selected>Radio buttons</option>
+                                        <option value="1">Checkboxes</option>
+                                        <option value="2">Dropdown</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+
+                            <br /><br /><br />
+
+
+                                <div class="row" id="rowAppendId2">
+
+                                    <div id="rowChildAppendId2">
+                                        <br /><br /><br />
+                                        <div id="changeOptionId2">
+                                            <div class="col-sm-2 col-md-4 col-lg-3" style="text-align:right;">
+                                                <div class="radio radio-primary">
+                                                    <input type="radio" id="optionRadioId1" name="option2">
+                                                    <label for="optionRadioId1"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-9 col-md-7 col-lg-8">
+                                            <input type="text" id="inputOptionId2" class="form-control" placeholder="Enter poll option">
+                                        </div>
+                                        <br /><br /><br />
+                                    </div>
+
+
+
+
+                                    <div id="rowChildAppendId2">
+                                        <div id="changeOptionId2">
+                                            <div class="col-sm-2 col-md-4 col-lg-3" style="text-align:right;">
+                                                <div class="radio radio-primary">
+                                                    <input type="radio" id="optionRadioId2" name="option2">
+                                                    <label for="optionRadioId2"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-9 col-md-7 col-lg-8">
+                                            <input type="text" id="inputOptionId2" class="form-control" placeholder="Enter poll option">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <br />
+
+                                <div class="addOptionBtn">
+                                    <button class="btn btn-primary" id="addOptionBtn2">Add option</button>
+                                    <button class="btn btn-danger removeOptionBtn" id="removeOptionBtn2">Remove option</button>
+                                </div>
+
+                        </div>
+                        <br />*@
+
+
+                    <div class="addQuastionBtn">
+                        <button class="btn btn-warning" id="addQuestionBtnId">Add quastion</button>
+                        <button class="btn btn-danger removeQuastionBtn" id="removeQuestionBtnId">Remove quastion</button>
+                    </div>
+                    <div class="centerAlign" id="validationPoll" style="color:#ff0000; font-weight: bold;"></div>
+                    <div style="text-align:center;">
+                        <button class="btn btn-success" style="color: #ffd800;" id="saveQuestionBtnId">Save poll</button>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+@Scripts.Render("~/bundles/jqueryunob")
+
+<script>
+    $(document).ready(function () {
+
+        //Add Datetime picker
+        $("#datetimepicker").kendoDateTimePicker({
+            interval: 60,
+            format: "dd/MM/yyyy HH:mm:ss",
+            timeFormat: "HH:mm:ss"
+        });
+        $('.k-header').css({ 'border': '1px solid #db36a4' });
+
+
+        //Selected control page
+        $('ul#main-menu > .active-link a span.badge').remove();
+        $('ul#main-menu > .active-link').removeClass('active-link')
+
+        $('ul#main-menu li:nth-child(2)').addClass("active-link");
+        $('ul#main-menu li:nth-child(2) a').append(' <span class="badge">Active</span>');
+
+
+
+
+        //let's do it!
+        var onClickAddQuestion = 0;
+        $('#addQuestionBtnId').on('click', function () {
+            onClickAddQuestion = onClickAddQuestion + 1;
+
+            if (onClickAddQuestion >= 1) {
+                
+
+                $('[id="questionId"]').last().after('<div style="border-bottom: 1px solid #db36a4; padding-bottom: 20px;" id="questionId"><br/>' +
+                    '<div style="text-align:center;">' +
+                    '<h3 style="color:#db36a4">Quastion - ' + onClickAddQuestion + '</h3></div><div class="form-group col-sm-12 col-md-12 col-lg-12">' +
+                    '<input type="text" class="form-control" id="inputQuestion' + onClickAddQuestion + '" placeholder="Enter quastion of your Poll"></div>' +
+                    '<br /><br /><div class="row">' +
+                    '<div class="col-sm-6 col-md-8 col-lg-8 radio-inlineMy" style="text-align:right;"><div class="radio radio-primary radio-inline">' +
+                    '<input type="radio" id="inlineRadioVer' + onClickAddQuestion + '" name="radioInline' + onClickAddQuestion + '" value="1" checked>' +
+                    '<label for="inlineRadioVer' + onClickAddQuestion + '">Vertical </label></div><div class="radio radio-primary radio-inline">' +
+                    '<input type="radio" id="inlineRadioHor' + onClickAddQuestion + '" value="2" name="radioInline' + onClickAddQuestion + '">' +
+                    '<label for="inlineRadioHor' + onClickAddQuestion + '">Horizontal</label></div></div>' +
+                    '<div class="col-md-3"><label class="label"><select class="select" id="dropDown' + onClickAddQuestion + '"><option value="0" selected>Radio buttons</option>' +
+                    '<option value="1">Checkboxes</option><option value="2">Dropdown</option></select></label></div></div><br /><br /><br />' +
+                    '<div class="row" id="rowAppendId' + onClickAddQuestion + '"><div id="rowChildAppendId' + onClickAddQuestion + '">' +
+                    '<br /><br /><br /><div id="changeOptionId' + onClickAddQuestion + '">' +
+                    '<div class="col-sm-2 col-md-4 col-lg-3" style="text-align:right;"><div class="radio radio-primary">' +
+                    '<input type="radio" id="optionRadioId' + onClickAddQuestion + '" name="option' + onClickAddQuestion + '">' +
+                    '<label for="optionRadioId' + onClickAddQuestion + '"></label></div></div></div><div class="col-sm-9 col-md-7 col-lg-8">' +
+                    '<input type="text" id="inputOptionId' + onClickAddQuestion + '" class="form-control" placeholder="Enter poll option"></div><br /><br /><br /></div>' +
+                    '<div id="rowChildAppendId' + onClickAddQuestion + '"><div id="changeOptionId' + onClickAddQuestion + '"><div class="col-sm-2 col-md-4 col-lg-3" style="text-align:right;">' +
+                    '<div class="radio radio-primary"><input type="radio" id="optionRadioId' + onClickAddQuestion + '" name="option' + onClickAddQuestion + '">' +
+                    '<label for="optionRadioId' + onClickAddQuestion + '"></label></div></div></div>' +
+                    '<div class="col-sm-9 col-md-7 col-lg-8">' +
+                    '<input type="text" id="inputOptionId' + onClickAddQuestion + '" class="form-control" placeholder="Enter poll option">' +
+                    '</div></div></div><br /><div class="addOptionBtn"><button class="btn btn-primary" id="addOptionBtn' + onClickAddQuestion + '">Add option</button>' +
+                    '<button class="btn btn-danger removeOptionBtn" id="removeOptionBtn' + onClickAddQuestion + '">Remove option</button></div><br/></div>');
+
+
+                
+                if (onClickAddQuestion > 1) {
+                    $('#removeQuestionBtnId').show();
+                }
+
+                $('#removeQuestionBtnId').on('click', function (e) {
+                    e.stopImmediatePropagation();
+
+                    $('[id="questionId"]').last().remove();
+                    onClickAddQuestion = onClickAddQuestion - 1;
+
+                    if (onClickAddQuestion == 1) {
+                        $('#removeQuestionBtnId').hide();
+                    }
+                });
+
+                
+
+                $('[id="questionId"]').each(function (index, el) {
+
+
+                    //add button
+                    var pollOptionRadioId3 = 3;
+                    $('#addOptionBtn' + (index + 1)).on('click', function () {
+
+
+                        var selectedDropDown = $('#dropDown' + (index + 1)).val();
+
+                        var radioHorVer = $('input:radio[id="inlineRadioVer' + (index + 1) + '"]').is(":checked");
+
+                        if (radioHorVer) {
+                            if (selectedDropDown == 0) {
+                                $('#rowAppendId' + (index + 1)).append('<div id="rowChildAppendId' + (index + 1) + '"><br /><br /><br /><div id="changeOptionId' + (index + 1) + '">' +
+                                    '<div class="col-sm-2 col-md-4 col-lg-3" style="text-align:right;"><div class="radio radio-primary">' +
+                                    '<input type="radio" id="optionRadioId' + pollOptionRadioId3 + '" name="option' + (index + 1) + '"><label for="optionRadioId' + pollOptionRadioId3 + '"></label></div></div></div>' +
+                                    '<div class="col-sm-9 col-md-7 col-lg-8"><input type="text" id="inputOptionId' + (index + 1) + '" class="form-control" placeholder="Enter poll option"></div></div>');
+                            }
+                            else if (selectedDropDown == 1) {
+
+                                $('#rowAppendId' + (index + 1)).append('<div id="rowChildAppendId' + (index + 1) + '"><br /><br /><br /><div id="changeOptionId' + (index + 1) + '">' +
+                                    '<div class="col-sm-2 col-md-4 col-lg-3" style="text-align:right;">' +
+                                    '<div class="checkbox checkbox-primary"><input id="optionCheckBoxId' + pollOptionRadioId3 + '" type="checkbox">' +
+                                    '<label for="optionCheckBoxId' + pollOptionRadioId3 + '"></label></div></div></div><div class="col-sm-9 col-md-7 col-lg-8">' +
+                                    '<input type="text" id="inputOptionId' + (index + 1) + '" class="form-control" placeholder="Enter poll option"></div></div>');
+                            }
+                            else {
+
+                                //$('#rowAppendId' + (index + 1)).append('<div id="rowChildAppendId' + (index + 1) + '"><br /><br /><br /><div id="changeOptionId' + (index + 1) + '"><div class="col-sm-2 col-md-4 col-lg-3" style="text-align:right;">' +
+                                //        '<div class="updateDropDownOption"><button class="btn btn-primary" id="updateDropDownId' + (index + 1) + '">Update</button></div></div>' +
+                                //        '<div class="col-sm-9 col-md-7 col-lg-8"><input type="text" id="inputOptionId' + (index + 1) + '" class="form-control" placeholder="Enter poll option"></div></div></div>');
+                            }
+                        }
+                        else {
+
+                            if (selectedDropDown == 0) {
+
+                                $('#rowAppendId' + (index + 1)).append('<div id="rowChildAppendId' + (index + 1) + '"><div id="changeOptionId' + (index + 1) + '"><div class="col-sm-4 col-md-2 col-lg-2 radio-inlineMy">' +
+                                        '<div class="radio radio-primary radio-inline"><input type="radio" id="optionRadioId' + pollOptionRadioId3 + '" name="option' + (index + 1) + '">' +
+                                        '<label for="optionRadioId' + pollOptionRadioId3 + '"></label></div></div></div><div class="col-sm-8 col-md-4 col-lg-2" style="margin-left:-35px; margin-bottom:10px">' +
+                                        '<input type="text" id="inputOptionId' + (index + 1) + '" class="form-control" placeholder="Enter poll option"></div></div>');
+
+                            }
+                            else if (selectedDropDown == 1) {
+
+                                $('#rowAppendId' + (index + 1)).append('<div id="rowChildAppendId' + (index + 1) + '"><div id="changeOptionId' + (index + 1) + '"><div class="col-sm-4 col-md-2 col-lg-2" style="text-align:right; padding-right:25px;">' +
+                                        '<div class="checkbox checkbox-primary"><input type="checkbox" id="optionRadioId' + pollOptionRadioId3 + '" name="option' + (index + 1) + '">' +
+                                        '<label for="optionRadioId' + pollOptionRadioId3 + '"></label></div></div></div><div class="col-sm-8 col-md-4 col-lg-2" style="margin-left:-35px; margin-bottom:10px">' +
+                                        '<input type="text" id="inputOptionId' + (index + 1) + '" class="form-control" placeholder="Enter poll option"></div></div>');
+
+                            }
+
+                        }
+
+
+                        pollOptionRadioId3 = pollOptionRadioId3 + 1;
+
+                        $('#removeOptionBtn' + (index + 1)).show();
+
+
+
+
+                    });
+
+                    //hide remove button reload
+                    var removeOptionBtn = $('[id="rowChildAppendId' + (index + 1) + '"]').length;
+                    if (removeOptionBtn <= 2) {
+                        $('#removeOptionBtn' + (index + 1) + '').hide();
+                    }
+
+
+
+                    //drop down menu
+                    $('#dropDown' + (index + 1)).change(function () {
+
+                        var radioHorVer = $('input:radio[id="inlineRadioVer' + (index + 1) + '"]').is(":checked");
+                        var changeOption = $('div[id="changeOptionId' + (index + 1) + '"]');
+                        var inputOptionList = $('input[id="inputOptionId' + (index + 1) + '"]');
+
+                        if (radioHorVer) {
+
+                            if ($(this).val() == 0) {
+
+                                $('div#selectSideId' + (index + 1)).remove();
+
+                                $(changeOption).each(function (i, el) {
+
+                                    $('#rowAppendId' + (index + 1) + ' #rowChildAppendId' + (index + 1)).html('<br /><br /><br /><div id="changeOptionId' + (index + 1) + '"><div class="col-sm-2 col-md-4 col-lg-3" style="text-align:right;">' +
+                                        '<div class="radio radio-primary"><input type="radio" id="optionRadioId' + (i + 1) + '" name="option' + (index + 1) + '">' +
+                                        '<label for="optionRadioId' + (i + 1) + '"></label></div></div></div>' +
+                                        '<div class="col-sm-9 col-md-7 col-lg-8"><input type="text" id="inputOptionId' + (index + 1) + '" class="form-control" placeholder="Enter poll option"></div>');
+                                });
+                            }
+                            else if ($(this).val() == 1) {
+
+                                $('div#selectSideId' + (index + 1)).remove();
+
+                                $(changeOption).each(function (i, el) {
+
+                                    $('#rowAppendId' + (index + 1) + ' #rowChildAppendId' + (index + 1)).html('<br /><br /><br /><div id="changeOptionId' + (index + 1) + '"><div class="col-sm-2 col-md-4 col-lg-3" style="text-align:right;">' +
+                                        '<div class="checkbox checkbox-primary"><input id="optionCheckBoxId' + (i + 1) + '" type="checkbox">' +
+                                        '<label for="optionCheckBoxId' + (i + 1) + '"></label></div></div></div>' +
+                                        '<div class="col-sm-9 col-md-7 col-lg-8"><input type="text" id="inputOptionId' + (index + 1) + '" class="form-control" placeholder="Enter poll option"></div>');
+                                });
+                            }
+                            else {
+
+                                $('div#selectSideId' + (index + 1)).remove();
+
+                                $('#rowAppendId' + (index + 1)).before('<div id="selectSideId' + (index + 1) + '"><div class="col-md-5 col-sm-8 col-lg-3 col-lg-offset-5 col-md-offset-4">' +
+                                    '<label class="label"><select id="selectOptionId' + (index + 1) + '" class="select"></select></label></div><br /><br /><br /></div></div>')
+
+                                $(changeOption).each(function (i, el) {
+
+                                    $('#rowAppendId' + (index + 1) + ' #rowChildAppendId' + (index + 1)).html('<br /><br /><br /><div id="changeOptionId' + (index + 1) + '"><div class="col-sm-2 col-md-4 col-lg-3" style="text-align:right;">' +
+                                        '<div class="updateDropDownOption"><button class="btn btn-primary" id="updateDropDownId' + (index + 1) + '">Update</button></div></div></div>' +
+                                        '<div class="col-sm-9 col-md-7 col-lg-8"><input type="text" id="inputOptionId' + (index + 1) + '" class="form-control" placeholder="Enter poll option"></div>');
+                                });
+
+
+                                //add text in input option
+                                $(inputOptionList).each(function (indexinputOption, elementinputOption) {
+                                    $('input[id="inputOptionId' + (index + 1) + '"]')[indexinputOption].value = elementinputOption.value;
+                                });
+
+                                //click update button
+                                $('button[id="updateDropDownId' + (index + 1) + '"]').each(function (indexUpdate, elemUpdate) {
+
+                                    var value = $('input[id="inputOptionId' + (index + 1) + '"]')[indexUpdate].value;
+                                    $('select[id="selectOptionId' + (index + 1) + '"]')
+                                        .append('<option value="' + indexUpdate + '" ' + (indexUpdate == 0 ? "selected" : "") + '>' + value + '</option>')
+
+                                    $(elemUpdate).on('click', function () {
+                                        var value = $('input[id="inputOptionId' + (index + 1) + '"]')[indexUpdate].value;
+                                        $('select[id="selectOptionId' + (index + 1) + '"] option[value="' + indexUpdate + '"]').text(value);
+                                    });
+
+                                });
+
+
+                            }
+                        }
+                        else {
+
+                            if ($(this).val() == 0) {
+
+                                $('div#selectSideId' + (index + 1)).remove();
+
+                                $(changeOption).each(function (i, el) {
+
+                                    $('#rowAppendId' + (index + 1) + ' #rowChildAppendId' + (index + 1)).html('<div id="changeOptionId' + (index + 1) + '"><div class="col-sm-4 col-md-2 col-lg-2 radio-inlineMy">' +
+                                        '<div class="radio radio-primary radio-inline"><input type="radio" id="optionRadioId' + (i + 1) + '" name="option' + (index + 1) + '">' +
+                                        '<label for="optionRadioId' + (i + 1) + '"></label></div></div></div><div class="col-sm-8 col-md-4 col-lg-2" style="margin-left:-35px; margin-bottom:10px">' +
+                                        '<input type="text" id="inputOptionId' + (index + 1) + '" class="form-control" placeholder="Enter poll option"></div>');
+                                });
+
+                            }
+                            else if ($(this).val() == 1) {
+
+
+                                $('div#selectSideId' + (index + 1)).remove();
+
+                                $(changeOption).each(function (i, el) {
+
+                                    $('#rowAppendId' + (index + 1) + ' #rowChildAppendId' + (index + 1)).html('<div id="changeOptionId' + (index + 1) + '"><div class="col-sm-4 col-md-2 col-lg-2" style="text-align:right; padding-right:25px;">' +
+                                        '<div class="checkbox checkbox-primary"><input type="checkbox" id="optionRadioId' + (i + 1) + '" name="option' + (index + 1) + '">' +
+                                        '<label for="optionRadioId' + (i + 1) + '"></label></div></div></div><div class="col-sm-8 col-md-4 col-lg-2" style="margin-left:-35px; margin-bottom:10px">' +
+                                        '<input type="text" id="inputOptionId' + (index + 1) + '" class="form-control" placeholder="Enter poll option"></div>');
+                                });
+
+                            }
+
+                        }
+
+                        //add text in input option
+                        $(inputOptionList).each(function (indexinputOption, elementinputOption) {
+                            $('input[id="inputOptionId' + (index + 1) + '"]')[indexinputOption].value = elementinputOption.value;
+                        });
+
+
+                    });
+
+
+
+                    $('#dropDown' + (index + 1)).change(function () {
+
+                        if ($('input:radio[id="inlineRadioHor' + (index + 1) + '"]').is(":checked")) {
+                            var selectedDropDown = $('#dropDown' + (index + 1)).val();
+
+
+                            if (selectedDropDown == 0) {
+
+                                $('div#rowAppendId' + (index + 1)).show();
+                                $('button#addOptionBtn' + (index + 1)).show();
+                                var removeOptionBtn = $('[id="rowChildAppendId' + (index + 1) + '"]').length;
+                                if (removeOptionBtn > 2) {
+                                    $('#removeOptionBtn' + (index + 1) + '').show();
+                                }
+                            }
+                            if (selectedDropDown == 1) {
+
+                                $('div#rowAppendId' + (index + 1)).show();
+                                $('button#addOptionBtn' + (index + 1)).show();
+                                var removeOptionBtn = $('[id="rowChildAppendId' + (index + 1) + '"]').length;
+                                if (removeOptionBtn > 2) {
+                                    $('#removeOptionBtn' + (index + 1) + '').show();
+                                }
+                            }
+                            if (selectedDropDown == 2) {
+
+                                $('div#selectSideId' + (index + 1)).hide();
+                                $('div#rowAppendId' + (index + 1)).hide();
+                                $('button#addOptionBtn' + (index + 1)).hide();
+                                $('button#removeOptionBtn' + (index + 1)).hide();
+                            }
+
+                        }
+
+                        if ($('input:radio[id="inlineRadioVer' + (index + 1) + '"]').is(":checked")) {
+
+                            var selectedDropDown = $('#dropDown' + (index + 1)).val();
+                            if (selectedDropDown == 0) {
+
+                                $('div#rowAppendId' + (index + 1)).show();
+                                $('button#addOptionBtn' + (index + 1)).show();
+                                var removeOptionBtn = $('[id="rowChildAppendId' + (index + 1) + '"]').length;
+                                if (removeOptionBtn > 2) {
+                                    $('#removeOptionBtn' + (index + 1) + '').show();
+                                }
+
+                            }
+                            if (selectedDropDown == 1) {
+
+                                $('div#rowAppendId' + (index + 1)).show();
+                                $('button#addOptionBtn' + (index + 1)).show();
+                                var removeOptionBtn = $('[id="rowChildAppendId' + (index + 1) + '"]').length;
+                                if (removeOptionBtn > 2) {
+                                    $('#removeOptionBtn' + (index + 1) + '').show();
+                                }
+
+                            }
+                        }
+
+                    });
+
+
+
+
+                    //Add option from drop down
+                    $('#addOptionBtn' + (index + 1)).on('click', function (e) {
+                        e.stopImmediatePropagation();
+
+
+                        var selectedDropDown = $('#dropDown' + (index + 1)).val();
+                        var radioHorVer = $('input:radio[id="inlineRadioVer' + (index + 1) + '"]').is(":checked");
+
+                        if (radioHorVer) {
+                            if (selectedDropDown == 2) {
+
+                                $('#rowAppendId' + (index + 1)).append('<div id="rowChildAppendId' + (index + 1) + '"><br /><br /><br /><div id="changeOptionId' + (index + 1) + '"><div class="col-sm-2 col-md-4 col-lg-3" style="text-align:right;">' +
+                                '<div class="updateDropDownOption"><button class="btn btn-primary" id="updateDropDownId' + (index + 1) + '">Update</button></div></div></div>' +
+                                '<div class="col-sm-9 col-md-7 col-lg-8"><input type="text" id="inputOptionId' + (index + 1) + '" class="form-control" placeholder="Enter poll option"></div></div>');
+
+                                $('#removeOptionBtn' + (index + 1)).show();
+
+
+                                //click update button
+                                $('input[id="inputOptionId' + (index + 1) + '"]').each(function (indexUpdate, elemUpdate) {
+
+
+                                    var optionUndefined = $('select[id="selectOptionId' + (index + 1) + '"] option')[indexUpdate];
+
+                                    if (optionUndefined == null) {
+                                        var value = $('select[id="selectOptionId' + (index + 1) + '"] option').length;
+                                        $('select[id="selectOptionId' + (index + 1) + '"]').append($("<option></option>").attr("value", value).text(''));
+                                    }
+
+
+                                    //click update button
+                                    $('button[id="updateDropDownId' + (index + 1) + '"]').each(function (indexUpdate, elemUpdate) {
+
+                                        $(elemUpdate).on('click', function () {
+                                            var value = $('input[id="inputOptionId' + (index + 1) + '"]')[indexUpdate].value;
+                                            $('select[id="selectOptionId' + (index + 1) + '"] option[value="' + indexUpdate + '"]').text(value);
+                                        });
+
+                                    });
+
+                                });
+                            }
+                        }
+
+                    });
+
+
+                    $('input:radio[name="radioInline' + (index + 1) + '"]').change(function () {
+
+                        if ($(this).val() == 2) {
+
+                            var selectedDropDown = $('#dropDown' + (index + 1)).val();
+                            var changeOption = $('div[id="changeOptionId' + (index + 1) + '"]');
+                            var inputOptionList = $('input[id="inputOptionId' + (index + 1) + '"]');
+
+                            if (selectedDropDown == 0) {
+
+                                $('div#rowAppendId' + (index + 1)).show();
+                                $('button#addOptionBtn' + (index + 1)).show();
+                                $('div#selectSideId' + (index + 1)).remove();
+
+                                $(changeOption).each(function (i, el) {
+
+                                    $('#rowAppendId' + (index + 1) + ' #rowChildAppendId' + (index + 1)).html('<div id="changeOptionId' + (index + 1) + '"><div class="col-sm-4 col-md-2 col-lg-2 radio-inlineMy">' +
+                                        '<div class="radio radio-primary radio-inline"><input type="radio" id="optionRadioId' + (i + 1) + '" name="option' + (index + 1) + '">' +
+                                        '<label for="optionRadioId' + (i + 1) + '"></label></div></div></div><div class="col-sm-8 col-md-4 col-lg-2" style="margin-left:-35px; margin-bottom:10px">' +
+                                        '<input type="text" id="inputOptionId' + (index + 1) + '" class="form-control" placeholder="Enter poll option"></div>');
+                                });
+
+                            }
+                            if (selectedDropDown == 1) {
+
+                                $('div#selectSideId' + (index + 1)).remove();
+                                $('div#rowAppendId' + (index + 1)).show();
+
+                                $(changeOption).each(function (i, el) {
+
+                                    $('#rowAppendId' + (index + 1) + ' #rowChildAppendId' + (index + 1)).html('<div id="changeOptionId' + (index + 1) + '"><div class="col-sm-4 col-md-2 col-lg-2" style="text-align:right; padding-right:25px;">' +
+                                        '<div class="checkbox checkbox-primary"><input type="checkbox" id="optionRadioId' + (i + 1) + '" name="option' + (index + 1) + '">' +
+                                        '<label for="optionRadioId' + (i + 1) + '"></label></div></div></div><div class="col-sm-8 col-md-4 col-lg-2" style="margin-left:-35px; margin-bottom:10px">' +
+                                        '<input type="text" id="inputOptionId' + (index + 1) + '" class="form-control" placeholder="Enter poll option"></div>');
+                                });
+
+                                $('button#addOptionBtn' + (index + 1)).show();
+
+                            }
+                            if (selectedDropDown == 2) {
+
+                                $('div#selectSideId' + (index + 1)).hide();
+                                $('div#rowAppendId' + (index + 1)).hide();
+                                $('button#addOptionBtn' + (index + 1)).hide();
+                                $('button#removeOptionBtn' + (index + 1)).hide();
+
+                            }
+                        }
+                        else {
+
+                            var selectedDropDown = $('#dropDown' + (index + 1)).val();
+                            var changeOption = $('div[id="changeOptionId' + (index + 1) + '"]');
+                            var inputOptionList = $('input[id="inputOptionId' + (index + 1) + '"]');
+
+                            if (selectedDropDown == 0) {
+
+                                $('div#rowAppendId' + (index + 1)).show();
+                                $('button#addOptionBtn' + (index + 1)).show();
+                                $('div#selectSideId' + (index + 1)).remove();
+
+                                $(changeOption).each(function (i, el) {
+
+                                    $('#rowAppendId' + (index + 1) + ' #rowChildAppendId' + (index + 1)).html('<br /><br /><br /><div id="changeOptionId' + (index + 1) + '"><div class="col-sm-2 col-md-4 col-lg-3" style="text-align:right;">' +
+                                        '<div class="radio radio-primary"><input type="radio" id="optionRadioId' + (i + 1) + '" name="option' + (index + 1) + '">' +
+                                        '<label for="optionRadioId' + (i + 1) + '"></label></div></div></div>' +
+                                        '<div class="col-sm-9 col-md-7 col-lg-8"><input type="text" id="inputOptionId' + (index + 1) + '" class="form-control" placeholder="Enter poll option"></div>');
+                                });
+
+                            }
+                            if (selectedDropDown == 1) {
+
+                                $('div#selectSideId' + (index + 1)).remove();
+                                $('div#rowAppendId' + (index + 1)).show();
+
+                                $(changeOption).each(function (i, el) {
+
+                                    $('#rowAppendId' + (index + 1) + ' #rowChildAppendId' + (index + 1)).html('<br /><br /><br /><div id="changeOptionId' + (index + 1) + '"><div class="col-sm-2 col-md-4 col-lg-3" style="text-align:right;">' +
+                                        '<div class="checkbox checkbox-primary"><input id="optionCheckBoxId' + (i + 1) + '" type="checkbox">' +
+                                        '<label for="optionCheckBoxId' + (i + 1) + '"></label></div></div></div>' +
+                                        '<div class="col-sm-9 col-md-7 col-lg-8"><input type="text" id="inputOptionId' + (index + 1) + '" class="form-control" placeholder="Enter poll option"></div>');
+                                });
+
+                                $('button#addOptionBtn' + (index + 1)).show();
+
+                            }
+                            if (selectedDropDown == 2) {
+
+                                $('div#selectSideId' + (index + 1)).remove();
+                                $('div#rowAppendId' + (index + 1)).show();
+
+                                $('#rowAppendId' + (index + 1)).before('<div id="selectSideId' + (index + 1) + '"><div class="col-md-5 col-sm-8 col-lg-3 col-lg-offset-5 col-md-offset-4">' +
+                                    '<label class="label"><select id="selectOptionId' + (index + 1) + '" class="select"></select></label></div><br /><br /><br /></div></div>')
+
+                                $(changeOption).each(function (i, el) {
+
+                                    $('#rowAppendId' + (index + 1) + ' #rowChildAppendId' + (index + 1)).html('<br /><br /><br /><div id="changeOptionId' + (index + 1) + '"><div class="col-sm-2 col-md-4 col-lg-3" style="text-align:right;">' +
+                                        '<div class="updateDropDownOption"><button class="btn btn-primary" id="updateDropDownId' + (index + 1) + '">Update</button></div></div></div>' +
+                                        '<div class="col-sm-9 col-md-7 col-lg-8"><input type="text" id="inputOptionId' + (index + 1) + '" class="form-control" placeholder="Enter poll option"></div>');
+                                });
+
+                                $('button#addOptionBtn' + (index + 1)).show();
+
+                                //add text in input option
+                                $(inputOptionList).each(function (indexinputOption, elementinputOption) {
+                                    $('input[id="inputOptionId' + (index + 1) + '"]')[indexinputOption].value = elementinputOption.value;
+                                });
+
+                                //click update button
+                                $('button[id="updateDropDownId' + (index + 1) + '"]').each(function (indexUpdate, elemUpdate) {
+
+                                    var value = $('input[id="inputOptionId' + (index + 1) + '"]')[indexUpdate].value;
+                                    $('select[id="selectOptionId' + (index + 1) + '"]')
+                                        .append('<option value="' + indexUpdate + '" ' + (indexUpdate == 0 ? "selected" : "") + '>' + value + '</option>')
+
+                                    $(elemUpdate).on('click', function () {
+                                        var value = $('input[id="inputOptionId' + (index + 1) + '"]')[indexUpdate].value;
+                                        $('select[id="selectOptionId' + (index + 1) + '"] option[value="' + indexUpdate + '"]').text(value);
+                                    });
+
+                                });
+
+                            }
+                            var removeOptionBtn = $('[id="rowChildAppendId' + (index + 1) + '"]').length;
+                            if (removeOptionBtn > 2) {
+
+                                $('#removeOptionBtn' + (index + 1) + '').show();
+                            }
+                            
+                        }
+
+                        //add text in input option
+                        $(inputOptionList).each(function (indexinputOption, elementinputOption) {
+                            $('input[id="inputOptionId' + (index + 1) + '"]')[indexinputOption].value = elementinputOption.value;
+                        });
+
+                    });
+
+
+                    //delete option from drop down
+                    $('#removeOptionBtn' + (index + 1)).on('click', function (e) {
+                        e.stopImmediatePropagation();
+
+
+                        $('#rowAppendId' + (index + 1) + ' #rowChildAppendId' + (index + 1)).last().remove();
+
+                        var removeOptionBtn = $('[id="rowChildAppendId' + (index + 1) + '"]').length;
+                        if (removeOptionBtn <= 2) {
+                            $('#removeOptionBtn' + (index + 1) + '').hide();
+                        }
+
+                        var selectedDropDown = $('#dropDown' + (index + 1)).val();
+
+                        if (selectedDropDown == 2) {
+
+                            var indexSelectOption = $('button[id="updateDropDownId' + (index + 1) + '"]').length;
+
+                            $('select[id="selectOptionId' + (index + 1) + '"] option')[indexSelectOption].remove();
+                        }
+
+
+                    });
+
+                });
+            }
+
+
+        });
+   
+        if (onClickAddQuestion == 0) {
+
+            onClickAddQuestion = onClickAddQuestion + 1;
+
+            $('#removeQuestionBtnId').hide();
+
+            $('[id="questionId"]').each(function (index, el) {
+
+
+                //add button
+                var pollOptionRadioId3 = 3;
+                $('#addOptionBtn' + (index + 1)).on('click', function () {
+
+
+                    var selectedDropDown = $('#dropDown' + (index + 1)).val();
+
+                    var radioHorVer = $('input:radio[id="inlineRadioVer' + (index + 1) + '"]').is(":checked");
+
+                    if (radioHorVer) {
+                        if (selectedDropDown == 0) {
+                            $('#rowAppendId' + (index + 1)).append('<div id="rowChildAppendId' + (index + 1) + '"><br /><br /><br /><div id="changeOptionId' + (index + 1) + '">' +
+                                '<div class="col-sm-2 col-md-4 col-lg-3" style="text-align:right;"><div class="radio radio-primary">' +
+                                '<input type="radio" id="optionRadioId' + pollOptionRadioId3 + '" name="option' + (index + 1) + '"><label for="optionRadioId' + pollOptionRadioId3 + '"></label></div></div></div>' +
+                                '<div class="col-sm-9 col-md-7 col-lg-8"><input type="text" id="inputOptionId' + (index + 1) + '" class="form-control" placeholder="Enter poll option"></div></div>');
+                        }
+                        else if (selectedDropDown == 1) {
+
+                            $('#rowAppendId' + (index + 1)).append('<div id="rowChildAppendId' + (index + 1) + '"><br /><br /><br /><div id="changeOptionId' + (index + 1) + '">' +
+                                '<div class="col-sm-2 col-md-4 col-lg-3" style="text-align:right;">' +
+                                '<div class="checkbox checkbox-primary"><input id="optionCheckBoxId' + pollOptionRadioId3 + '" type="checkbox">' +
+                                '<label for="optionCheckBoxId' + pollOptionRadioId3 + '"></label></div></div></div><div class="col-sm-9 col-md-7 col-lg-8">' +
+                                '<input type="text" id="inputOptionId' + (index + 1) + '" class="form-control" placeholder="Enter poll option"></div></div>');
+                        }
+                        else {
+
+                            //$('#rowAppendId' + (index + 1)).append('<div id="rowChildAppendId' + (index + 1) + '"><br /><br /><br /><div id="changeOptionId' + (index + 1) + '"><div class="col-sm-2 col-md-4 col-lg-3" style="text-align:right;">' +
+                            //        '<div class="updateDropDownOption"><button class="btn btn-primary" id="updateDropDownId' + (index + 1) + '">Update</button></div></div>' +
+                            //        '<div class="col-sm-9 col-md-7 col-lg-8"><input type="text" id="inputOptionId' + (index + 1) + '" class="form-control" placeholder="Enter poll option"></div></div></div>');
+                        }
+                    }
+                    else {
+
+                        if (selectedDropDown == 0) {
+
+                            $('#rowAppendId' + (index + 1)).append('<div id="rowChildAppendId' + (index + 1) + '"><div id="changeOptionId' + (index + 1) + '"><div class="col-sm-4 col-md-2 col-lg-2 radio-inlineMy">' +
+                                    '<div class="radio radio-primary radio-inline"><input type="radio" id="optionRadioId' + pollOptionRadioId3 + '" name="option' + (index + 1) + '">' +
+                                    '<label for="optionRadioId' + pollOptionRadioId3 + '"></label></div></div></div><div class="col-sm-8 col-md-4 col-lg-2" style="margin-left:-35px; margin-bottom:10px">' +
+                                    '<input type="text" id="inputOptionId' + (index + 1) + '" class="form-control" placeholder="Enter poll option"></div></div>');
+
+                        }
+                        else if (selectedDropDown == 1) {
+
+                            $('#rowAppendId' + (index + 1)).append('<div id="rowChildAppendId' + (index + 1) + '"><div id="changeOptionId' + (index + 1) + '"><div class="col-sm-4 col-md-2 col-lg-2" style="text-align:right; padding-right:25px;">' +
+                                    '<div class="checkbox checkbox-primary"><input type="checkbox" id="optionRadioId' + pollOptionRadioId3 + '" name="option' + (index + 1) + '">' +
+                                    '<label for="optionRadioId' + pollOptionRadioId3 + '"></label></div></div></div><div class="col-sm-8 col-md-4 col-lg-2" style="margin-left:-35px; margin-bottom:10px">' +
+                                    '<input type="text" id="inputOptionId' + (index + 1) + '" class="form-control" placeholder="Enter poll option"></div></div>');
+
+                        }
+
+                    }
+
+
+                    pollOptionRadioId3 = pollOptionRadioId3 + 1;
+
+                    $('#removeOptionBtn' + (index + 1)).show();
+
+
+
+
+                });
+
+                //hide remove button reload
+                $('#removeOptionBtn' + (index + 1) + '').hide();
+
+
+
+                //drop down menu
+                $('#dropDown' + (index + 1)).change(function () {
+
+                    var radioHorVer = $('input:radio[id="inlineRadioVer' + (index + 1) + '"]').is(":checked");
+                    var changeOption = $('div[id="changeOptionId' + (index + 1) + '"]');
+                    var inputOptionList = $('input[id="inputOptionId' + (index + 1) + '"]');
+
+                    if (radioHorVer) {
+
+                        if ($(this).val() == 0) {
+
+                            $('div#selectSideId' + (index + 1)).remove();
+
+                            $(changeOption).each(function (i, el) {
+
+                                $('#rowAppendId' + (index + 1) + ' #rowChildAppendId' + (index + 1)).html('<br /><br /><br /><div id="changeOptionId' + (index + 1) + '"><div class="col-sm-2 col-md-4 col-lg-3" style="text-align:right;">' +
+                                    '<div class="radio radio-primary"><input type="radio" id="optionRadioId' + (i + 1) + '" name="option' + (index + 1) + '">' +
+                                    '<label for="optionRadioId' + (i + 1) + '"></label></div></div></div>' +
+                                    '<div class="col-sm-9 col-md-7 col-lg-8"><input type="text" id="inputOptionId' + (index + 1) + '" class="form-control" placeholder="Enter poll option"></div>');
+                            });
+                        }
+                        else if ($(this).val() == 1) {
+
+                            $('div#selectSideId' + (index + 1)).remove();
+
+                            $(changeOption).each(function (i, el) {
+
+                                $('#rowAppendId' + (index + 1) + ' #rowChildAppendId' + (index + 1)).html('<br /><br /><br /><div id="changeOptionId' + (index + 1) + '"><div class="col-sm-2 col-md-4 col-lg-3" style="text-align:right;">' +
+                                    '<div class="checkbox checkbox-primary"><input id="optionCheckBoxId' + (i + 1) + '" type="checkbox">' +
+                                    '<label for="optionCheckBoxId' + (i + 1) + '"></label></div></div></div>' +
+                                    '<div class="col-sm-9 col-md-7 col-lg-8"><input type="text" id="inputOptionId' + (index + 1) + '" class="form-control" placeholder="Enter poll option"></div>');
+                            });
+                        }
+                        else {
+
+                            $('div#selectSideId' + (index + 1)).remove();
+
+                            $('#rowAppendId' + (index + 1)).before('<div id="selectSideId' + (index + 1) + '"><div class="col-md-5 col-sm-8 col-lg-3 col-lg-offset-5 col-md-offset-4">' +
+                                '<label class="label"><select id="selectOptionId' + (index + 1) + '" class="select"></select></label></div><br /><br /><br /></div></div>')
+
+                            $(changeOption).each(function (i, el) {
+
+                                $('#rowAppendId' + (index + 1) + ' #rowChildAppendId' + (index + 1)).html('<br /><br /><br /><div id="changeOptionId' + (index + 1) + '"><div class="col-sm-2 col-md-4 col-lg-3" style="text-align:right;">' +
+                                    '<div class="updateDropDownOption"><button class="btn btn-primary" id="updateDropDownId' + (index + 1) + '">Update</button></div></div></div>' +
+                                    '<div class="col-sm-9 col-md-7 col-lg-8"><input type="text" id="inputOptionId' + (index + 1) + '" class="form-control" placeholder="Enter poll option"></div>');
+                            });
+
+
+                            //add text in input option
+                            $(inputOptionList).each(function (indexinputOption, elementinputOption) {
+                                $('input[id="inputOptionId' + (index + 1) + '"]')[indexinputOption].value = elementinputOption.value;
+                            });
+
+                            //click update button
+                            $('button[id="updateDropDownId' + (index + 1) + '"]').each(function (indexUpdate, elemUpdate) {
+
+                                var value = $('input[id="inputOptionId' + (index + 1) + '"]')[indexUpdate].value;
+                                $('select[id="selectOptionId' + (index + 1) + '"]')
+                                    .append('<option value="' + indexUpdate + '" ' + (indexUpdate == 0 ? "selected" : "") + '>' + value + '</option>')
+
+                                $(elemUpdate).on('click', function () {
+                                    var value = $('input[id="inputOptionId' + (index + 1) + '"]')[indexUpdate].value;
+                                    $('select[id="selectOptionId' + (index + 1) + '"] option[value="' + indexUpdate + '"]').text(value);
+                                });
+
+                            });
+
+
+                        }
+                    }
+                    else {
+
+                        if ($(this).val() == 0) {
+
+                            $('div#selectSideId' + (index + 1)).remove();
+
+                            $(changeOption).each(function (i, el) {
+
+                                $('#rowAppendId' + (index + 1) + ' #rowChildAppendId' + (index + 1)).html('<div id="changeOptionId' + (index + 1) + '"><div class="col-sm-4 col-md-2 col-lg-2 radio-inlineMy">' +
+                                    '<div class="radio radio-primary radio-inline"><input type="radio" id="optionRadioId' + (i + 1) + '" name="option' + (index + 1) + '">' +
+                                    '<label for="optionRadioId' + (i + 1) + '"></label></div></div></div><div class="col-sm-8 col-md-4 col-lg-2" style="margin-left:-35px; margin-bottom:10px">' +
+                                    '<input type="text" id="inputOptionId' + (index + 1) + '" class="form-control" placeholder="Enter poll option"></div>');
+                            });
+
+                        }
+                        else if ($(this).val() == 1) {
+
+
+                            $('div#selectSideId' + (index + 1)).remove();
+
+                            $(changeOption).each(function (i, el) {
+
+                                $('#rowAppendId' + (index + 1) + ' #rowChildAppendId' + (index + 1)).html('<div id="changeOptionId' + (index + 1) + '"><div class="col-sm-4 col-md-2 col-lg-2" style="text-align:right; padding-right:25px;">' +
+                                    '<div class="checkbox checkbox-primary"><input type="checkbox" id="optionRadioId' + (i + 1) + '" name="option' + (index + 1) + '">' +
+                                    '<label for="optionRadioId' + (i + 1) + '"></label></div></div></div><div class="col-sm-8 col-md-4 col-lg-2" style="margin-left:-35px; margin-bottom:10px">' +
+                                    '<input type="text" id="inputOptionId' + (index + 1) + '" class="form-control" placeholder="Enter poll option"></div>');
+                            });
+
+                        }
+
+                    }
+
+                    //add text in input option
+                    $(inputOptionList).each(function (indexinputOption, elementinputOption) {
+                        $('input[id="inputOptionId' + (index + 1) + '"]')[indexinputOption].value = elementinputOption.value;
+                    });
+
+
+                });
+
+
+
+                $('#dropDown' + (index + 1)).change(function () {
+
+                    if ($('input:radio[id="inlineRadioHor' + (index + 1) + '"]').is(":checked")) {
+                        var selectedDropDown = $('#dropDown' + (index + 1)).val();
+
+
+                        if (selectedDropDown == 0) {
+
+                            $('div#rowAppendId' + (index + 1)).show();
+                            $('button#addOptionBtn' + (index + 1)).show();
+                            var removeOptionBtn = $('[id="rowChildAppendId' + (index + 1) + '"]').length;
+                            if (removeOptionBtn > 2) {
+                                $('#removeOptionBtn' + (index + 1) + '').show();
+                            }
+                        }
+                        if (selectedDropDown == 1) {
+
+                            $('div#rowAppendId' + (index + 1)).show();
+                            $('button#addOptionBtn' + (index + 1)).show();
+                            var removeOptionBtn = $('[id="rowChildAppendId' + (index + 1) + '"]').length;
+                            if (removeOptionBtn > 2) {
+                                $('#removeOptionBtn' + (index + 1) + '').show();
+                            }
+                        }
+                        if (selectedDropDown == 2) {
+
+                            $('div#selectSideId' + (index + 1)).hide();
+                            $('div#rowAppendId' + (index + 1)).hide();
+                            $('button#addOptionBtn' + (index + 1)).hide();
+                            $('button#removeOptionBtn' + (index + 1)).hide();
+                        }
+
+                    }
+
+                    if ($('input:radio[id="inlineRadioVer' + (index + 1) + '"]').is(":checked")) {
+
+                        var selectedDropDown = $('#dropDown' + (index + 1)).val();
+                        if (selectedDropDown == 0) {
+
+                            $('div#rowAppendId' + (index + 1)).show();
+                            $('button#addOptionBtn' + (index + 1)).show();
+                            var removeOptionBtn = $('[id="rowChildAppendId' + (index + 1) + '"]').length;
+                            if (removeOptionBtn > 2) {
+                                $('#removeOptionBtn' + (index + 1) + '').show();
+                            }
+
+                        }
+                        if (selectedDropDown == 1) {
+
+                            $('div#rowAppendId' + (index + 1)).show();
+                            $('button#addOptionBtn' + (index + 1)).show();
+                            var removeOptionBtn = $('[id="rowChildAppendId' + (index + 1) + '"]').length;
+                            if (removeOptionBtn > 2) {
+                                $('#removeOptionBtn' + (index + 1) + '').show();
+                            }
+
+                        }
+                    }
+
+                });
+
+
+
+
+                //Add option from drop down
+                $('#addOptionBtn' + (index + 1)).on('click', function (e) {
+                    e.stopImmediatePropagation();
+
+
+                    var selectedDropDown = $('#dropDown' + (index + 1)).val();
+                    var radioHorVer = $('input:radio[id="inlineRadioVer' + (index + 1) + '"]').is(":checked");
+
+                    if (radioHorVer) {
+                        if (selectedDropDown == 2) {
+
+                            $('#rowAppendId' + (index + 1)).append('<div id="rowChildAppendId' + (index + 1) + '"><br /><br /><br /><div id="changeOptionId' + (index + 1) + '"><div class="col-sm-2 col-md-4 col-lg-3" style="text-align:right;">' +
+                            '<div class="updateDropDownOption"><button class="btn btn-primary" id="updateDropDownId' + (index + 1) + '">Update</button></div></div></div>' +
+                            '<div class="col-sm-9 col-md-7 col-lg-8"><input type="text" id="inputOptionId' + (index + 1) + '" class="form-control" placeholder="Enter poll option"></div></div>');
+
+                            $('#removeOptionBtn' + (index + 1)).show();
+
+
+                            //click update button
+                            $('input[id="inputOptionId' + (index + 1) + '"]').each(function (indexUpdate, elemUpdate) {
+
+
+                                var optionUndefined = $('select[id="selectOptionId' + (index + 1) + '"] option')[indexUpdate];
+
+                                if (optionUndefined == null) {
+                                    var value = $('select[id="selectOptionId' + (index + 1) + '"] option').length;
+                                    $('select[id="selectOptionId' + (index + 1) + '"]').append($("<option></option>").attr("value", value).text(''));
+                                }
+
+
+                                //click update button
+                                $('button[id="updateDropDownId' + (index + 1) + '"]').each(function (indexUpdate, elemUpdate) {
+
+                                    $(elemUpdate).on('click', function () {
+                                        var value = $('input[id="inputOptionId' + (index + 1) + '"]')[indexUpdate].value;
+                                        $('select[id="selectOptionId' + (index + 1) + '"] option[value="' + indexUpdate + '"]').text(value);
+                                    });
+
+                                });
+
+                            });
+                        }
+                    }
+
+                });
+
+
+                $('input:radio[name="radioInline' + (index + 1) + '"]').change(function () {
+
+                    if ($(this).val() == 2) {
+
+                        var selectedDropDown = $('#dropDown' + (index + 1)).val();
+                        var changeOption = $('div[id="changeOptionId' + (index + 1) + '"]');
+                        var inputOptionList = $('input[id="inputOptionId' + (index + 1) + '"]');
+
+                        if (selectedDropDown == 0) {
+
+                            $('div#rowAppendId' + (index + 1)).show();
+                            $('button#addOptionBtn' + (index + 1)).show();
+                            $('div#selectSideId' + (index + 1)).remove();
+
+                            $(changeOption).each(function (i, el) {
+
+                                $('#rowAppendId' + (index + 1) + ' #rowChildAppendId' + (index + 1)).html('<div id="changeOptionId' + (index + 1) + '"><div class="col-sm-4 col-md-2 col-lg-2 radio-inlineMy">' +
+                                    '<div class="radio radio-primary radio-inline"><input type="radio" id="optionRadioId' + (i + 1) + '" name="option' + (index + 1) + '">' +
+                                    '<label for="optionRadioId' + (i + 1) + '"></label></div></div></div><div class="col-sm-8 col-md-4 col-lg-2" style="margin-left:-35px; margin-bottom:10px">' +
+                                    '<input type="text" id="inputOptionId' + (index + 1) + '" class="form-control" placeholder="Enter poll option"></div>');
+                            });
+
+                        }
+                        if (selectedDropDown == 1) {
+
+                            $('div#selectSideId' + (index + 1)).remove();
+                            $('div#rowAppendId' + (index + 1)).show();
+
+                            $(changeOption).each(function (i, el) {
+
+                                $('#rowAppendId' + (index + 1) + ' #rowChildAppendId' + (index + 1)).html('<div id="changeOptionId' + (index + 1) + '"><div class="col-sm-4 col-md-2 col-lg-2" style="text-align:right; padding-right:25px;">' +
+                                    '<div class="checkbox checkbox-primary"><input type="checkbox" id="optionRadioId' + (i + 1) + '" name="option' + (index + 1) + '">' +
+                                    '<label for="optionRadioId' + (i + 1) + '"></label></div></div></div><div class="col-sm-8 col-md-4 col-lg-2" style="margin-left:-35px; margin-bottom:10px">' +
+                                    '<input type="text" id="inputOptionId' + (index + 1) + '" class="form-control" placeholder="Enter poll option"></div>');
+                            });
+
+                            $('button#addOptionBtn' + (index + 1)).show();
+
+                        }
+                        if (selectedDropDown == 2) {
+
+                            $('div#selectSideId' + (index + 1)).hide();
+                            $('div#rowAppendId' + (index + 1)).hide();
+                            $('button#addOptionBtn' + (index + 1)).hide();
+                            $('button#removeOptionBtn' + (index + 1)).hide();
+
+                        }
+                    }
+                    else {
+
+                        var selectedDropDown = $('#dropDown' + (index + 1)).val();
+                        var changeOption = $('div[id="changeOptionId' + (index + 1) + '"]');
+                        var inputOptionList = $('input[id="inputOptionId' + (index + 1) + '"]');
+
+                        if (selectedDropDown == 0) {
+
+                            $('div#rowAppendId' + (index + 1)).show();
+                            $('button#addOptionBtn' + (index + 1)).show();
+                            $('div#selectSideId' + (index + 1)).remove();
+
+                            $(changeOption).each(function (i, el) {
+
+                                $('#rowAppendId' + (index + 1) + ' #rowChildAppendId' + (index + 1)).html('<br /><br /><br /><div id="changeOptionId' + (index + 1) + '"><div class="col-sm-2 col-md-4 col-lg-3" style="text-align:right;">' +
+                                    '<div class="radio radio-primary"><input type="radio" id="optionRadioId' + (i + 1) + '" name="option' + (index + 1) + '">' +
+                                    '<label for="optionRadioId' + (i + 1) + '"></label></div></div></div>' +
+                                    '<div class="col-sm-9 col-md-7 col-lg-8"><input type="text" id="inputOptionId' + (index + 1) + '" class="form-control" placeholder="Enter poll option"></div>');
+                            });
+
+                        }
+                        if (selectedDropDown == 1) {
+
+                            $('div#selectSideId' + (index + 1)).remove();
+                            $('div#rowAppendId' + (index + 1)).show();
+
+                            $(changeOption).each(function (i, el) {
+
+                                $('#rowAppendId' + (index + 1) + ' #rowChildAppendId' + (index + 1)).html('<br /><br /><br /><div id="changeOptionId' + (index + 1) + '"><div class="col-sm-2 col-md-4 col-lg-3" style="text-align:right;">' +
+                                    '<div class="checkbox checkbox-primary"><input id="optionCheckBoxId' + (i + 1) + '" type="checkbox">' +
+                                    '<label for="optionCheckBoxId' + (i + 1) + '"></label></div></div></div>' +
+                                    '<div class="col-sm-9 col-md-7 col-lg-8"><input type="text" id="inputOptionId' + (index + 1) + '" class="form-control" placeholder="Enter poll option"></div>');
+                            });
+
+                            $('button#addOptionBtn' + (index + 1)).show();
+
+                        }
+                        if (selectedDropDown == 2) {
+
+                            $('div#selectSideId' + (index + 1)).remove();
+                            $('div#rowAppendId' + (index + 1)).show();
+
+                            $('#rowAppendId' + (index + 1)).before('<div id="selectSideId' + (index + 1) + '"><div class="col-md-5 col-sm-8 col-lg-3 col-lg-offset-5 col-md-offset-4">' +
+                                '<label class="label"><select id="selectOptionId' + (index + 1) + '" class="select"></select></label></div><br /><br /><br /></div></div>')
+
+                            $(changeOption).each(function (i, el) {
+
+                                $('#rowAppendId' + (index + 1) + ' #rowChildAppendId' + (index + 1)).html('<br /><br /><br /><div id="changeOptionId' + (index + 1) + '"><div class="col-sm-2 col-md-4 col-lg-3" style="text-align:right;">' +
+                                    '<div class="updateDropDownOption"><button class="btn btn-primary" id="updateDropDownId' + (index + 1) + '">Update</button></div></div></div>' +
+                                    '<div class="col-sm-9 col-md-7 col-lg-8"><input type="text" id="inputOptionId' + (index + 1) + '" class="form-control" placeholder="Enter poll option"></div>');
+                            });
+
+                            $('button#addOptionBtn' + (index + 1)).show();
+
+                            //add text in input option
+                            $(inputOptionList).each(function (indexinputOption, elementinputOption) {
+                                $('input[id="inputOptionId' + (index + 1) + '"]')[indexinputOption].value = elementinputOption.value;
+                            });
+
+                            //click update button
+                            $('button[id="updateDropDownId' + (index + 1) + '"]').each(function (indexUpdate, elemUpdate) {
+
+                                var value = $('input[id="inputOptionId' + (index + 1) + '"]')[indexUpdate].value;
+                                $('select[id="selectOptionId' + (index + 1) + '"]')
+                                    .append('<option value="' + indexUpdate + '" ' + (indexUpdate == 0 ? "selected" : "") + '>' + value + '</option>')
+
+                                $(elemUpdate).on('click', function () {
+                                    var value = $('input[id="inputOptionId' + (index + 1) + '"]')[indexUpdate].value;
+                                    $('select[id="selectOptionId' + (index + 1) + '"] option[value="' + indexUpdate + '"]').text(value);
+                                });
+
+                            });
+
+                        }
+                        var removeOptionBtn = $('[id="rowChildAppendId' + (index + 1) + '"]').length;
+                        if (removeOptionBtn > 2) {
+
+                            $('#removeOptionBtn' + (index + 1) + '').show();
+                        }
+
+                    }
+
+
+                    //add text in input option
+                    $(inputOptionList).each(function (indexinputOption, elementinputOption) {
+                        $('input[id="inputOptionId' + (index + 1) + '"]')[indexinputOption].value = elementinputOption.value;
+                    });
+
+                });
+
+
+                //delete option from drop down
+                $('#removeOptionBtn' + (index + 1)).on('click', function (e) {
+                    e.stopImmediatePropagation();
+
+
+                    $('#rowAppendId' + (index + 1) + ' #rowChildAppendId' + (index + 1)).last().remove();
+
+                    var removeOptionBtn = $('[id="rowChildAppendId' + (index + 1) + '"]').length;
+                    if (removeOptionBtn <= 2) {
+                        $('#removeOptionBtn' + (index + 1) + '').hide();
+                    }
+
+                    var selectedDropDown = $('#dropDown' + (index + 1)).val();
+
+                    if (selectedDropDown == 2) {
+
+                        var indexSelectOption = $('button[id="updateDropDownId' + (index + 1) + '"]').length;
+
+                        $('select[id="selectOptionId' + (index + 1) + '"] option')[indexSelectOption].remove();
+                    }
+
+
+                });
+
+            });
+        }
+        
+        $('#saveQuestionBtnId').on('click', function () {
+
+            var name = $('#thePollName').val().trim();
+            var questionPerPage = $('#perPageId').val().trim();
+            var radioNotAnonymous = $('#inlineRadioAnon').is(':checked');
+            var datetimepicker = $('#datetimepicker').val().trim();
+            var dateTimePoll = moment(datetimepicker, 'DD/MM/YYYY HH:mm:ss').format("DD/MM/YYYY HH:mm:ss");
+
+            var validationPoll = $('#validationPoll').html('');
+            
+
+            
+            if (name == '') {
+                validationPoll.append('Input name of the poll.<br/>')
+            }
+            if (questionPerPage == '') {
+                validationPoll.append('Input question per page.<br/>')
+            }
+            if (dateTimePoll == 'Invalid date') {
+                validationPoll.append('Input valid date.<br/>');
+            }
+           
+           
+            var lastBr = 0;
+            var questionList = new Array();
+            $('[id="questionId"]').each(function (index, el) {
+
+                var question = $('#inputQuestion' + (index + 1)).val().trim();
+                var questionVertical = $('#inlineRadioVer' + (index + 1)).is(':checked');
+                var selectedDropDown = $('#dropDown' + (index + 1)).val();
+                var selectedDropDown2Hidden = 0;
+                var dropDownOptionList = $('select[id="selectOptionId' + (index + 1) + '"] option')
+                var inputOptionList = $('input[id="inputOptionId' + (index + 1) + '"]');
+                var questionInputList = [];
+                
+                
+                var poll = {
+                    Name: $('#thePollName').val(),
+                    PerPage: $('#perPageId').val(),
+                    AnonymousOrNot: $('#inlineRadioAnon').is(':checked'),
+                    Datetimepicker: $('#datetimepicker').val()
+                };
+
+                if (question == '') {
+                    lastBr = lastBr + 1;
+                    validationPoll.append('Input question - ' + (index + 1) + '.<br/>');
+                }
+                if ((questionVertical == false) && (selectedDropDown == 2)) {
+                    lastBr = lastBr + 1;
+                    selectedDropDown2Hidden = selectedDropDown2Hidden + 1;
+
+                    questionInputList.push({
+                        Value: null
+                    });
+
+                    validationPoll.append('Change drop down in question - ' + (index + 1) + '.<br/>');
+                }
+                if (selectedDropDown2Hidden == 0) {
+                    if ((questionVertical == true) && (selectedDropDown == 2)) {
+                        var dropDownOptionValidation = 0;
+                        $.each(dropDownOptionList, function () {
+
+                            if ($(this).text() == '') {
+                                dropDownOptionValidation = dropDownOptionValidation + 1;
+                            }
+
+                            questionInputList.push({
+                                Value: $(this).text()
+                            });
+
+                        });
+                        if (dropDownOptionValidation != 0) {
+                            lastBr = lastBr + 1;
+                            validationPoll.append('Fill in all fields in the option drop down menu in question - ' + (index + 1) + '.<br/>');
+                        }
+                    }
+                }
+                if (selectedDropDown != 2) {
+                    var inputOptionValidation = 0;
+                    $.each(inputOptionList, function () {
+
+                        if ($(this).val() == '') {
+                            inputOptionValidation = inputOptionValidation + 1;
+                        }
+
+                        questionInputList.push({
+                            Value: $(this).val()
+                        });
+
+                    });
+                    if (inputOptionValidation != 0) {
+                        lastBr = lastBr + 1;
+                        validationPoll.append('Fill in all fields in the poll options in question - ' + (index + 1) + '.<br/>');
+                    }
+                }
+
+                questionList.push({
+                    Question: question,
+                    QuestionTypeVer: questionVertical,
+                    QuestionSelectedDropDown: selectedDropDown,
+                    QuestionInputList: questionInputList
+                });
+
+            });
+
+            if ((name == '') || (questionPerPage == '') || (dateTimePoll == 'Invalid date') || (lastBr != 0)) {
+                validationPoll.append('<br/>')
+            }
+
+           
+
+            if ((name != '') && (questionPerPage != '') && (dateTimePoll != 'Invalid date') && (lastBr == 0)) {
+               
+                var poll = {
+                    Name: name,
+                    QuestionPerPage: questionPerPage,
+                    NotAnonymousIsChecked: radioNotAnonymous,
+                    DateTimePoll: dateTimePoll,
+                    QuestionList: questionList
+                };
+
+                //$.each(poll.QuestionList, function (indexList, valueList) {
+                //    validationPoll.append('<h4>' + valueList.Question + '</h4>')
+                //    validationPoll.append('<h4>' + valueList.QuestionTypeVer + '</h4>')
+                //    validationPoll.append('<h4>' + valueList.QuestionSelectedDropDown + '</h4>')
+                //    $.each(valueList.QuestionInputList, function (index2, value2) {
+                //        validationPoll.append('<h4>' + value2.Value + '</h4>')
+                //    });
+                //});
+                
+                $.ajax({
+                    cache: false,
+                    url: '@Url.Action("PollDetailsPartial", "Poll")',
+                    data: poll,
+                    type: "POST",
+                    dataType: "html",
+                    success: function (data) {
+                        $('#ControlNavigationId').html(data);
+                    },
+                    error: function (response) {
+                        alert('error');
+                    }
+                });
+
+            }
+
+
+            
+        });
+
+   });
+</script>

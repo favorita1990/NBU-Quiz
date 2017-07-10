@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Polls";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div id="ControlNavigationId">
+
+    <div id="poll-wrapper">
+        <div id="poll-page-wrapper">
+
+                <div class="container poll-container poll-well-sent">
+
+                    <h1 class="poll-text-center">
+                        <span class="poll-fancyfont" style="color:#ff0000;">
+                            Sorry. The poll was not found.
+                        </span>
+                    </h1>
+
+                </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('body').addClass('poll-cover');
+    $('#wrapper').remove();
+</script>

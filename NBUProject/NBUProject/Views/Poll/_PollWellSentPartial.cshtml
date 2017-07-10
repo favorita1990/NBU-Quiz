@@ -1,0 +1,42 @@
+﻿@using NBUProject.Models
+
+@*@{
+    var user = TempData["pollIp"] as UserAuthentication;
+}*@
+
+<div id="ControlNavigationId">
+
+    <div id="poll-wrapper">
+        <div id="poll-page-wrapper">
+
+            <div class="container poll-container poll-well-sent">
+
+                <h1 class="poll-text-center">
+                    <span class="poll-fancyfont" style="color:#1b06b8;">
+                        @if (TempData["pollType"] as int? == 0)
+                        {
+                          <span> Thank you. Really appreciate your attention. See Your E - mail.</span>
+                        }
+                        else
+                        {
+                        <span> Thank you. Really appreciate your attention.</span>
+                        }
+                        
+                        @*@user.Email  - @user.FName
+                    @foreach (var item in TempData["poll"] as List<List<string>>)
+                    {
+                        foreach (var value in item)
+                        {
+                            <span> @value </span>
+                        }
+                        <br />
+                    }*@
+                    </span>
+                </h1>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

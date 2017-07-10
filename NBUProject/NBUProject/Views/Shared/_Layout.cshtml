@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  
+        @Html.Partial("~/Views/Shared/Partials/_HeaderPartial.cshtml")
+    
+</head>
+<body>
+
+    <div id="wrapper">
+
+        @if (Request.IsAuthenticated)
+        {
+
+        @Html.Partial("~/Views/Shared/Partials/_ControlNavigationBodyPartial.cshtml")
+
+        }
+
+    </div>
+
+    @RenderBody()
+
+  
+
+    @if (Request.IsAuthenticated)
+    {
+
+    @Html.Partial("~/Views/Shared/Partials/_FooterBodyPartial.cshtml")
+
+    }
+
+
+    <script src="~/Scripts/JavaScript.js"></script>
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

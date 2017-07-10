@@ -1,0 +1,172 @@
+﻿@using NBUProject.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+}
+
+
+
+<div class="wrapper">
+    <form class="login">
+
+        <p class="title">Log In</p>
+
+        <div class="centerAlign" id="windowValidation" style="color:#ff0000; font-weight: bold;"></div>
+        <br />
+
+        <input type="text" placeholder="Username" name="email" id="windowInputText" />
+        <i class="fa fa-user"></i>
+
+        <div class="centerAlign col-sm-12 col-md-12" id="windowValidationEmail" style="color:#ff0000; font-weight: bold;"></div>
+
+        <input type="password" placeholder="Password" id="windowInputVal" name="pass" />
+        <i class="fa fa-key"></i>
+
+        <div class="centerAlign col-sm-12 col-md-12" id="windowValidationPassword" style="color:#ff0000; font-weight: bold;"></div>
+
+        <button>
+            <i class="spinner"></i>
+            <span class="state" id="loginButton" >Sign In</span>
+        </button>
+    </form>
+</div>
+
+
+<script>
+
+    $(document).ready(function () {
+
+        //var working = false;
+        //$('.login').on('submit', function (e) {
+        //    e.preventDefault();
+        //    if (working) return;
+        //    working = true;
+        //    var $this = $(this),
+        //      $state = $this.find('button > .state');
+        //    $this.addClass('loading');
+        //    $state.html('Authenticating');
+        //    setTimeout(function () {
+        //        $this.addClass('ok');
+        //        $state.html('Welcome back!');
+        //        setTimeout(function () {
+        //            //window.location = "/";
+        //        }, 500);
+        //    }, 3000);
+        //});
+
+
+        $('#windowInputVal').val('');
+        $('#windowInputText').val('');
+
+        $('#windowValidation').hide();
+        $('#windowValidationEmail').html('');
+        $('#windowValidationPassword').html('');
+
+
+        $('.login').on('submit', function (e) {
+            e.preventDefault();
+
+            var email = $('#windowInputText').val();
+            var password = $('#windowInputVal').val();
+            var isValidEmail = '';
+
+            $.ajax({
+                url: '/Account/IsValidEmail',
+                type: 'POST',
+                data: "{ source:" + JSON.stringify(email) + "}",
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    isValidEmail = data;
+
+
+                    var enterEmail = '';
+                    var enterPassword = '';
+                    var invalidLogin = '';
+
+                    if ((email == '') && (password != '')) {
+                        $('#windowValidation').html('');
+                        $('#windowValidationPassword').html('');
+                        enterEmail = "*Input email.";
+                        $('#windowValidationEmail').html(enterEmail + "<br/><br/>");
+                    }
+                    else if ((email != '') && (password == '')) {
+                        if ((isValidEmail != '') && (isValidEmail == "false")) {
+
+                            $('#windowValidation').html('');
+                            enterEmail = "*Input valid email.";
+                            $('#windowValidationEmail').html(enterEmail + "<br/><br/>");
+
+                            enterPassword = "*Input password";
+                            $('#windowValidationPassword').html(enterPassword + "<br/>");
+                        }
+                        else {
+                            $('#windowValidation').html('');
+                            $('#windowValidationEmail').html('');
+                            enterPassword = "*Input password";
+                            $('#windowValidationPassword').html(enterPassword + "<br/>");
+                        }
+                    }
+                    else if ((password == '') && (email == '')) {
+                        $('#windowValidation').html('');
+                        enterEmail = "*Input email.";
+                        $('#windowValidationEmail').html(enterEmail + "<br/><br/>");
+
+                        enterPassword = "*Input password";
+                        $('#windowValidationPassword').html(enterPassword + "<br/>");
+                    }
+                    else if ((password != '') && (email != '')) {
+                        if ((isValidEmail != '') && (isValidEmail == "false")) {
+                            $('#windowValidation').html('');
+                            $('#windowValidationPassword').html('');
+                            enterEmail = "*Input valid email.";
+                            $('#windowValidationEmail').html(enterEmail + "<br/>");
+                        }
+                        else {
+
+                            $.ajax({
+                                url: '/Account/IsTakenEmail',
+                                type: 'POST',
+                                data: "{ email:" + JSON.stringify(email) + ", pass:" + JSON.stringify(password) + "}",
+                                contentType: 'application/json; charset=utf-8',
+                                success: function (data) {
+
+                                    var $this = $('.login');
+                                    $state = $this.find('button > .state');
+                                    $this.addClass('loading');
+                                    $state.html('Authenticating');
+                                    setTimeout(function () {
+                                        $this.addClass('ok');
+                                        $state.html('Welcome back!');
+                                        setTimeout(function () {
+                                            window.location = "/";
+                                        }, 500);
+                                    }, 3000);
+
+                                },
+                                error: function () {
+                                    $('#windowValidationEmail').html('');
+                                    $('#windowValidationPassword').html('');
+                                    invalidLogin = "*Invalid login attempt.";
+                                    $('#windowValidation').show();
+                                    $('#windowValidation').html(invalidLogin);
+                                }
+                            });
+
+
+                        }
+                    }
+                },
+                error: function () {
+                    alert("error");
+                }
+            });
+
+        });
+
+        $('body').addClass('bodyCover');
+
+    });
+
+   
+
+</script>
